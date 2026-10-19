@@ -10,6 +10,7 @@ charset-normalizer==3.5.2
 Django==5.2.18
 django-environ==0.14.0
 frozenlist==1.8.0
+gunicorn==26.0.0
 idna==3.20
 multidict==7.1.0
 pillow==12.3.0
