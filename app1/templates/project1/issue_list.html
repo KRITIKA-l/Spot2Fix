@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Civic Issues | Spot2Fix</title>
+
+    <style>
+        :root {
+            --teal: #2A9D8F;
+            --dark-teal: #207D73;
+            --light-teal: #D9F3EF;
+            --bg: #F5F8F8;
+            --text: #16302D;
+            --muted: #6B7C79;
+            --border: #E1EAE8;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Main content starts below the fixed navbar */
+        .search-page {
+            width: min(1180px, 92%);
+            margin: 0 auto 60px;
+            padding-top: 110px;
+        }
+
+        .hero {
+            padding: 34px;
+            border-radius: 20px;
+            color: white;
+            background: linear-gradient(120deg, #207D73, #2A9D8F);
+            box-shadow: 0 8px 24px rgba(32, 125, 115, 0.12);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            padding: 7px 12px;
+            margin-bottom: 14px;
+            border: 1px solid rgba(255,255,255,.35);
+            border-radius: 30px;
+            font-size: 12px;
+            letter-spacing: .5px;
+        }
+
+        .hero h1 {
+            margin: 0 0 10px;
+            font-size: clamp(27px, 4vw, 38px);
+        }
+
+        .hero p {
+            margin: 0;
+            color: #E8FFFB;
+            line-height: 1.6;
+        }
+
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-top: 25px;
+            padding: 7px;
+            background: white;
+            border-radius: 12px;
+        }
+
+        .search-form input {
+            flex: 1;
+            min-width: 0;
+            padding: 14px;
+            border: none;
+            outline: none;
+            background: transparent;
+            color: var(--text);
+            font-size: 15px;
+        }
+
+        .search-form button {
+            padding: 0 23px;
+            border: none;
+            border-radius: 9px;
+            background: var(--dark-teal);
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background .2s;
+        }
+
+        .search-form button:hover {
+            background: #175E56;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin: 32px 0 18px;
+        }
+
+        .results-header h2 {
+            margin: 0 0 7px;
+            font-size: 23px;
+        }
+
+        .results-header p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .count {
+            padding: 10px 15px;
+            border-radius: 30px;
+            background: var(--light-teal);
+            color: var(--dark-teal);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .issue-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .issue-card {
+            min-width: 0;
+            padding: 23px;
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 0 4px 14px rgba(22, 48, 45, .035);
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .issue-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 9px 25px rgba(22, 48, 45, .08);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .category {
+            display: inline-block;
+            padding: 7px 11px;
+            border-radius: 7px;
+            background: #EDF6F4;
+            color: var(--dark-teal);
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 7px 10px;
+            border-radius: 20px;
+            background: #F0F2F3;
+            color: #53615F;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .status-submitted {
+            background: #E8F1FF;
+            color: #2455A4;
+        }
+
+        .status-under_review {
+            background: #FFF3D9;
+            color: #946200;
+        }
+
+        .status-in_progress {
+            background: #E8E4FF;
+            color: #5B43A5;
+        }
+
+        .status-resolved {
+            background: #DDF6E7;
+            color: #237747;
+        }
+
+        .issue-card h3 {
+            margin: 0 0 10px;
+            font-size: 19px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        .description {
+            margin: 0 0 20px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding-top: 15px;
+            border-top: 1px solid var(--border);
+        }
+
+        .date {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .priority {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .priority-high {
+            color: #D04444;
+        }
+
+        .priority-medium {
+            color: #B7791F;
+        }
+
+        .priority-low {
+            color: var(--dark-teal);
+        }
+
+        .empty-state {
+            padding: 55px 20px;
+            text-align: center;
+            background: white;
+            border: 1px dashed #B9D5D0;
+            border-radius: 18px;
+        }
+
+        .empty-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 68px;
+            height: 68px;
+            margin: 0 auto 18px;
+            border-radius: 50%;
+            background: var(--light-teal);
+            color: var(--dark-teal);
+            font-size: 30px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 10px;
+            font-size: 21px;
+        }
+
+        .empty-state p {
+            margin: 0 auto 22px;
+            max-width: 430px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .clear-link {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 9px;
+            background: var(--teal);
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .clear-link:hover {
+            background: var(--dark-teal);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 28px;
+            color: var(--dark-teal);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 700px) {
+            .search-page {
+                width: 94%;
+                padding-top: 95px;
+            }
+
+            .hero {
+                padding: 24px 18px;
+                border-radius: 15px;
+            }
+
+            .search-form {
+                gap: 5px;
+            }
+
+            .search-form input {
+                padding: 12px 8px;
+                font-size: 14px;
+            }
+
+            .search-form button {
+                padding: 0 14px;
+            }
+
+            .issue-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .issue-card {
+                padding: 19px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'project1/navbar.html' %}
+
+    <main class="search-page">
+
+        <section class="hero">
+            <span class="eyebrow">SPOT2FIX · CIVIC ISSUES</span>
+
+            <h1>Find Civic Issues</h1>
+
+            <p>
+                Search reported civic problems and explore their current
+                status. Every report is a step towards a better community.
+            </p>
+
+            <form class="search-form" method="get"
+                  action="{% url 'search_issues' %}">
+                <input
+                    type="search"
+                    name="q"
+                    placeholder="Try pothole, garbage, waterlogging..."
+                    value="{{ query|default:'' }}"
+                    aria-label="Search civic issues"
+                >
+                <button type="submit">Search</button>
+            </form>
+        </section>
+
+        <section class="results-header">
+            <div>
+                <h2>
+                    {% if query %}
+                        Search Results
+                    {% else %}
+                        All Civic Issues
+                    {% endif %}
+                </h2>
+
+                <p>
+                    {% if query %}
+                        Showing matches for "{{ query }}"
+                    {% else %}
+                        Browse the reported civic issues below.
+                    {% endif %}
+                </p>
+            </div>
+
+            <span class="count">
+                {{ issues|length }} result{{ issues|length|pluralize }}
+            </span>
+        </section>
+
+        {% if issues %}
+            <section class="issue-grid">
+
+                {% for issue in issues %}
+                    <article class="issue-card">
+
+                        <div class="card-top">
+                            <span class="category">
+                                {{ issue.get_category_display|default:issue.category }}
+                            </span>
+
+                            <span class="status status-{{ issue.status }}">
+                                {{ issue.get_status_display|default:issue.status }}
+                            </span>
+                        </div>
+
+                        <h3>{{ issue.title }}</h3>
+
+                        <p class="description">
+                            {{ issue.description|truncatewords:28 }}
+                        </p>
+
+                        <div class="card-footer">
+                            <span class="date">
+                                {% if issue.created_at %}
+                                    Reported {{ issue.created_at|date:"d M Y" }}
+                                {% else %}
+                                    Civic issue
+                                {% endif %}
+                            </span>
+
+                            {% if issue.priority %}
+                                <span class="priority priority-{{ issue.priority }}">
+                                    {{ issue.get_priority_display|default:issue.priority }} Priority
+                                </span>
+                            {% endif %}
+                        </div>
+
+                    </article>
+                {% endfor %}
+
+            </section>
+
+        {% else %}
+            <section class="empty-state">
+                <div class="empty-icon">&#128269;</div>
+
+                <h3>
+                    {% if query %}
+                        No matching issues found
+                    {% else %}
+                        No civic issues yet
+                    {% endif %}
+                </h3>
+
+                <p>
+                    {% if query %}
+                        We couldn't find reports matching "{{ query }}".
+                        Try another keyword or view all issues.
+                    {% else %}
+                        There are no reports to display at the moment.
+                    {% endif %}
+                </p>
+
+                {% if query %}
+                    <a class="clear-link" href="{% url 'search_issues' %}">
+                        View All Issues
+                    </a>
+                {% else %}
+                    <a class="clear-link" href="{% url 'report_issue' %}">
+                        Report an Issue
+                    </a>
+                {% endif %}
+            </section>
+        {% endif %}
+
+        <a class="back-link" href="{% url 'citizen_dashboard' %}">
+            &#8592; Back to Dashboard
+        </a>
+
+    </main>
+
+</body>
+</html>

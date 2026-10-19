@@ -1,0 +1,1171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
+    <title>Report an Issue | Spot2Fix</title>
+
+    <!-- Leaflet Map CSS -->
+    <link rel="stylesheet"
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <style>
+        :root {
+            --sf-teal: #2A9D8F;
+            --sf-dark: #207D73;
+            --sf-light: #D9F3EF;
+            --sf-white: #FFFFFF;
+            --sf-text: #16302D;
+            --sf-muted: #667875;
+            --sf-border: #DDE8E5;
+            --sf-danger: #C0392B;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #F5FAF9;
+            color: var(--sf-text);
+        }
+
+        .page {
+            max-width: 1050px;
+            margin: 0 auto;
+            padding: 100px 20px 45px;
+        }
+
+        .page-heading {
+            margin-bottom: 22px;
+        }
+
+        .page-heading h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        .page-heading p {
+            color: var(--sf-muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .form-card {
+            background: var(--sf-white);
+            padding: 28px;
+            border: 1px solid var(--sf-border);
+            border-radius: 16px;
+            box-shadow: 0 5px 20px rgba(22, 48, 45, 0.06);
+        }
+
+        .section-title {
+            font-size: 19px;
+            margin: 0 0 20px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            min-width: 0;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .required {
+            color: var(--sf-danger);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #CADAD6;
+            border-radius: 8px;
+            font: inherit;
+            color: var(--sf-text);
+            background: #FFFFFF;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--sf-teal);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.12);
+        }
+
+        textarea {
+            min-height: 125px;
+            resize: vertical;
+        }
+
+        .help-text {
+            color: var(--sf-muted);
+            font-size: 12px;
+            margin-top: 7px;
+            line-height: 1.5;
+        }
+
+        .divider {
+            border: 0;
+            border-top: 1px solid var(--sf-border);
+            margin: 12px 0 25px;
+        }
+
+        /* Map */
+        #issue-map {
+            width: 100%;
+            height: 360px;
+            border: 1px solid var(--sf-border);
+            border-radius: 10px;
+            background: #EAF2F0;
+            z-index: 1;
+        }
+
+        /* Location autocomplete */
+        .location-search {
+            position: relative;
+            margin: 14px 0;
+            z-index: 1000;
+        }
+
+        .location-search input {
+            background: #fff;
+        }
+
+        .location-suggestions {
+            display: none;
+            position: absolute;
+            top: calc(100% + 3px);
+            left: 0;
+            right: 0;
+            background: #fff;
+            border: 1px solid var(--sf-border);
+            border-radius: 8px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.13);
+            max-height: 260px;
+            overflow-y: auto;
+            z-index: 2000;
+        }
+
+        .location-suggestion {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+            padding: 12px 14px;
+            cursor: pointer;
+            border-bottom: 1px solid #EDF2F0;
+            font-size: 14px;
+            line-height: 1.45;
+        }
+
+        .location-suggestion:last-child {
+            border-bottom: none;
+        }
+
+        .location-suggestion:hover,
+        .location-suggestion:focus {
+            background: var(--sf-light);
+            outline: none;
+        }
+
+        .suggestion-icon {
+            flex-shrink: 0;
+            font-size: 17px;
+        }
+
+        .suggestion-main {
+            display: block;
+            font-weight: 600;
+        }
+
+        .suggestion-detail {
+            display: block;
+            margin-top: 3px;
+            color: var(--sf-muted);
+            font-size: 12px;
+        }
+
+        .location-search-status {
+            padding: 12px 14px;
+            color: var(--sf-muted);
+            font-size: 13px;
+        }
+
+        .map-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 12px 0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--sf-teal);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--sf-dark);
+        }
+
+        .btn-secondary {
+            background: var(--sf-light);
+            color: var(--sf-dark);
+        }
+
+        .btn-secondary:hover {
+            background: #C5EAE4;
+        }
+
+        .coordinates {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .photo-preview {
+            display: none;
+            max-width: 100%;
+            max-height: 250px;
+            margin-top: 12px;
+            border-radius: 8px;
+            border: 1px solid var(--sf-border);
+        }
+
+        .error-box {
+            background: #FFF0EE;
+            color: #922B21;
+            padding: 14px 18px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #F1C4BE;
+        }
+
+        .error-box ul {
+            margin-bottom: 0;
+        }
+
+        .success-message {
+            background: var(--sf-light);
+            color: var(--sf-dark);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+        }
+
+        .form-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .status-message {
+            font-size: 13px;
+            color: var(--sf-muted);
+            margin-top: 8px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 650px) {
+            .page {
+                padding: 90px 12px 30px;
+            }
+
+            .form-card {
+                padding: 18px;
+            }
+
+            .form-grid,
+            .coordinates {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+
+            .page-heading h1 {
+                font-size: 25px;
+            }
+
+            #issue-map {
+                height: 300px;
+            }
+
+            .form-footer {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .form-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'project1/navbar.html' %}
+
+    <main class="page">
+
+        <div class="page-heading">
+            <h1>Report an Issue</h1>
+            <p>
+                Help improve your community by reporting potholes,
+                damaged roads, waterlogging, garbage, and other local problems.
+            </p>
+        </div>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="success-message">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        {% if form_errors %}
+            <div class="error-box">
+                <strong>Please correct the following errors:</strong>
+                <ul>
+                    {% for error in form_errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <div class="form-card">
+
+            <form id="report-form"
+                  method="post"
+                  enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <h2 class="section-title">Issue Details</h2>
+
+                <div class="form-grid">
+
+                    <div class="form-group full-width">
+                        <label for="title">
+                            Issue Title <span class="required">*</span>
+                        </label>
+                        <input
+                            type="text"
+                            id="title"
+                            name="title"
+                            maxlength="200"
+                            placeholder="e.g. Large pothole near the main road"
+                            value="{{ form_data.title|default:'' }}"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="category">
+                            Category <span class="required">*</span>
+                        </label>
+
+                        <select id="category" name="category" required>
+                            <option value="">Select category</option>
+
+                            <option value="pothole"
+                                {% if form_data.category == 'pothole' %}selected{% endif %}>
+                                Pothole
+                            </option>
+
+                            <option value="damaged_road"
+                                {% if form_data.category == 'damaged_road' %}selected{% endif %}>
+                                Damaged Road
+                            </option>
+
+                            <option value="waterlogging"
+                                {% if form_data.category == 'waterlogging' %}selected{% endif %}>
+                                Waterlogging
+                            </option>
+
+                            <option value="garbage"
+                                {% if form_data.category == 'garbage' %}selected{% endif %}>
+                                Garbage
+                            </option>
+
+                            <option value="other"
+                                {% if form_data.category == 'other' %}selected{% endif %}>
+                                Other
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+
+                        <select id="priority" name="priority">
+                            <option value="low"
+                                {% if form_data.priority == 'low' %}selected{% endif %}>
+                                Low
+                            </option>
+
+                            <option value="medium"
+                                {% if not form_data.priority or form_data.priority == 'medium' %}selected{% endif %}>
+                                Medium
+                            </option>
+
+                            <option value="high"
+                                {% if form_data.priority == 'high' %}selected{% endif %}>
+                                High
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="description">
+                            Description <span class="required">*</span>
+                        </label>
+
+                        <textarea
+                            id="description"
+                            name="description"
+                            placeholder="Describe the problem, its location, and how it affects people..."
+                            required>{{ form_data.description|default:'' }}</textarea>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="photo">Upload Issue Photo</label>
+
+                        <input
+                            type="file"
+                            id="photo"
+                            name="photo"
+                            accept="image/*">
+
+                        <p class="help-text">
+                            Optional. Upload an image of the issue, up to 5 MB.
+                        </p>
+
+                        <img
+                            id="photo-preview"
+                            class="photo-preview"
+                            alt="Selected issue photo preview">
+                    </div>
+
+                </div>
+
+                <hr class="divider">
+
+                <h2 class="section-title">Issue Location</h2>
+
+                <p class="help-text">
+                    Type a location to see suggestions. Select a result,
+                    click the map, drag the marker, or use your GPS.
+                </p>
+
+                <!-- Location autocomplete search -->
+                <div class="location-search">
+                    <label for="location-search-input">Search Location</label>
+
+                    <input
+                        type="text"
+                        id="location-search-input"
+                        placeholder="Search a road, area, landmark..."
+                        autocomplete="off"
+                        aria-controls="location-suggestions"
+                        aria-expanded="false">
+
+                    <div
+                        id="location-suggestions"
+                        class="location-suggestions"
+                        role="listbox">
+                    </div>
+                </div>
+
+                <div class="map-actions">
+                    <button
+                        type="button"
+                        class="btn btn-primary"
+                        id="gps-button">
+                        Use My Current Location
+                    </button>
+
+                    <button
+                        type="button"
+                        class="btn btn-secondary"
+                        id="clear-location">
+                        Clear Location
+                    </button>
+                </div>
+
+                <div id="issue-map"
+                     aria-label="Select issue location on map"></div>
+
+                <p id="map-status" class="status-message" role="status">
+                    Loading map...
+                </p>
+
+                <div class="coordinates">
+
+                    <div class="form-group">
+                        <label for="latitude">Latitude</label>
+
+                        <input
+                            type="number"
+                            step="any"
+                            id="latitude"
+                            name="latitude"
+                            placeholder="Latitude"
+                            value="{{ form_data.latitude|default:'' }}">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="longitude">Longitude</label>
+
+                        <input
+                            type="number"
+                            step="any"
+                            id="longitude"
+                            name="longitude"
+                            placeholder="Longitude"
+                            value="{{ form_data.longitude|default:'' }}">
+                    </div>
+
+                </div>
+
+                <p class="help-text">
+                    Location is optional. You can submit your report without GPS coordinates.
+                </p>
+
+                <div class="form-footer">
+
+                    <a href="{% url 'citizen_dashboard' %}"
+                       class="btn btn-secondary">
+                        Cancel
+                    </a>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="submit-button">
+                        Submit Issue
+                    </button>
+
+                </div>
+
+            </form>
+        </div>
+    </main>
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const latitudeInput =
+                document.getElementById("latitude");
+
+            const longitudeInput =
+                document.getElementById("longitude");
+
+            const gpsButton =
+                document.getElementById("gps-button");
+
+            const clearButton =
+                document.getElementById("clear-location");
+
+            const mapStatus =
+                document.getElementById("map-status");
+
+            const photoInput =
+                document.getElementById("photo");
+
+            const photoPreview =
+                document.getElementById("photo-preview");
+
+            const reportForm =
+                document.getElementById("report-form");
+
+            const locationSearch =
+                document.getElementById("location-search-input");
+
+            const suggestionsBox =
+                document.getElementById("location-suggestions");
+
+            let map = null;
+            let marker = null;
+            let mapReady = false;
+
+            let searchTimer = null;
+            let searchController = null;
+            let latestSearchId = 0;
+
+            function updateStatus(message) {
+                mapStatus.textContent = message;
+            }
+
+            function setCoordinates(lat, lng) {
+                latitudeInput.value = Number(lat).toFixed(6);
+                longitudeInput.value = Number(lng).toFixed(6);
+            }
+
+            function setMarker(lat, lng, zoomToLocation) {
+                if (!mapReady || !map) {
+                    setCoordinates(lat, lng);
+                    updateStatus(
+                        "Coordinates selected, but the map is unavailable."
+                    );
+                    return;
+                }
+
+                const position = [lat, lng];
+
+                if (!marker) {
+                    marker = L.marker(position, {
+                        draggable: true
+                    }).addTo(map);
+
+                    marker.on("dragend", function () {
+                        const point = marker.getLatLng();
+
+                        setCoordinates(point.lat, point.lng);
+
+                        updateStatus(
+                            "Marker moved to " +
+                            point.lat.toFixed(6) + ", " +
+                            point.lng.toFixed(6)
+                        );
+                    });
+                } else {
+                    marker.setLatLng(position);
+                }
+
+                setCoordinates(lat, lng);
+
+                if (zoomToLocation) {
+                    map.setView(position, 16);
+                }
+
+                updateStatus(
+                    "Selected coordinates: " +
+                    Number(lat).toFixed(6) + ", " +
+                    Number(lng).toFixed(6)
+                );
+            }
+
+            function hideSuggestions() {
+                suggestionsBox.style.display = "none";
+                suggestionsBox.innerHTML = "";
+                locationSearch.setAttribute("aria-expanded", "false");
+            }
+
+            function showSuggestionMessage(message) {
+                suggestionsBox.innerHTML = "";
+
+                const item = document.createElement("div");
+                item.className = "location-search-status";
+                item.textContent = message;
+
+                suggestionsBox.appendChild(item);
+                suggestionsBox.style.display = "block";
+
+                locationSearch.setAttribute("aria-expanded", "true");
+            }
+
+            function selectLocation(feature, displayName) {
+                const coordinates = feature.geometry.coordinates;
+
+                const longitude = Number(coordinates[0]);
+                const latitude = Number(coordinates[1]);
+
+                if (
+                    !Number.isFinite(latitude) ||
+                    !Number.isFinite(longitude) ||
+                    latitude < -90 || latitude > 90 ||
+                    longitude < -180 || longitude > 180
+                ) {
+                    updateStatus("This location returned invalid coordinates.");
+                    return;
+                }
+
+                locationSearch.value = displayName;
+
+                if (mapReady && map) {
+                    map.setView([latitude, longitude], 16);
+                }
+
+                setMarker(latitude, longitude, false);
+                hideSuggestions();
+
+                updateStatus(
+                    "Location selected: " + displayName
+                );
+            }
+
+            function getFeatureName(feature) {
+                const props = feature.properties || {};
+
+                const mainName =
+                    props.name ||
+                    props.street ||
+                    props.locality ||
+                    props.city ||
+                    "Unnamed location";
+
+                const detailParts = [
+                    props.street && props.name !== props.street
+                        ? props.street : null,
+                    props.district,
+                    props.city,
+                    props.state,
+                    props.country
+                ].filter(Boolean);
+
+                const uniqueDetails = [...new Set(detailParts)]
+                    .filter(value => value !== mainName);
+
+                return {
+                    main: mainName,
+                    detail: uniqueDetails.join(", "),
+                    full: [mainName, ...uniqueDetails].join(", ")
+                };
+            }
+
+            async function searchLocations(query, searchId) {
+                if (searchController) {
+                    searchController.abort();
+                }
+
+                searchController = new AbortController();
+
+                showSuggestionMessage("Searching locations...");
+
+                try {
+                    const url =
+                        "https://photon.komoot.io/api/?q=" +
+                        encodeURIComponent(query) +
+                        "&limit=7";
+
+                    const response = await fetch(url, {
+                        signal: searchController.signal
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Search request failed");
+                    }
+
+                    const data = await response.json();
+
+                    if (
+                        searchId !== latestSearchId ||
+                        locationSearch.value.trim() !== query
+                    ) {
+                        return;
+                    }
+
+                    suggestionsBox.innerHTML = "";
+
+                    const features = data.features || [];
+
+                    if (features.length === 0) {
+                        showSuggestionMessage("No locations found.");
+                        return;
+                    }
+
+                    features.forEach(function (feature) {
+                        const names = getFeatureName(feature);
+
+                        const suggestion = document.createElement("div");
+                        suggestion.className = "location-suggestion";
+                        suggestion.setAttribute("role", "option");
+                        suggestion.tabIndex = 0;
+
+                        const icon = document.createElement("span");
+                        icon.className = "suggestion-icon";
+                        icon.textContent = "📍";
+
+                        const textContainer = document.createElement("div");
+
+                        const main = document.createElement("span");
+                        main.className = "suggestion-main";
+                        main.textContent = names.main;
+
+                        textContainer.appendChild(main);
+
+                        if (names.detail) {
+                            const detail = document.createElement("span");
+                            detail.className = "suggestion-detail";
+                            detail.textContent = names.detail;
+                            textContainer.appendChild(detail);
+                        }
+
+                        suggestion.appendChild(icon);
+                        suggestion.appendChild(textContainer);
+
+                        function choose() {
+                            selectLocation(feature, names.full);
+                        }
+
+                        suggestion.addEventListener("click", choose);
+
+                        suggestion.addEventListener("keydown", function (event) {
+                            if (
+                                event.key === "Enter" ||
+                                event.key === " "
+                            ) {
+                                event.preventDefault();
+                                choose();
+                            }
+                        });
+
+                        suggestionsBox.appendChild(suggestion);
+                    });
+
+                    suggestionsBox.style.display = "block";
+                    locationSearch.setAttribute("aria-expanded", "true");
+
+                } catch (error) {
+                    if (error.name === "AbortError") {
+                        return;
+                    }
+
+                    if (searchId !== latestSearchId) {
+                        return;
+                    }
+
+                    console.error("Location search error:", error);
+
+                    showSuggestionMessage(
+                        "Location search is unavailable. Check your internet connection."
+                    );
+                }
+            }
+
+            // Search while the user types
+            locationSearch.addEventListener("input", function () {
+                const query = locationSearch.value.trim();
+
+                latestSearchId++;
+                const currentSearchId = latestSearchId;
+
+                clearTimeout(searchTimer);
+
+                if (searchController) {
+                    searchController.abort();
+                }
+
+                if (query.length < 3) {
+                    hideSuggestions();
+                    return;
+                }
+
+                searchTimer = setTimeout(function () {
+                    searchLocations(query, currentSearchId);
+                }, 400);
+            });
+
+            // Close suggestions when clicking outside
+            document.addEventListener("click", function (event) {
+                if (
+                    !locationSearch.contains(event.target) &&
+                    !suggestionsBox.contains(event.target)
+                ) {
+                    hideSuggestions();
+                }
+            });
+
+            locationSearch.addEventListener("keydown", function (event) {
+                if (event.key === "Escape") {
+                    hideSuggestions();
+                }
+            });
+
+            // Initialize map
+            if (typeof L === "undefined") {
+                updateStatus(
+                    "Leaflet could not load. Check your internet connection."
+                );
+            } else {
+                try {
+                    map = L.map("issue-map").setView(
+                        [22.9734, 78.6569],
+                        5
+                    );
+
+                    L.tileLayer(
+                        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                        {
+                            maxZoom: 19,
+                            attribution:
+                                '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        }
+                    )
+                    .on("tileerror", function () {
+                        updateStatus(
+                            "Map tiles could not load. Check your internet connection. You can still enter coordinates manually."
+                        );
+                    })
+                    .addTo(map);
+
+                    mapReady = true;
+
+                    // Select a location by clicking the map
+                    map.on("click", function (event) {
+                        setMarker(
+                            event.latlng.lat,
+                            event.latlng.lng,
+                            false
+                        );
+                    });
+
+                    // Restore coordinates if the form returns with errors
+                    const savedLat = parseFloat(latitudeInput.value);
+                    const savedLng = parseFloat(longitudeInput.value);
+
+                    if (
+                        latitudeInput.value !== "" &&
+                        longitudeInput.value !== "" &&
+                        Number.isFinite(savedLat) &&
+                        Number.isFinite(savedLng) &&
+                        savedLat >= -90 && savedLat <= 90 &&
+                        savedLng >= -180 && savedLng <= 180
+                    ) {
+                        setMarker(savedLat, savedLng, true);
+                    } else {
+                        updateStatus(
+                            "Search for a location or click the map to select it."
+                        );
+                    }
+
+                } catch (error) {
+                    console.error("Map initialization error:", error);
+
+                    updateStatus(
+                        "Could not initialize the map. You can enter coordinates manually."
+                    );
+                }
+            }
+
+            // Update map when coordinates are manually entered
+            function updateMapFromInputs() {
+                const latText = latitudeInput.value.trim();
+                const lngText = longitudeInput.value.trim();
+
+                if (!latText || !lngText) {
+                    return;
+                }
+
+                const lat = Number(latText);
+                const lng = Number(lngText);
+
+                if (
+                    !Number.isFinite(lat) ||
+                    !Number.isFinite(lng) ||
+                    lat < -90 || lat > 90 ||
+                    lng < -180 || lng > 180
+                ) {
+                    updateStatus("Enter valid latitude and longitude.");
+                    return;
+                }
+
+                setMarker(lat, lng, true);
+            }
+
+            latitudeInput.addEventListener(
+                "change",
+                updateMapFromInputs
+            );
+
+            longitudeInput.addEventListener(
+                "change",
+                updateMapFromInputs
+            );
+
+            // GPS location button
+            gpsButton.addEventListener("click", function () {
+                if (!navigator.geolocation) {
+                    updateStatus(
+                        "Your browser does not support GPS location."
+                    );
+                    return;
+                }
+
+                gpsButton.disabled = true;
+                gpsButton.textContent = "Getting Location...";
+
+                navigator.geolocation.getCurrentPosition(
+                    function (position) {
+                        const lat = position.coords.latitude;
+                        const lng = position.coords.longitude;
+
+                        setMarker(lat, lng, true);
+
+                        hideSuggestions();
+
+                        gpsButton.disabled = false;
+                        gpsButton.textContent = "Use My Current Location";
+                    },
+
+                    function (error) {
+                        let message = "Could not get your location.";
+
+                        if (error.code === 1) {
+                            message =
+                                "Location permission denied. Allow location access in your browser.";
+                        } else if (error.code === 2) {
+                            message =
+                                "Your current location is unavailable. Enter coordinates manually.";
+                        } else if (error.code === 3) {
+                            message =
+                                "GPS request timed out. Please try again.";
+                        }
+
+                        updateStatus(message);
+
+                        gpsButton.disabled = false;
+                        gpsButton.textContent = "Use My Current Location";
+                    },
+
+                    {
+                        enableHighAccuracy: true,
+                        timeout: 15000,
+                        maximumAge: 60000
+                    }
+                );
+            });
+
+            // Clear selected location
+            clearButton.addEventListener("click", function () {
+                latitudeInput.value = "";
+                longitudeInput.value = "";
+                locationSearch.value = "";
+
+                if (map && marker) {
+                    map.removeLayer(marker);
+                    marker = null;
+                }
+
+                hideSuggestions();
+
+                updateStatus(
+                    "Location cleared. You can select another location."
+                );
+            });
+
+            // Photo preview and 5 MB limit
+            photoInput.addEventListener("change", function () {
+                const file = photoInput.files[0];
+
+                photoPreview.style.display = "none";
+                photoPreview.removeAttribute("src");
+
+                if (!file) {
+                    return;
+                }
+
+                if (!file.type.startsWith("image/")) {
+                    alert("Please select a valid image file.");
+                    photoInput.value = "";
+                    return;
+                }
+
+                if (file.size > 5 * 1024 * 1024) {
+                    alert("The photo must be 5 MB or smaller.");
+                    photoInput.value = "";
+                    return;
+                }
+
+                photoPreview.src = URL.createObjectURL(file);
+                photoPreview.style.display = "block";
+            });
+
+            // Basic form validation
+            reportForm.addEventListener("submit", function (event) {
+                const title =
+                    document.getElementById("title").value.trim();
+
+                const description =
+                    document.getElementById("description").value.trim();
+
+                const category =
+                    document.getElementById("category").value;
+
+                if (!title || !description || !category) {
+                    event.preventDefault();
+
+                    alert(
+                        "Please fill in the issue title, description, and category."
+                    );
+
+                    return;
+                }
+
+                const latText = latitudeInput.value.trim();
+                const lngText = longitudeInput.value.trim();
+
+                if ((latText && !lngText) || (!latText && lngText)) {
+                    event.preventDefault();
+
+                    alert(
+                        "Please enter both latitude and longitude, or clear both fields."
+                    );
+
+                    return;
+                }
+
+                if (latText && lngText) {
+                    const lat = Number(latText);
+                    const lng = Number(lngText);
+
+                    if (
+                        !Number.isFinite(lat) ||
+                        !Number.isFinite(lng) ||
+                        lat < -90 || lat > 90 ||
+                        lng < -180 || lng > 180
+                    ) {
+                        event.preventDefault();
+                        alert("Please enter valid latitude and longitude.");
+                    }
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>

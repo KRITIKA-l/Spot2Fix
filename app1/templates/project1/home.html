@@ -1,0 +1,1418 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spot2Fix | Smarter Cities, Better Living</title>
+    <meta name="description" content="Spot2Fix helps citizens report civic issues, track repairs, and build cleaner, safer communities.">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary: #2A9D8F;
+            --primary-dark: #207D73;
+            --primary-light: #D9F3EF;
+            --dark: #16302D;
+            --text: #526461;
+            --background: #F7FBFA;
+            --white: #FFFFFF;
+            --border: #E4EFEC;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 85px;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--dark);
+            background: var(--white);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .section-padding {
+            padding: 85px 0;
+        }
+
+        .section-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 15px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: clamp(29px, 4vw, 42px);
+            line-height: 1.2;
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--dark);
+        }
+
+        .section-description {
+            max-width: 620px;
+            margin: 15px auto 0;
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        .btn-primary-custom {
+            background: var(--primary);
+            border: 1px solid var(--primary);
+            color: white;
+            padding: 13px 23px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            transition: 0.25s ease;
+        }
+
+        .btn-primary-custom:hover {
+            background: var(--primary-dark);
+            border-color: var(--primary-dark);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline-custom {
+            background: white;
+            border: 1px solid #D6E5E1;
+            color: var(--dark);
+            padding: 13px 23px;
+            border-radius: 10px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            transition: 0.25s ease;
+        }
+
+        .btn-outline-custom:hover {
+            border-color: var(--primary);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        /* HERO */
+
+        .hero {
+            position: relative;
+            padding: 145px 0 85px;
+            background:
+                radial-gradient(circle at 85% 25%, rgba(42, 157, 143, 0.12), transparent 30%),
+                linear-gradient(135deg, #F7FBFA 0%, #FFFFFF 60%, #EDF9F6 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 360px;
+            height: 360px;
+            border: 1px solid rgba(42, 157, 143, 0.13);
+            border-radius: 50%;
+            top: -190px;
+            left: -100px;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            border: 1px solid var(--border);
+            padding: 9px 15px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-dark);
+            box-shadow: 0 5px 20px rgba(22, 48, 45, 0.04);
+            margin-bottom: 24px;
+        }
+
+        .hero-badge i {
+            color: var(--primary);
+        }
+
+        .hero h1 {
+            max-width: 650px;
+            font-size: clamp(39px, 5.2vw, 65px);
+            line-height: 1.08;
+            font-weight: 850;
+            letter-spacing: -2.5px;
+            margin-bottom: 23px;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .hero-description {
+            max-width: 550px;
+            font-size: 17px;
+            line-height: 1.85;
+            color: var(--text);
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 13px;
+        }
+
+        .hero-trust {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text);
+            font-size: 13px;
+            margin-top: 27px;
+        }
+
+        .trust-icons {
+            display: flex;
+        }
+
+        .trust-icons span {
+            width: 31px;
+            height: 31px;
+            margin-right: -7px;
+            border-radius: 50%;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            font-size: 13px;
+        }
+
+        /* HERO MAP ILLUSTRATION */
+
+        .hero-visual {
+            position: relative;
+            max-width: 510px;
+            margin: 10px auto 0;
+            animation: float 5s ease-in-out infinite;
+        }
+
+        .map-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 25px;
+            padding: 17px;
+            box-shadow: 0 25px 70px rgba(22, 48, 45, 0.12);
+        }
+
+        .map-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .map-card-header h5 {
+            font-size: 15px;
+            font-weight: 800;
+            margin: 0;
+        }
+
+        .live-badge {
+            background: #E6F7EF;
+            color: #198754;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .map-illustration {
+            position: relative;
+            height: 290px;
+            overflow: hidden;
+            border-radius: 17px;
+            background-color: #EAF4EF;
+            background-image:
+                linear-gradient(35deg, transparent 46%, #FFFFFF 47%, #FFFFFF 51%, transparent 52%),
+                linear-gradient(145deg, transparent 43%, #FFFFFF 44%, #FFFFFF 48%, transparent 49%),
+                linear-gradient(90deg, transparent 47%, #FFFFFF 48%, #FFFFFF 52%, transparent 53%),
+                linear-gradient(0deg, transparent 47%, #FFFFFF 48%, #FFFFFF 52%, transparent 53%);
+            background-size: 140px 115px, 170px 130px, 125px 100px, 110px 130px;
+        }
+
+        .map-park {
+            position: absolute;
+            width: 100px;
+            height: 72px;
+            background: #C8E8D3;
+            border-radius: 40% 60% 50% 30%;
+        }
+
+        .park-one {
+            top: 18px;
+            left: 20px;
+        }
+
+        .park-two {
+            right: 15px;
+            bottom: 20px;
+            width: 125px;
+            height: 85px;
+        }
+
+        .map-water {
+            position: absolute;
+            width: 170px;
+            height: 40px;
+            background: #B9E4EE;
+            top: 120px;
+            left: 40%;
+            transform: rotate(-36deg);
+            border-radius: 50%;
+            opacity: 0.85;
+        }
+
+        .route-line {
+            position: absolute;
+            width: 190px;
+            height: 110px;
+            top: 78px;
+            left: 24%;
+            border-top: 4px dashed var(--primary);
+            border-right: 4px dashed var(--primary);
+            border-radius: 0 45px 0 0;
+            transform: rotate(12deg);
+        }
+
+        .map-pin {
+            position: absolute;
+            width: 39px;
+            height: 39px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.16);
+            z-index: 2;
+        }
+
+        .map-pin i {
+            transform: rotate(45deg);
+            font-size: 17px;
+        }
+
+        .pin-one {
+            top: 52px;
+            left: 24%;
+            background: var(--primary);
+        }
+
+        .pin-two {
+            top: 155px;
+            right: 24%;
+            background: #F4A261;
+        }
+
+        .pin-three {
+            bottom: 32px;
+            left: 42%;
+            background: #4472C4;
+        }
+
+        .map-label {
+            position: absolute;
+            background: white;
+            border: 1px solid var(--border);
+            padding: 7px 10px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: 800;
+            color: var(--dark);
+            box-shadow: 0 4px 12px rgba(22, 48, 45, 0.08);
+            z-index: 3;
+        }
+
+        .label-one {
+            top: 38px;
+            left: 37%;
+        }
+
+        .label-two {
+            top: 198px;
+            right: 7%;
+        }
+
+        .label-three {
+            bottom: 17px;
+            left: 5%;
+        }
+
+        .map-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .map-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text);
+        }
+
+        .map-status i {
+            color: var(--primary);
+            font-size: 17px;
+        }
+
+        .map-footer-number {
+            font-size: 13px;
+            font-weight: 800;
+            color: var(--primary-dark);
+        }
+
+        .floating-card {
+            position: absolute;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            padding: 13px 16px;
+            box-shadow: 0 12px 30px rgba(22, 48, 45, 0.12);
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            z-index: 5;
+        }
+
+        .floating-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .floating-card strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .floating-card small {
+            color: var(--text);
+            font-size: 11px;
+        }
+
+        .floating-one {
+            top: 65px;
+            right: -20px;
+        }
+
+        .floating-two {
+            bottom: 48px;
+            left: -28px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* STATISTICS */
+
+        .stats-section {
+            padding: 48px 0;
+            background: white;
+            border-top: 1px solid #EDF3F1;
+            border-bottom: 1px solid #EDF3F1;
+        }
+
+        .stat-card {
+            height: 100%;
+            text-align: center;
+            padding: 22px 12px;
+            border-radius: 17px;
+            transition: 0.3s ease;
+        }
+
+        .stat-card:hover {
+            background: var(--background);
+            transform: translateY(-5px);
+        }
+
+        .stat-icon {
+            width: 49px;
+            height: 49px;
+            border-radius: 14px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 13px;
+        }
+
+        .stat-number {
+            color: var(--dark);
+            font-size: clamp(30px, 4vw, 40px);
+            font-weight: 850;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .stat-label {
+            margin-top: 7px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        /* HOW IT WORKS */
+
+        .how-section {
+            background: var(--background);
+        }
+
+        .step-card {
+            height: 100%;
+            padding: 28px 23px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            transition: 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: #A8DDD4;
+            transform: translateY(-7px);
+            box-shadow: 0 15px 35px rgba(22, 48, 45, 0.07);
+        }
+
+        .step-number {
+            width: 44px;
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-weight: 800;
+            border-radius: 13px;
+            margin-bottom: 22px;
+        }
+
+        .step-card h4 {
+            font-size: 18px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .step-card p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text);
+            margin: 0;
+        }
+
+        /* FEATURES */
+
+        .feature-card {
+            height: 100%;
+            padding: 25px;
+            border: 1px solid var(--border);
+            border-radius: 17px;
+            background: white;
+            transition: 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: #A8DDD4;
+            box-shadow: 0 12px 30px rgba(22, 48, 45, 0.06);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 52px;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            font-size: 24px;
+            margin-bottom: 19px;
+        }
+
+        .feature-card h4 {
+            font-size: 17px;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text);
+            margin: 0;
+        }
+
+        /* IMPACT BANNER */
+
+        .impact-section {
+            padding: 30px 0 85px;
+        }
+
+        .impact-banner {
+            position: relative;
+            overflow: hidden;
+            padding: 55px;
+            border-radius: 25px;
+            background: linear-gradient(120deg, #16302D, #207D73);
+            color: white;
+        }
+
+        .impact-banner::after {
+            content: "";
+            position: absolute;
+            width: 310px;
+            height: 310px;
+            border: 45px solid rgba(255, 255, 255, 0.06);
+            border-radius: 50%;
+            right: -90px;
+            top: -110px;
+        }
+
+        .impact-banner h2 {
+            max-width: 650px;
+            font-size: clamp(28px, 4vw, 42px);
+            line-height: 1.2;
+            font-weight: 850;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .impact-banner p {
+            max-width: 620px;
+            color: #D3E9E5;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .impact-banner .btn {
+            position: relative;
+            z-index: 1;
+        }
+
+        .impact-banner .btn-light:hover {
+            background: var(--primary-light);
+        }
+
+        /* FOOTER */
+
+        .site-footer {
+            background: #102522;
+            color: #D0DFDC;
+            padding: 48px 0 20px;
+        }
+
+        .footer-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            font-size: 22px;
+            font-weight: 850;
+            margin-bottom: 15px;
+        }
+
+        .footer-logo {
+            width: 38px;
+            height: 38px;
+            background: var(--primary);
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+        }
+
+        .footer-description {
+            max-width: 350px;
+            color: #AFC4BF;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .site-footer h5 {
+            color: white;
+            font-size: 14px;
+            font-weight: 800;
+            margin-bottom: 18px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: #AFC4BF;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            margin-top: 35px;
+            padding-top: 20px;
+            color: #AFC4BF;
+            font-size: 12px;
+        }
+
+        /* SCROLL ANIMATION */
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 991px) {
+            .hero {
+                padding-top: 120px;
+                padding-bottom: 65px;
+            }
+
+            .hero-visual {
+                max-width: 480px;
+                margin-top: 55px;
+            }
+
+            .floating-one {
+                right: -5px;
+            }
+
+            .floating-two {
+                left: -5px;
+            }
+
+            .impact-banner {
+                padding: 40px 30px;
+            }
+        }
+
+        @media (max-width: 575px) {
+            .hero h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .hero-buttons .btn-primary-custom,
+            .hero-buttons .btn-outline-custom {
+                width: 100%;
+            }
+
+            .hero-visual {
+                margin-top: 40px;
+            }
+
+            .map-illustration {
+                height: 240px;
+            }
+
+            .floating-card {
+                padding: 9px 11px;
+            }
+
+            .floating-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .floating-one {
+                top: 48px;
+                right: -3px;
+            }
+
+            .floating-two {
+                bottom: 28px;
+                left: -3px;
+            }
+
+            .section-padding {
+                padding: 65px 0;
+            }
+
+            .impact-banner {
+                padding: 32px 22px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                scroll-behavior: auto !important;
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SHARED NAVBAR -->
+    {% include "project1/navbar.html" %}
+
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="row align-items-center g-5">
+
+                <div class="col-lg-6">
+                    <div class="hero-badge">
+                        <i class="bi bi-geo-alt-fill"></i>
+                        Smarter Communities Start Here
+                    </div>
+
+                    <h1>
+                        Spot the Problem.
+                        <span>Fix the Future.</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        From potholes to broken streetlights, report civic issues,
+                        track their progress, and help make your neighbourhood
+                        cleaner, safer, and better for everyone.
+                    </p>
+
+                    <div class="hero-buttons">
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser or user.role == "admin" %}
+                                <a href="{% url 'admin_dashboard' %}" class="btn-primary-custom">
+                                    Go to Dashboard
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            {% elif user.role == "maintenance" %}
+                                <a href="{% url 'maintenance_dashboard' %}" class="btn-primary-custom">
+                                    Go to Dashboard
+                                    <i class="bi bi-arrow-right"></i>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'report_issue' %}" class="btn-primary-custom">
+                                    <i class="bi bi-plus-circle"></i>
+                                    Report an Issue
+                                </a>
+
+                                <a href="{% url 'my_issues' %}" class="btn-outline-custom">
+                                    Track My Reports
+                                    <i class="bi bi-arrow-up-right"></i>
+                                </a>
+                            {% endif %}
+                        {% else %}
+                            <a href="{% url 'signupuser' %}" class="btn-primary-custom">
+                                Get Started
+                                <i class="bi bi-arrow-right"></i>
+                            </a>
+
+                            <a href="{% url 'issue_list' %}" class="btn-outline-custom">
+                                Explore Reported Issues
+                                <i class="bi bi-compass"></i>
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    <div class="hero-trust">
+                        <div class="trust-icons">
+                            <span><i class="bi bi-people"></i></span>
+                            <span><i class="bi bi-geo-alt"></i></span>
+                            <span><i class="bi bi-check2-circle"></i></span>
+                        </div>
+                        <span>Every report can make a difference.</span>
+                    </div>
+                </div>
+
+
+                <!-- CSS MAP ILLUSTRATION -->
+                <div class="col-lg-6">
+                    <div class="hero-visual">
+
+                        <div class="map-card">
+                            <div class="map-card-header">
+                                <h5><i class="bi bi-map me-2"></i>Community Map</h5>
+                                <span class="live-badge">
+                                    <i class="bi bi-circle-fill me-1"></i>
+                                    Issue Tracking
+                                </span>
+                            </div>
+
+                            <div class="map-illustration">
+                                <div class="map-park park-one"></div>
+                                <div class="map-park park-two"></div>
+                                <div class="map-water"></div>
+                                <div class="route-line"></div>
+
+                                <div class="map-pin pin-one">
+                                    <i class="bi bi-cone-striped"></i>
+                                </div>
+
+                                <div class="map-pin pin-two">
+                                    <i class="bi bi-lightbulb"></i>
+                                </div>
+
+                                <div class="map-pin pin-three">
+                                    <i class="bi bi-tools"></i>
+                                </div>
+
+                                <div class="map-label label-one">Road Damage</div>
+                                <div class="map-label label-two">Streetlight</div>
+                                <div class="map-label label-three">Repair Tracking</div>
+                            </div>
+
+                            <div class="map-card-footer">
+                                <div class="map-status">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    <span>Location-based reporting</span>
+                                </div>
+                                <span class="map-footer-number">
+                                    <i class="bi bi-arrow-repeat me-1"></i>
+                                    Track Progress
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="floating-card floating-one">
+                            <div class="floating-icon" style="background:#E6F7EF;color:#198754;">
+                                <i class="bi bi-check-circle-fill"></i>
+                            </div>
+                            <div>
+                                <strong>Progress Tracking</strong>
+                                <small>Follow issue updates</small>
+                            </div>
+                        </div>
+
+                        <div class="floating-card floating-two">
+                            <div class="floating-icon" style="background:#FFF0DB;color:#C47B19;">
+                                <i class="bi bi-exclamation-triangle-fill"></i>
+                            </div>
+                            <div>
+                                <strong>Civic Issue Reporting</strong>
+                                <small>Make your voice count</small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- LIVE DATABASE STATISTICS -->
+    <section class="stats-section" id="statistics">
+        <div class="container">
+            <div class="row g-3">
+
+                <div class="col-6 col-lg-3 reveal">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-clipboard-data"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            <span class="counter" data-target="{{ stats.total|default:0 }}">0</span>
+                        </div>
+
+                        <div class="stat-label">Total Reports</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-3 reveal">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-hourglass-split"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            <span class="counter" data-target="{{ stats.pending|default:0 }}">0</span>
+                        </div>
+
+                        <div class="stat-label">Awaiting Review</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-3 reveal">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-tools"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            <span class="counter" data-target="{{ stats.in_progress|default:0 }}">0</span>
+                        </div>
+
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                </div>
+
+                <div class="col-6 col-lg-3 reveal">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="bi bi-check-circle"></i>
+                        </div>
+
+                        <div class="stat-number">
+                            <span class="counter" data-target="{{ stats.resolved|default:0 }}">0</span>
+                        </div>
+
+                        <div class="stat-label">Issues Resolved</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section class="section-padding how-section" id="how-it-works">
+        <div class="container">
+
+            <div class="text-center mb-5 reveal">
+                <span class="section-tag">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                    Simple Process
+                </span>
+
+                <h2 class="section-title">From Problem to Solution</h2>
+
+                <p class="section-description">
+                    Making your neighbourhood better takes only a few simple steps.
+                    Spot an issue, report it, and follow its journey towards resolution.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="step-card">
+                        <div class="step-number">01</div>
+                        <h4><i class="bi bi-eye me-2" style="color:#2A9D8F;"></i>Spot an Issue</h4>
+                        <p>
+                            Notice a pothole, overflowing garbage, a broken streetlight,
+                            or another civic problem in your area.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="step-card">
+                        <div class="step-number">02</div>
+                        <h4><i class="bi bi-pencil-square me-2" style="color:#2A9D8F;"></i>Report It</h4>
+                        <p>
+                            Submit the issue with its details, category, photo,
+                            and location to help identify the problem.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="step-card">
+                        <div class="step-number">03</div>
+                        <h4><i class="bi bi-arrow-repeat me-2" style="color:#2A9D8F;"></i>Track Progress</h4>
+                        <p>
+                            Follow status updates as the report is reviewed
+                            and assigned for necessary action.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-3 reveal">
+                    <div class="step-card">
+                        <div class="step-number">04</div>
+                        <h4><i class="bi bi-check-circle me-2" style="color:#2A9D8F;"></i>See the Change</h4>
+                        <p>
+                            Check whether the issue has been resolved
+                            and contribute to a better community.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FEATURES -->
+    <section class="section-padding" id="features">
+        <div class="container">
+
+            <div class="text-center mb-5 reveal">
+                <span class="section-tag">
+                    <i class="bi bi-stars"></i>
+                    What Makes Spot2Fix Useful
+                </span>
+
+                <h2 class="section-title">A Smarter Way to Manage Civic Issues</h2>
+
+                <p class="section-description">
+                    One platform to connect citizen reports with organised
+                    tracking, coordinated action, and measurable progress.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <h4>Location-Based Reporting</h4>
+                        <p>
+                            Include issue locations so that civic problems
+                            can be identified and addressed more effectively.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-activity"></i>
+                        </div>
+                        <h4>Real-Time Status Updates</h4>
+                        <p>
+                            Follow report statuses from submission and review
+                            through ongoing work and resolution.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-speedometer2"></i>
+                        </div>
+                        <h4>Priority-Based Management</h4>
+                        <p>
+                            Organise reported issues by priority to help
+                            teams focus on problems needing attention.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-person-check"></i>
+                        </div>
+                        <h4>Coordinated Assignments</h4>
+                        <p>
+                            Support the assignment of civic issues to
+                            responsible maintenance personnel.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-bar-chart-line"></i>
+                        </div>
+                        <h4>Progress Insights</h4>
+                        <p>
+                            View report statistics and track the number
+                            of submitted, ongoing, and resolved issues.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-4 reveal">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="bi bi-people"></i>
+                        </div>
+                        <h4>Citizen Participation</h4>
+                        <p>
+                            Help citizens take an active role in identifying
+                            problems and improving their surroundings.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CALL TO ACTION -->
+    <section class="impact-section" id="get-started">
+        <div class="container">
+            <div class="impact-banner reveal">
+
+                <h2>Every Better Neighbourhood Starts with One Small Action.</h2>
+
+                <p>
+                    Found a civic issue that needs attention?
+                    Report it on Spot2Fix and help turn local problems
+                    into meaningful action.
+                </p>
+
+                {% if user.is_authenticated %}
+                    {% if user.is_superuser or user.role == "admin" %}
+                        <a href="{% url 'admin_dashboard' %}" class="btn btn-light px-4 py-3 fw-bold">
+                            Open Admin Dashboard
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    {% elif user.role == "maintenance" %}
+                        <a href="{% url 'maintenance_dashboard' %}" class="btn btn-light px-4 py-3 fw-bold">
+                            Open Maintenance Dashboard
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'report_issue' %}" class="btn btn-light px-4 py-3 fw-bold">
+                            <i class="bi bi-plus-circle me-2"></i>
+                            Report an Issue
+                        </a>
+                    {% endif %}
+                {% else %}
+                    <a href="{% url 'signupuser' %}" class="btn btn-light px-4 py-3 fw-bold">
+                        Join Spot2Fix
+                        <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                {% endif %}
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="container">
+
+            <div class="row g-4">
+
+                <div class="col-lg-5 col-md-6">
+                    <a href="{% url 'home' %}" class="footer-brand">
+                        <span class="footer-logo">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+                        Spot2Fix
+                    </a>
+
+                    <p class="footer-description">
+                        Connecting citizens, civic issues, and maintenance
+                        teams to create cleaner, safer, and better communities.
+                    </p>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5>Explore</h5>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="{% url 'issue_list' %}">Reported Issues</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-2 col-md-6">
+                    <h5>Get Involved</h5>
+                    <ul class="footer-links">
+                        {% if user.is_authenticated %}
+                            {% if user.is_superuser or user.role == "admin" %}
+                                <li><a href="{% url 'admin_dashboard' %}">Dashboard</a></li>
+                            {% elif user.role == "maintenance" %}
+                                <li><a href="{% url 'maintenance_dashboard' %}">Dashboard</a></li>
+                            {% else %}
+                                <li><a href="{% url 'report_issue' %}">Report an Issue</a></li>
+                                <li><a href="{% url 'my_issues' %}">My Reports</a></li>
+                            {% endif %}
+                        {% else %}
+                            <li><a href="{% url 'signupuser' %}">Create Account</a></li>
+                            <li><a href="{% url 'loginuser' %}">Log In</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <h5>Our Mission</h5>
+                    <p class="footer-description">
+                        Making civic reporting simpler and helping communities
+                        stay informed about the progress of local issues.
+                    </p>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom d-flex flex-column flex-md-row justify-content-between gap-2">
+                <span>© {% now "Y" %} Spot2Fix. All rights reserved.</span>
+                <span>Built for better communities <i class="bi bi-heart-fill ms-1" style="color:#2A9D8F;"></i></span>
+            </div>
+
+        </div>
+    </footer>
+
+
+    <!-- ANIMATIONS -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            // Reveal sections when they enter the viewport
+            const revealElements = document.querySelectorAll(".reveal");
+
+            if ("IntersectionObserver" in window) {
+                const revealObserver = new IntersectionObserver(
+                    function (entries, observer) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add("visible");
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.12 }
+                );
+
+                revealElements.forEach(function (element) {
+                    revealObserver.observe(element);
+                });
+            } else {
+                revealElements.forEach(function (element) {
+                    element.classList.add("visible");
+                });
+            }
+
+
+            // Animate statistics counters when visible
+            const counters = document.querySelectorAll(".counter");
+            const reducedMotion = window.matchMedia(
+                "(prefers-reduced-motion: reduce)"
+            ).matches;
+
+            function animateCounter(counter) {
+                const target = Math.max(
+                    0,
+                    Number.parseInt(counter.dataset.target, 10) || 0
+                );
+
+                if (reducedMotion || target === 0) {
+                    counter.textContent = target.toLocaleString("en-IN");
+                    return;
+                }
+
+                const duration = 1400;
+                const startTime = performance.now();
+
+                function updateCounter(currentTime) {
+                    const progress = Math.min(
+                        (currentTime - startTime) / duration,
+                        1
+                    );
+
+                    // Ease-out effect
+                    const easedProgress = 1 - Math.pow(1 - progress, 3);
+                    const currentValue = Math.floor(target * easedProgress);
+
+                    counter.textContent =
+                        currentValue.toLocaleString("en-IN");
+
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString("en-IN");
+                    }
+                }
+
+                requestAnimationFrame(updateCounter);
+            }
+
+            if ("IntersectionObserver" in window) {
+                const counterObserver = new IntersectionObserver(
+                    function (entries, observer) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                animateCounter(entry.target);
+                                observer.unobserve(entry.target);
+                            }
+                        });
+                    },
+                    { threshold: 0.5 }
+                );
+
+                counters.forEach(function (counter) {
+                    counterObserver.observe(counter);
+                });
+            } else {
+                counters.forEach(animateCounter);
+            }
+
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

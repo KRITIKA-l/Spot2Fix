@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maintenance Dashboard | Spot2Fix</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: #f3f6f8;
+            color: #24313d;
+            font-family: Arial, sans-serif;
+        }
+
+
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 0 auto 28px;
+            padding-top: 80px;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        h1 { margin-bottom: 6px; }
+        .muted { color: #687785; font-size: 14px; }
+
+        .btn {
+            display: inline-block;
+            border: none;
+            border-radius: 7px;
+            padding: 10px 14px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn-primary { background: #176b55; color: white; }
+        .btn-light { background: #e6f2ed; color: #176b55; }
+        .btn-secondary { background: #e8edf2; color: #344054; }
+        .btn-danger { background: #b42318; color: white; }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin: 24px 0;
+        }
+
+        .stat, .panel, .issue-card {
+            background: white;
+            border: 1px solid #e4e9ed;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px #18223008;
+        }
+
+        .stat { padding: 20px; }
+        .stat-label { color: #687785; font-size: 14px; }
+        .stat-number { font-size: 30px; font-weight: bold; margin-top: 8px; }
+
+        .panel { padding: 20px; margin-bottom: 22px; }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto auto;
+            gap: 10px;
+            align-items: end;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            min-width: 0;
+            padding: 11px;
+            border: 1px solid #ccd5dc;
+            border-radius: 7px;
+            background: white;
+            font-size: 14px;
+        }
+
+        .issue-card { padding: 20px; margin-bottom: 16px; }
+
+        .issue-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .issue-title { font-size: 19px; font-weight: bold; margin: 0 0 8px; }
+
+        .tags { display: flex; gap: 7px; flex-wrap: wrap; }
+
+        .tag {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .high { background: #fee4e2; color: #b42318; }
+        .medium { background: #fff0c2; color: #854d0e; }
+        .low { background: #e4f5e9; color: #176b55; }
+
+        .submitted { background: #e9edf2; color: #475467; }
+        .under_review { background: #fff0c2; color: #854d0e; }
+        .in_progress { background: #dcecff; color: #175cd3; }
+        .resolved { background: #dff5e5; color: #176b55; }
+
+        .issue-description {
+            line-height: 1.6;
+            overflow-wrap: anywhere;
+            margin: 16px 0;
+        }
+
+        .issue-details {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 10px 20px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        .issue-details div { overflow-wrap: anywhere; }
+
+        .issue-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: end;
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px solid #e8edf0;
+        }
+
+        .issue-actions form {
+            display: flex;
+            align-items: end;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .status-field { min-width: 190px; }
+
+        .photo {
+            width: 130px;
+            max-height: 100px;
+            object-fit: cover;
+            border-radius: 7px;
+            border: 1px solid #e4e9ed;
+        }
+
+        .messages { margin: 18px 0; }
+
+        .message {
+            padding: 12px 15px;
+            border-radius: 7px;
+            margin-bottom: 8px;
+            background: #e6f2ed;
+            color: #176b55;
+        }
+
+        .message.error { background: #fee4e2; color: #b42318; }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 24px 0;
+            flex-wrap: wrap;
+        }
+
+        .empty {
+            background: white;
+            padding: 35px;
+            text-align: center;
+            border-radius: 12px;
+            color: #687785;
+        }
+
+        @media (max-width: 850px) {
+            .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .filters { grid-template-columns: 1fr 1fr; }
+            .filters .search-field { grid-column: 1 / -1; }
+        }
+
+        @media (max-width: 520px) {
+            .container { width: 94%; }
+            .stats { grid-template-columns: 1fr 1fr; gap: 9px; }
+            .stat { padding: 14px; }
+            .stat-number { font-size: 25px; }
+            .filters { grid-template-columns: 1fr; }
+            .filters .search-field { grid-column: auto; }
+            .issue-details { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+{% include "project1/navbar.html" %}
+
+<main class="container">
+    <div class="heading">
+        <div>
+            <h1>Maintenance Dashboard</h1>
+            <p class="muted">
+                Welcome, {{ request.user.username }}.
+                Manage the issues assigned to you.
+            </p>
+        </div>
+
+        <a class="btn btn-primary"
+           href="{% url 'maintenance_recommendations' %}">
+            View Recommendations →
+        </a>
+    </div>
+
+    {% if messages %}
+        <div class="messages">
+            {% for message in messages %}
+                <div class="message {% if message.tags == 'error' %}error{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <section class="stats">
+        <div class="stat">
+            <div class="stat-label">Total Assigned</div>
+            <div class="stat-number">{{ stats.total }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-label">Pending</div>
+            <div class="stat-number">{{ stats.pending }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-label">Under Review</div>
+            <div class="stat-number">{{ stats.under_review }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-label">In Progress</div>
+            <div class="stat-number">{{ stats.in_progress }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-label">Resolved</div>
+            <div class="stat-number">{{ stats.resolved }}</div>
+        </div>
+        <div class="stat">
+            <div class="stat-label">High Priority</div>
+            <div class="stat-number">{{ stats.high_priority }}</div>
+        </div>
+    </section>
+
+    <section class="panel">
+        <h3>Search and Filter Issues</h3>
+
+        <form method="GET" class="filters">
+            <div class="search-field">
+                <label for="q">Search</label>
+                <input id="q" type="text" name="q"
+                       value="{{ search_query }}"
+                       placeholder="Issue, description, citizen or department">
+            </div>
+
+            <div>
+                <label for="status">Status</label>
+                <select id="status" name="status">
+                    <option value="">All statuses</option>
+                    {% for value, label in status_choices %}
+                        <option value="{{ value }}"
+                            {% if selected_status == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div>
+                <label for="priority">Priority</label>
+                <select id="priority" name="priority">
+                    <option value="">All priorities</option>
+                    {% for value, label in priority_choices %}
+                        <option value="{{ value }}"
+                            {% if selected_priority == value %}selected{% endif %}>
+                            {{ label }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <button class="btn btn-primary" type="submit">Apply</button>
+            <a class="btn btn-secondary"
+               href="{% url 'maintenance_dashboard' %}">Reset</a>
+        </form>
+    </section>
+
+    <h2>My Assigned Issues</h2>
+    <p class="muted">
+        {{ page_obj.paginator.count }} matching assignment(s)
+    </p>
+
+    {% for assignment in assignments %}
+        {% with issue=assignment.issue %}
+            <article class="issue-card">
+                <div class="issue-top">
+                    <div>
+                        <h3 class="issue-title">
+                            #{{ issue.id }} — {{ issue.title }}
+                        </h3>
+                        <div class="tags">
+                            <span class="tag {{ issue.priority }}">
+                                {{ issue.get_priority_display }}
+                            </span>
+                            <span class="tag {{ issue.status }}">
+                                {{ issue.get_status_display }}
+                            </span>
+                            <span class="tag">
+                                {{ issue.get_category_display }}
+                            </span>
+                        </div>
+                    </div>
+
+                    {% if issue.photo %}
+                        <div>
+                            <a href="{{ issue.photo.url }}" target="_blank"
+                               rel="noopener noreferrer">
+                                <img class="photo"
+                                     src="{{ issue.photo.url }}"
+                                     alt="Issue photo">
+                            </a>
+                            <div>
+                                <a href="{{ issue.photo.url }}" target="_blank"
+                                   rel="noopener noreferrer">View full photo</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
+
+                <p class="issue-description">
+                    {{ issue.description|default:"No description provided." }}
+                </p>
+
+                <div class="issue-details">
+                    <div>
+                        <strong>Reported by:</strong>
+                        {{ issue.user.username }}
+                    </div>
+                    <div>
+                        <strong>Category:</strong>
+                        {{ issue.get_category_display }}
+                    </div>
+                    <div>
+                        <strong>Department:</strong>
+                        {{ assignment.department|default:"Not specified" }}
+                    </div>
+                    <div>
+                        <strong>Assigned on:</strong>
+                        {{ assignment.assigned_at|date:"d M Y, H:i" }}
+                    </div>
+                    <div>
+                        <strong>Reported on:</strong>
+                        {{ issue.created_at|date:"d M Y, H:i" }}
+                    </div>
+                    <div>
+                        <strong>Coordinates:</strong>
+                        {% if issue.latitude != None and issue.longitude != None %}
+                            {{ issue.latitude }}, {{ issue.longitude }}
+                        {% else %}
+                            Not provided
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="issue-actions">
+                    {% if issue.latitude != None and issue.longitude != None %}
+                        <a class="btn btn-light"
+                           href="https://www.google.com/maps?q={{ issue.latitude }},{{ issue.longitude }}"
+                           target="_blank" rel="noopener noreferrer">
+                            Open Map
+                        </a>
+                    {% endif %}
+
+                    {% if issue.status != "resolved" %}
+                        <form method="POST"
+                              action="{% url 'maintenance_issue_action' issue.id %}">
+                            {% csrf_token %}
+                            <div class="status-field">
+                                <label for="status-{{ issue.id }}">
+                                    Update Status
+                                </label>
+                                <select id="status-{{ issue.id }}" name="status" required>
+                                    {% if issue.status == "submitted" %}
+                                        <option value="in_progress">In Progress</option>
+                                    {% elif issue.status == "under_review" %}
+                                        <option value="in_progress">In Progress</option>
+                                        <option value="resolved">Resolved</option>
+                                    {% elif issue.status == "in_progress" %}
+                                        <option value="resolved">Resolved</option>
+                                    {% endif %}
+                                </select>
+                            </div>
+                            <button class="btn btn-primary" type="submit">
+                                Save Status
+                            </button>
+                        </form>
+                    {% else %}
+                        <span class="tag resolved">This issue is resolved</span>
+                    {% endif %}
+                </div>
+            </article>
+        {% endwith %}
+    {% empty %}
+        <div class="empty">
+            <h3>No assigned issues found</h3>
+            <p>Try changing your search or filters, or check back after an issue is assigned to you.</p>
+        </div>
+    {% endfor %}
+
+    {% if page_obj.paginator.num_pages > 1 %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-secondary"
+                   href="?q={{ search_query|urlencode }}&status={{ selected_status|urlencode }}&priority={{ selected_priority|urlencode }}&page={{ page_obj.previous_page_number }}">
+                    ← Previous
+                </a>
+            {% endif %}
+
+            <span>
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-secondary"
+                   href="?q={{ search_query|urlencode }}&status={{ selected_status|urlencode }}&priority={{ selected_priority|urlencode }}&page={{ page_obj.next_page_number }}">
+                    Next →
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</main>
+</body>
+</html>

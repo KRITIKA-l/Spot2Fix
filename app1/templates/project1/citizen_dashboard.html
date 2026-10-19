@@ -1,0 +1,636 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Citizen Dashboard | Spot2Fix</title>
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <style>
+        :root {
+            --sf-teal: #2A9D8F;
+            --sf-dark: #207D73;
+            --sf-light: #D9F3EF;
+            --sf-white: #FFFFFF;
+            --sf-text: #16302D;
+            --sf-bg: #F4F8F7;
+            --sf-muted: #687C77;
+            --sf-border: #E1EFEC;
+            --sf-shadow: 0 8px 24px rgba(32, 125, 115, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--sf-bg);
+            color: var(--sf-text);
+        }
+
+        .dashboard-container {
+            max-width: 1250px;
+            margin: 0 auto;
+            padding: 105px 25px 40px;
+        }
+
+        .welcome-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .welcome-text h1 {
+            font-size: 30px;
+            margin-bottom: 9px;
+            color: var(--sf-text);
+        }
+
+        .welcome-text p {
+            color: var(--sf-muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .primary-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            padding: 13px 20px;
+            background: var(--sf-teal);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            border: none;
+            transition: 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            background: var(--sf-dark);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Statistics */
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--sf-white);
+            padding: 23px;
+            border: 1px solid var(--sf-border);
+            border-radius: 16px;
+            box-shadow: var(--sf-shadow);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .stat-icon {
+            width: 52px;
+            height: 52px;
+            flex-shrink: 0;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .icon-total {
+            background: #D9F3EF;
+            color: #207D73;
+        }
+
+        .icon-submitted {
+            background: #FFF1D6;
+            color: #B7791F;
+        }
+
+        .icon-progress {
+            background: #DDEBFF;
+            color: #3267A8;
+        }
+
+        .icon-resolved {
+            background: #DDF5E4;
+            color: #278449;
+        }
+
+        .stat-info p {
+            font-size: 13px;
+            color: var(--sf-muted);
+            margin-bottom: 7px;
+        }
+
+        .stat-info h2 {
+            font-size: 27px;
+            font-weight: 700;
+        }
+
+        /* Section cards */
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.8fr;
+            gap: 22px;
+            align-items: start;
+        }
+
+        .section-card {
+            background: var(--sf-white);
+            border: 1px solid var(--sf-border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--sf-shadow);
+            min-width: 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .section-heading h2 {
+            font-size: 19px;
+        }
+
+        .section-heading p {
+            color: var(--sf-muted);
+            font-size: 13px;
+            margin-top: 6px;
+        }
+
+        /* Quick actions */
+
+        .action-list {
+            display: flex;
+            flex-direction: column;
+            gap: 13px;
+        }
+
+        .action-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 16px;
+            border: 1px solid var(--sf-border);
+            border-radius: 12px;
+            text-decoration: none;
+            color: var(--sf-text);
+            transition: 0.2s ease;
+        }
+
+        .action-link:hover {
+            border-color: var(--sf-teal);
+            background: #F3FBF9;
+            transform: translateY(-2px);
+        }
+
+        .action-icon {
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--sf-light);
+            color: var(--sf-dark);
+            font-size: 20px;
+            border-radius: 12px;
+        }
+
+        .action-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .action-details h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .action-details p {
+            color: var(--sf-muted);
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .action-arrow {
+            color: var(--sf-muted);
+        }
+
+        /* Recent reports */
+
+        .view-all {
+            color: var(--sf-dark);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .view-all:hover {
+            text-decoration: underline;
+        }
+
+        .issue-list {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .issue-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 17px 0;
+            border-bottom: 1px solid var(--sf-border);
+        }
+
+        .issue-item:first-child {
+            padding-top: 0;
+        }
+
+        .issue-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .issue-icon {
+            width: 44px;
+            height: 44px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--sf-light);
+            color: var(--sf-dark);
+            border-radius: 12px;
+            font-size: 20px;
+        }
+
+        .issue-details {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .issue-details h3 {
+            font-size: 14px;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .issue-meta {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-items: center;
+            color: var(--sf-muted);
+            font-size: 12px;
+        }
+
+        .status {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-submitted {
+            background: #FFF1D6;
+            color: #956515;
+        }
+
+        .status-under_review {
+            background: #EDE4FF;
+            color: #7046A5;
+        }
+
+        .status-in_progress {
+            background: #DDEBFF;
+            color: #3267A8;
+        }
+
+        .status-resolved {
+            background: #DDF5E4;
+            color: #278449;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 35px 15px;
+        }
+
+        .empty-state i {
+            font-size: 42px;
+            color: var(--sf-teal);
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .empty-state h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            color: var(--sf-muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .dashboard-footer {
+            text-align: center;
+            color: var(--sf-muted);
+            font-size: 12px;
+            padding-top: 30px;
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 1000px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .dashboard-container {
+                padding: 95px 14px 25px;
+            }
+
+            .welcome-text h1 {
+                font-size: 24px;
+            }
+
+            .welcome-section {
+                align-items: flex-start;
+            }
+
+            .stats-grid {
+                gap: 11px;
+            }
+
+            .stat-card {
+                padding: 15px 12px;
+                gap: 10px;
+            }
+
+            .stat-icon {
+                width: 39px;
+                height: 39px;
+                font-size: 18px;
+                border-radius: 10px;
+            }
+
+            .stat-info p {
+                font-size: 11px;
+            }
+
+            .stat-info h2 {
+                font-size: 22px;
+            }
+
+            .section-card {
+                padding: 18px 15px;
+            }
+
+            .issue-item {
+                align-items: flex-start;
+                flex-wrap: wrap;
+            }
+
+            .issue-item .status {
+                margin-left: 58px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'project1/navbar.html' %}
+
+    <main class="dashboard-container">
+
+        <!-- Welcome section -->
+        <section class="welcome-section">
+            <div class="welcome-text">
+                <h1>
+                    Welcome, {{ request.user.first_name|default:request.user.username }}!
+                </h1>
+                <p>
+                    Your neighbourhood matters. Report local problems and track their progress with Spot2Fix.
+                </p>
+            </div>
+
+            <a href="{% url 'report_issue' %}" class="primary-btn">
+                <i class="bi bi-plus-circle"></i>
+                Report an Issue
+            </a>
+        </section>
+
+        <!-- Statistics -->
+        <section class="stats-grid">
+
+            <div class="stat-card">
+                <div class="stat-icon icon-total">
+                    <i class="bi bi-clipboard-data"></i>
+                </div>
+                <div class="stat-info">
+                    <p>Total Reports</p>
+                    <h2>{{ total_issues|default:0 }}</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-submitted">
+                    <i class="bi bi-clock-history"></i>
+                </div>
+                <div class="stat-info">
+                    <p>Submitted</p>
+                    <h2>{{ status_counts.submitted|default:0 }}</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-progress">
+                    <i class="bi bi-tools"></i>
+                </div>
+                <div class="stat-info">
+                    <p>In Progress</p>
+                    <h2>{{ status_counts.in_progress|default:0 }}</h2>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-icon icon-resolved">
+                    <i class="bi bi-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    <p>Resolved</p>
+                    <h2>{{ status_counts.resolved|default:0 }}</h2>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Quick actions and recent reports -->
+        <section class="content-grid">
+
+            <!-- Quick actions -->
+            <div class="section-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Quick Actions</h2>
+                        <p>What would you like to do today?</p>
+                    </div>
+                </div>
+
+                <div class="action-list">
+
+                    <a href="{% url 'report_issue' %}" class="action-link">
+                        <div class="action-icon">
+                            <i class="bi bi-plus-square"></i>
+                        </div>
+                        <div class="action-details">
+                            <h3>Report a Problem</h3>
+                            <p>Report a pothole, damaged road, or other local issue.</p>
+                        </div>
+                        <i class="bi bi-chevron-right action-arrow"></i>
+                    </a>
+
+                    <a href="{% url 'my_issues' %}" class="action-link">
+                        <div class="action-icon">
+                            <i class="bi bi-list-check"></i>
+                        </div>
+                        <div class="action-details">
+                            <h3>My Reports</h3>
+                            <p>View your submitted issues and their current status.</p>
+                        </div>
+                        <i class="bi bi-chevron-right action-arrow"></i>
+                    </a>
+
+                    <a href="{% url 'profile' %}" class="action-link">
+                        <div class="action-icon">
+                            <i class="bi bi-person-circle"></i>
+                        </div>
+                        <div class="action-details">
+                            <h3>My Profile</h3>
+                            <p>View your account information.</p>
+                        </div>
+                        <i class="bi bi-chevron-right action-arrow"></i>
+                    </a>
+
+                </div>
+            </div>
+
+            <!-- Recent reports -->
+            <div class="section-card">
+                <div class="section-heading">
+                    <div>
+                        <h2>Recent Reports</h2>
+                        <p>Track the latest issues you have reported.</p>
+                    </div>
+
+                    <a href="{% url 'my_issues' %}" class="view-all">
+                        View All <i class="bi bi-arrow-right"></i>
+                    </a>
+                </div>
+
+                {% if recent_issues %}
+                    <div class="issue-list">
+
+                        {% for issue in recent_issues %}
+                            <div class="issue-item">
+
+                                <div class="issue-icon">
+                                    {% if issue.category == 'pothole' %}
+                                        <i class="bi bi-cone-striped"></i>
+                                    {% elif issue.category == 'damaged_road' %}
+                                        <i class="bi bi-cone"></i>
+                                    {% elif issue.category == 'waterlogging' %}
+                                        <i class="bi bi-droplet"></i>
+                                    {% elif issue.category == 'garbage' %}
+                                        <i class="bi bi-trash3"></i>
+                                    {% else %}
+                                        <i class="bi bi-exclamation-circle"></i>
+                                    {% endif %}
+                                </div>
+
+                                <div class="issue-details">
+                                    <h3>{{ issue.title }}</h3>
+                                    <div class="issue-meta">
+                                        <span>{{ issue.get_category_display }}</span>
+                                        <span>•</span>
+                                        <span>{{ issue.created_at|date:"d M Y" }}</span>
+                                    </div>
+                                </div>
+
+                                <span class="status status-{{ issue.status }}">
+                                    {{ issue.get_status_display }}
+                                </span>
+
+                            </div>
+                        {% endfor %}
+
+                    </div>
+
+                {% else %}
+                    <div class="empty-state">
+                        <i class="bi bi-clipboard2-plus"></i>
+                        <h3>No Reports Yet</h3>
+                        <p>
+                            You have not reported any local issues yet.
+                            Start by reporting a problem in your neighbourhood.
+                        </p>
+                        <a href="{% url 'report_issue' %}" class="primary-btn">
+                            <i class="bi bi-plus-circle"></i>
+                            Create Your First Report
+                        </a>
+                    </div>
+                {% endif %}
+
+            </div>
+
+        </section>
+
+        <footer class="dashboard-footer">
+            <p>Spot2Fix &copy; {% now "Y" %} · Together for cleaner, safer neighbourhoods.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

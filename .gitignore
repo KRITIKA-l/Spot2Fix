@@ -1,0 +1,5 @@
+# Environment and secrets
+.env
+
+# Local documentation not intended for the repository
+PROJECT_ANALYSIS_REPORT.md

@@ -1,0 +1,20 @@
+{% include 'project1/navbar.html' %}
+
+<h2>
+    {% if query %}
+        Search Results for "{{ query }}"
+    {% else %}
+        All Civic Issues
+    {% endif %}
+</h2>
+
+{% for issue in issues %}
+    <div class="issue-card">
+        <h3>{{ issue.title }}</h3>
+        <p>{{ issue.description }}</p>
+        <p>Category: {{ issue.get_category_display }}</p>
+        <p>Status: {{ issue.get_status_display }}</p>
+    </div>
+{% empty %}
+    <p>No matching civic issues found.</p>
+{% endfor %}

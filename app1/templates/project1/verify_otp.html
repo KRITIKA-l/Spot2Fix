@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP | Spot2Fix</title>
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f4f8;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            width: 100%;
+            max-width: 400px;
+            background: white;
+            padding: 32px;
+            border-radius: 14px;
+            box-shadow: 0 8px 28px #00000012;
+        }
+        .sf-brand {
+            display: inline-block;
+            color: #207D73;
+            text-decoration: none;
+            font-size: 23px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1;
+            margin-bottom: 22px;
+        }
+        .sf-brand span { color: #2A9D8F; }
+        h2 { color: #176b55; }
+        p { color: #667085; }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            margin: 12px 0;
+            border: 1px solid #d0d5dd;
+            border-radius: 7px;
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: 5px;
+        }
+        button {
+            width: 100%;
+            padding: 13px;
+            background: #176b55;
+            color: white;
+            border: 0;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .otp-actions {
+            display: grid;
+            gap: 12px;
+            margin-top: 22px;
+        }
+        .otp-actions form { margin: 0; }
+        .otp-actions button { margin: 0; }
+        .otp-actions .secondary {
+            background: transparent;
+            border: 1px solid #176b55;
+            color: #176b55;
+        }
+        .otp-actions .secondary:hover { background: #f0f8f6; }
+        .message { color: #b42318; font-size: 14px; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <a class="sf-brand" href="{% url 'home' %}">Spot<span>2Fix</span></a>
+    <h2>Verify your email</h2>
+    <p>Enter the six-digit verification code sent to your email address.</p>
+
+    {% if messages %}
+        {% for message in messages %}
+            <p class="message">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label for="otp">One-time password</label>
+        <input id="otp" type="text" name="otp"
+               inputmode="numeric" pattern="[0-9]{6}"
+               maxlength="6" autocomplete="one-time-code" required>
+        <div class="otp-actions">
+            <button type="submit">Verify &amp; Continue</button>
+        </div>
+    </form>
+    <div class="otp-actions">
+        <form method="POST" action="{% url 'resend_otp' %}">
+            {% csrf_token %}
+            <button class="secondary" type="submit">Resend OTP</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

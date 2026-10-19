@@ -1,0 +1,501 @@
+username,title,description,category,latitude,longitude,priority,status,created_at
+citizen_001,Deep pothole near school entrance #001,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.413489,76.925624,medium,submitted,2026-07-24 10:37:00
+citizen_002,Garbage pile near community park #002,Waste has accumulated near the park entrance and needs collection.,garbage,28.501285,76.906634,low,submitted,2026-10-07 10:14:00
+citizen_003,Uncollected waste near market #003,Waste bags have remained near the market area and need timely collection.,garbage,28.573397,77.074535,high,submitted,2026-09-11 10:09:00
+citizen_004,Uneven road surface near crossing #004,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.466155,76.985989,low,under_review,2026-07-09 10:46:00
+citizen_005,Garbage pile near community park #005,Waste has accumulated near the park entrance and needs collection.,garbage,28.51249,77.107351,high,under_review,2026-09-20 10:36:00
+citizen_006,Cracked road near market #006,The road has visible cracks and broken edges near the market area.,damaged_road,28.449453,76.919948,low,submitted,2026-07-08 10:24:00
+citizen_007,Rainwater accumulation near bus stop #007,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.468843,76.952377,medium,under_review,2026-07-09 10:38:00
+citizen_008,Broken pavement on main road #008,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.617486,77.06,low,under_review,2026-08-18 10:43:00
+citizen_009,Waterlogging near street corner #009,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.455709,76.966935,low,submitted,2026-09-07 10:13:00
+citizen_010,Garbage scattered near bus stop #010,Litter and household waste are scattered around the bus stop.,garbage,28.414289,76.934908,high,in_progress,2026-09-24 10:47:00
+citizen_011,Open manhole cover concern #011,A manhole cover appears unsafe and should be inspected promptly.,other,28.432637,77.149384,high,under_review,2026-10-17 10:05:00
+citizen_012,Deep pothole near school entrance #012,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.543315,77.049102,low,submitted,2026-10-13 10:38:00
+citizen_013,Uncollected waste near market #013,Waste bags have remained near the market area and need timely collection.,garbage,28.382755,77.08018,high,resolved,2026-09-22 10:49:00
+citizen_014,Waterlogging near street corner #014,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.380779,77.080523,medium,submitted,2026-09-24 10:32:00
+citizen_015,Cracked road near market #015,The road has visible cracks and broken edges near the market area.,damaged_road,28.533348,77.052243,high,submitted,2026-09-05 10:48:00
+citizen_016,Cracked road near market #016,The road has visible cracks and broken edges near the market area.,damaged_road,28.406848,76.990745,medium,under_review,2026-09-27 10:15:00
+citizen_017,Potholes on residential road #017,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.400557,77.021498,high,resolved,2026-08-03 10:08:00
+citizen_018,Overflowing public dustbin #018,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.481553,76.95295,medium,resolved,2026-08-18 10:45:00
+citizen_019,Rainwater accumulation near bus stop #019,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.485144,77.029394,high,in_progress,2026-08-04 10:14:00
+citizen_020,Damaged road surface near bus stop #020,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.521226,76.901798,low,in_progress,2026-07-23 10:14:00
+citizen_021,Deep pothole near school entrance #021,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.437121,77.067244,high,submitted,2026-08-07 10:46:00
+citizen_022,Open manhole cover concern #022,A manhole cover appears unsafe and should be inspected promptly.,other,28.477694,76.923581,low,under_review,2026-10-22 10:22:00
+citizen_023,Garbage scattered near bus stop #023,Litter and household waste are scattered around the bus stop.,garbage,28.541607,77.146041,medium,in_progress,2026-07-04 10:25:00
+citizen_024,Waterlogging near street corner #024,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.487667,77.00547,low,submitted,2026-10-09 10:15:00
+citizen_025,Large pothole after rainfall #025,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.403498,77.063036,high,resolved,2026-07-18 10:05:00
+citizen_026,Broken pavement on main road #026,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.587516,77.125611,medium,under_review,2026-10-06 10:00:00
+citizen_027,Uncollected waste near market #027,Waste bags have remained near the market area and need timely collection.,garbage,28.44846,77.074148,high,in_progress,2026-10-24 10:09:00
+citizen_028,Uneven road surface near crossing #028,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.556577,76.915239,low,submitted,2026-07-11 10:03:00
+citizen_029,Open manhole cover concern #029,A manhole cover appears unsafe and should be inspected promptly.,other,28.417784,77.140195,medium,resolved,2026-08-03 10:04:00
+citizen_030,Broken public footpath #030,A section of the footpath is broken and difficult for pedestrians to use.,other,28.408773,77.122572,medium,submitted,2026-07-08 10:39:00
+citizen_031,Large pothole after rainfall #031,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.455929,76.965191,medium,in_progress,2026-09-22 10:15:00
+citizen_032,Rainwater accumulation near bus stop #032,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.489734,77.132255,low,in_progress,2026-07-03 10:29:00
+citizen_033,Broken public footpath #033,A section of the footpath is broken and difficult for pedestrians to use.,other,28.443648,77.133315,low,submitted,2026-08-03 10:23:00
+citizen_034,Blocked drain causing waterlogging #034,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.452604,77.145963,medium,under_review,2026-07-26 10:42:00
+citizen_035,Streetlight not working #035,A streetlight in the area is not working and the location needs inspection.,other,28.59075,76.966116,high,submitted,2026-08-04 10:17:00
+citizen_036,Blocked drain causing waterlogging #036,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.532217,76.965996,medium,submitted,2026-09-16 10:57:00
+citizen_037,Deep pothole near school entrance #037,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.390581,76.983389,medium,resolved,2026-09-05 10:10:00
+citizen_038,Garbage scattered near bus stop #038,Litter and household waste are scattered around the bus stop.,garbage,28.606812,77.072755,medium,submitted,2026-07-05 10:53:00
+citizen_039,Blocked drain causing waterlogging #039,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.467516,77.133272,medium,submitted,2026-07-28 10:57:00
+citizen_040,Blocked drain causing waterlogging #040,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.464883,77.039971,medium,in_progress,2026-10-28 10:39:00
+citizen_041,Broken pavement on main road #041,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.574585,77.120354,high,resolved,2026-08-01 10:47:00
+citizen_042,Rainwater accumulation near bus stop #042,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.57458,76.966701,high,resolved,2026-07-26 10:24:00
+citizen_043,Large pothole after rainfall #043,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.490473,76.976298,low,resolved,2026-08-26 10:14:00
+citizen_044,Potholes on residential road #044,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.396661,77.093332,medium,submitted,2026-10-12 10:43:00
+citizen_045,Streetlight not working #045,A streetlight in the area is not working and the location needs inspection.,other,28.612896,76.944642,high,submitted,2026-07-09 10:06:00
+citizen_046,Open manhole cover concern #046,A manhole cover appears unsafe and should be inspected promptly.,other,28.484735,77.146059,medium,in_progress,2026-10-04 10:57:00
+citizen_047,Damaged road sign near crossing #047,A road sign near the crossing appears damaged and needs inspection.,other,28.380406,77.131394,medium,in_progress,2026-08-18 10:23:00
+citizen_048,Garbage pile near community park #048,Waste has accumulated near the park entrance and needs collection.,garbage,28.529557,77.065847,high,resolved,2026-09-04 10:32:00
+citizen_049,Rainwater accumulation near bus stop #049,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.513059,76.94796,medium,in_progress,2026-10-22 10:43:00
+citizen_050,Uneven road surface near crossing #050,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.45293,76.952546,medium,resolved,2026-09-26 10:29:00
+citizen_051,Garbage scattered near bus stop #051,Litter and household waste are scattered around the bus stop.,garbage,28.570496,77.139958,medium,under_review,2026-08-24 10:42:00
+citizen_052,Damaged road surface near bus stop #052,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.460445,77.104606,medium,in_progress,2026-08-25 10:43:00
+citizen_053,Blocked drain causing waterlogging #053,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.391091,77.145984,high,submitted,2026-07-20 10:29:00
+citizen_054,Overflowing public dustbin #054,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.475917,76.936893,medium,under_review,2026-07-23 10:57:00
+citizen_055,Large pothole after rainfall #055,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.547019,77.016137,low,resolved,2026-08-18 10:58:00
+citizen_056,Large pothole after rainfall #056,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.507472,77.039731,low,under_review,2026-10-11 10:39:00
+citizen_057,Open manhole cover concern #057,A manhole cover appears unsafe and should be inspected promptly.,other,28.59533,77.085914,high,under_review,2026-10-16 10:16:00
+citizen_058,Uneven road surface near crossing #058,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.53042,76.968649,high,under_review,2026-09-03 10:15:00
+citizen_059,Standing water outside residential block #059,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.41321,76.957815,medium,under_review,2026-08-23 10:45:00
+citizen_060,Cracked road near market #060,The road has visible cracks and broken edges near the market area.,damaged_road,28.491822,76.915566,medium,under_review,2026-10-27 10:24:00
+citizen_061,Broken public footpath #061,A section of the footpath is broken and difficult for pedestrians to use.,other,28.471291,76.901474,high,in_progress,2026-09-12 10:48:00
+citizen_062,Garbage scattered near bus stop #062,Litter and household waste are scattered around the bus stop.,garbage,28.571968,77.124453,medium,in_progress,2026-08-16 10:17:00
+citizen_063,Garbage scattered near bus stop #063,Litter and household waste are scattered around the bus stop.,garbage,28.542994,77.001079,low,under_review,2026-10-06 10:58:00
+citizen_064,Cracked road near market #064,The road has visible cracks and broken edges near the market area.,damaged_road,28.53912,76.920987,high,in_progress,2026-08-14 10:55:00
+citizen_065,Overflowing public dustbin #065,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.430798,76.981711,low,under_review,2026-10-25 10:17:00
+citizen_066,Uncollected waste near market #066,Waste bags have remained near the market area and need timely collection.,garbage,28.559766,76.913021,high,under_review,2026-08-12 10:41:00
+citizen_067,Deep pothole near school entrance #067,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.427847,76.905095,high,resolved,2026-08-05 10:08:00
+citizen_068,Garbage pile near community park #068,Waste has accumulated near the park entrance and needs collection.,garbage,28.547872,77.091725,medium,submitted,2026-07-06 10:49:00
+citizen_069,Uneven road surface near crossing #069,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.45487,77.069337,low,submitted,2026-10-13 10:45:00
+citizen_070,Cracked road near market #070,The road has visible cracks and broken edges near the market area.,damaged_road,28.438284,77.074298,medium,resolved,2026-07-10 10:50:00
+citizen_071,Broken public footpath #071,A section of the footpath is broken and difficult for pedestrians to use.,other,28.468937,77.02649,medium,under_review,2026-07-11 10:54:00
+citizen_072,Garbage scattered near bus stop #072,Litter and household waste are scattered around the bus stop.,garbage,28.53254,77.107177,low,resolved,2026-08-23 10:27:00
+citizen_073,Uneven road surface near crossing #073,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.565914,77.016218,medium,resolved,2026-09-27 10:20:00
+citizen_074,Cracked road near market #074,The road has visible cracks and broken edges near the market area.,damaged_road,28.560114,77.042462,medium,under_review,2026-10-22 10:21:00
+citizen_075,Large pothole after rainfall #075,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.430909,77.099458,high,submitted,2026-09-11 10:56:00
+citizen_076,Streetlight not working #076,A streetlight in the area is not working and the location needs inspection.,other,28.425854,76.960339,medium,under_review,2026-10-14 10:35:00
+citizen_077,Road damage near apartment gate #077,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.570304,76.923263,medium,under_review,2026-10-08 10:44:00
+citizen_078,Uneven road surface near crossing #078,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.512834,76.985939,medium,under_review,2026-09-24 10:22:00
+citizen_079,Uncollected waste near market #079,Waste bags have remained near the market area and need timely collection.,garbage,28.553108,76.978887,medium,submitted,2026-08-24 10:12:00
+citizen_080,Road damage near apartment gate #080,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.56245,77.049198,medium,in_progress,2026-08-04 10:18:00
+citizen_081,Uneven road surface near crossing #081,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.508192,76.968578,low,submitted,2026-09-02 10:44:00
+citizen_082,Road damage near apartment gate #082,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.448241,77.019679,low,submitted,2026-08-11 10:03:00
+citizen_083,Rainwater accumulation near bus stop #083,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.498019,77.044255,low,submitted,2026-07-22 10:09:00
+citizen_084,Uneven road surface near crossing #084,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.513938,77.004044,low,submitted,2026-08-20 10:49:00
+citizen_085,Open manhole cover concern #085,A manhole cover appears unsafe and should be inspected promptly.,other,28.58644,77.147508,medium,under_review,2026-07-10 10:39:00
+citizen_086,Potholes on residential road #086,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.399485,76.959966,medium,submitted,2026-07-18 10:10:00
+citizen_087,Large pothole after rainfall #087,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.449902,76.957869,medium,in_progress,2026-09-23 10:44:00
+citizen_088,Garbage pile near community park #088,Waste has accumulated near the park entrance and needs collection.,garbage,28.569079,77.056265,medium,resolved,2026-08-22 10:27:00
+citizen_089,Potholes on residential road #089,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.578391,76.917852,medium,resolved,2026-09-06 10:38:00
+citizen_090,Streetlight not working #090,A streetlight in the area is not working and the location needs inspection.,other,28.452982,77.000627,medium,under_review,2026-10-09 10:28:00
+citizen_091,Deep pothole near school entrance #091,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.524891,76.906466,high,in_progress,2026-07-08 10:48:00
+citizen_092,Waterlogging near street corner #092,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.504551,77.010557,high,submitted,2026-08-09 10:37:00
+citizen_093,Garbage scattered near bus stop #093,Litter and household waste are scattered around the bus stop.,garbage,28.478004,76.980265,high,under_review,2026-08-04 10:21:00
+citizen_094,Garbage scattered near bus stop #094,Litter and household waste are scattered around the bus stop.,garbage,28.575256,77.037524,medium,resolved,2026-07-15 10:20:00
+citizen_095,Standing water outside residential block #095,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.587579,77.106232,low,in_progress,2026-10-01 10:26:00
+citizen_096,Potholes on residential road #096,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.499638,77.01051,medium,in_progress,2026-08-02 10:17:00
+citizen_097,Damaged road sign near crossing #097,A road sign near the crossing appears damaged and needs inspection.,other,28.54758,76.930357,high,under_review,2026-08-21 10:45:00
+citizen_098,Uneven road surface near crossing #098,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.40237,77.148064,medium,in_progress,2026-10-04 10:07:00
+citizen_099,Road damage near apartment gate #099,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.549299,77.003873,high,submitted,2026-10-16 10:15:00
+citizen_100,Overflowing public dustbin #100,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.501978,77.119832,medium,resolved,2026-07-28 10:17:00
+citizen_101,Uncollected waste near market #101,Waste bags have remained near the market area and need timely collection.,garbage,28.576932,76.97071,high,under_review,2026-10-10 10:55:00
+citizen_102,Road damage near apartment gate #102,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.51246,77.035858,medium,under_review,2026-09-15 10:55:00
+citizen_103,Broken pavement on main road #103,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.566131,76.910912,medium,submitted,2026-10-24 10:45:00
+citizen_104,Garbage scattered near bus stop #104,Litter and household waste are scattered around the bus stop.,garbage,28.536485,76.938026,high,in_progress,2026-08-02 10:32:00
+citizen_105,Streetlight not working #105,A streetlight in the area is not working and the location needs inspection.,other,28.485673,77.031488,high,resolved,2026-07-15 10:46:00
+citizen_106,Road damage near apartment gate #106,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.397959,77.095381,high,resolved,2026-09-09 10:39:00
+citizen_107,Garbage pile near community park #107,Waste has accumulated near the park entrance and needs collection.,garbage,28.586242,76.995002,high,resolved,2026-10-11 10:55:00
+citizen_108,Broken public footpath #108,A section of the footpath is broken and difficult for pedestrians to use.,other,28.544256,76.971845,medium,submitted,2026-07-08 10:27:00
+citizen_109,Deep pothole near school entrance #109,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.596822,76.911498,medium,in_progress,2026-07-26 10:18:00
+citizen_110,Standing water outside residential block #110,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.478892,77.07045,medium,submitted,2026-08-06 10:11:00
+citizen_111,Large pothole after rainfall #111,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.599079,76.935779,medium,submitted,2026-09-15 10:29:00
+citizen_112,Waterlogging near street corner #112,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.449032,77.03665,high,under_review,2026-10-03 10:22:00
+citizen_113,Streetlight not working #113,A streetlight in the area is not working and the location needs inspection.,other,28.440024,77.111326,medium,under_review,2026-10-07 10:54:00
+citizen_114,Garbage pile near community park #114,Waste has accumulated near the park entrance and needs collection.,garbage,28.517955,77.148173,low,in_progress,2026-07-10 10:53:00
+citizen_115,Uncollected waste near market #115,Waste bags have remained near the market area and need timely collection.,garbage,28.566795,77.143401,low,resolved,2026-10-20 10:53:00
+citizen_116,Blocked drain causing waterlogging #116,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.532788,77.055223,medium,under_review,2026-08-22 10:40:00
+citizen_117,Deep pothole near school entrance #117,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.519098,77.08309,medium,under_review,2026-09-03 10:20:00
+citizen_118,Overflowing public dustbin #118,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.590351,76.991464,low,in_progress,2026-09-17 10:53:00
+citizen_119,Uneven road surface near crossing #119,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.612172,76.973785,high,resolved,2026-09-28 10:51:00
+citizen_120,Large pothole after rainfall #120,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.61196,77.115035,high,submitted,2026-10-24 10:54:00
+citizen_121,Streetlight not working #121,A streetlight in the area is not working and the location needs inspection.,other,28.44347,76.930897,low,under_review,2026-09-12 10:37:00
+citizen_122,Uncollected waste near market #122,Waste bags have remained near the market area and need timely collection.,garbage,28.386006,77.121059,low,submitted,2026-09-18 10:58:00
+citizen_123,Damaged road sign near crossing #123,A road sign near the crossing appears damaged and needs inspection.,other,28.491424,77.075269,medium,in_progress,2026-10-21 10:07:00
+citizen_124,Cracked road near market #124,The road has visible cracks and broken edges near the market area.,damaged_road,28.49823,76.924298,high,under_review,2026-08-18 10:24:00
+citizen_125,Uncollected waste near market #125,Waste bags have remained near the market area and need timely collection.,garbage,28.607034,77.004782,medium,in_progress,2026-08-24 10:56:00
+citizen_126,Garbage pile near community park #126,Waste has accumulated near the park entrance and needs collection.,garbage,28.605373,76.969935,high,in_progress,2026-09-23 10:13:00
+citizen_127,Garbage scattered near bus stop #127,Litter and household waste are scattered around the bus stop.,garbage,28.403845,77.07142,high,resolved,2026-09-18 10:03:00
+citizen_128,Uncollected waste near market #128,Waste bags have remained near the market area and need timely collection.,garbage,28.583528,77.013679,low,submitted,2026-08-22 10:41:00
+citizen_129,Broken public footpath #129,A section of the footpath is broken and difficult for pedestrians to use.,other,28.617317,77.096745,low,under_review,2026-07-07 10:53:00
+citizen_130,Damaged road sign near crossing #130,A road sign near the crossing appears damaged and needs inspection.,other,28.43592,77.093592,medium,resolved,2026-07-26 10:17:00
+citizen_131,Broken pavement on main road #131,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.406382,77.116612,medium,in_progress,2026-07-05 10:22:00
+citizen_132,Uneven road surface near crossing #132,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.410422,77.00524,low,submitted,2026-07-04 10:30:00
+citizen_133,Uncollected waste near market #133,Waste bags have remained near the market area and need timely collection.,garbage,28.500921,77.136354,medium,submitted,2026-09-02 10:29:00
+citizen_134,Deep pothole near school entrance #134,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.482306,76.92699,high,resolved,2026-10-23 10:04:00
+citizen_135,Damaged road surface near bus stop #135,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.446004,77.058269,medium,submitted,2026-09-18 10:24:00
+citizen_136,Streetlight not working #136,A streetlight in the area is not working and the location needs inspection.,other,28.403803,77.075445,medium,in_progress,2026-08-28 10:27:00
+citizen_137,Overflowing public dustbin #137,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.475695,77.082403,medium,resolved,2026-10-11 10:20:00
+citizen_138,Standing water outside residential block #138,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.493824,76.922806,high,in_progress,2026-07-03 10:27:00
+citizen_139,Damaged road surface near bus stop #139,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.520752,77.040397,high,in_progress,2026-07-11 10:26:00
+citizen_140,Rainwater accumulation near bus stop #140,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.612416,77.050103,high,in_progress,2026-07-12 10:36:00
+citizen_141,Damaged road sign near crossing #141,A road sign near the crossing appears damaged and needs inspection.,other,28.583346,76.987528,low,under_review,2026-09-18 10:07:00
+citizen_142,Blocked drain causing waterlogging #142,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.613891,77.104607,high,resolved,2026-07-20 10:38:00
+citizen_143,Waterlogging near street corner #143,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.454156,76.984956,low,in_progress,2026-08-01 10:55:00
+citizen_144,Road damage near apartment gate #144,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.613234,76.922939,low,in_progress,2026-08-17 10:24:00
+citizen_145,Garbage scattered near bus stop #145,Litter and household waste are scattered around the bus stop.,garbage,28.553183,77.094209,medium,under_review,2026-07-19 10:56:00
+citizen_146,Potholes on residential road #146,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.541752,76.968026,low,in_progress,2026-10-22 10:31:00
+citizen_147,Open manhole cover concern #147,A manhole cover appears unsafe and should be inspected promptly.,other,28.502963,76.986293,medium,submitted,2026-09-04 10:43:00
+citizen_148,Open manhole cover concern #148,A manhole cover appears unsafe and should be inspected promptly.,other,28.432924,77.146111,medium,under_review,2026-07-02 10:13:00
+citizen_149,Blocked drain causing waterlogging #149,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.449467,76.929996,high,in_progress,2026-10-16 10:11:00
+citizen_150,Road damage near apartment gate #150,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.514094,77.067012,medium,submitted,2026-07-12 10:25:00
+citizen_151,Large pothole after rainfall #151,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.586906,77.04394,low,resolved,2026-10-19 10:45:00
+citizen_152,Uncollected waste near market #152,Waste bags have remained near the market area and need timely collection.,garbage,28.457944,77.100331,low,submitted,2026-10-20 10:53:00
+citizen_153,Waterlogging near street corner #153,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.484562,77.000112,medium,submitted,2026-10-03 10:55:00
+citizen_154,Standing water outside residential block #154,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.398331,77.058306,low,in_progress,2026-08-17 10:57:00
+citizen_155,Standing water outside residential block #155,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.575609,76.959067,medium,resolved,2026-09-05 10:12:00
+citizen_156,Broken pavement on main road #156,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.422515,77.093212,high,in_progress,2026-10-16 10:48:00
+citizen_157,Open manhole cover concern #157,A manhole cover appears unsafe and should be inspected promptly.,other,28.534318,77.146633,medium,resolved,2026-09-11 10:09:00
+citizen_158,Garbage pile near community park #158,Waste has accumulated near the park entrance and needs collection.,garbage,28.571119,77.047855,medium,in_progress,2026-07-12 10:19:00
+citizen_159,Garbage scattered near bus stop #159,Litter and household waste are scattered around the bus stop.,garbage,28.448898,77.061167,low,under_review,2026-07-28 10:39:00
+citizen_160,Open manhole cover concern #160,A manhole cover appears unsafe and should be inspected promptly.,other,28.570036,77.123969,medium,in_progress,2026-08-15 10:20:00
+citizen_161,Open manhole cover concern #161,A manhole cover appears unsafe and should be inspected promptly.,other,28.488126,77.102742,medium,resolved,2026-09-27 10:45:00
+citizen_162,Potholes on residential road #162,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.617837,77.031017,low,in_progress,2026-08-20 10:23:00
+citizen_163,Standing water outside residential block #163,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.542935,76.913091,medium,in_progress,2026-09-21 10:04:00
+citizen_164,Waterlogging near street corner #164,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.440479,77.112892,medium,under_review,2026-08-20 10:21:00
+citizen_165,Potholes on residential road #165,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.537453,77.065534,high,under_review,2026-07-05 10:19:00
+citizen_166,Open manhole cover concern #166,A manhole cover appears unsafe and should be inspected promptly.,other,28.410671,77.075708,medium,under_review,2026-07-24 10:41:00
+citizen_167,Uncollected waste near market #167,Waste bags have remained near the market area and need timely collection.,garbage,28.608281,76.985433,low,under_review,2026-10-25 10:12:00
+citizen_168,Broken pavement on main road #168,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.569149,77.026922,low,submitted,2026-07-18 10:42:00
+citizen_169,Blocked drain causing waterlogging #169,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.423403,77.073211,medium,submitted,2026-08-20 10:46:00
+citizen_170,Garbage pile near community park #170,Waste has accumulated near the park entrance and needs collection.,garbage,28.437007,77.01105,medium,in_progress,2026-10-10 10:14:00
+citizen_171,Damaged road sign near crossing #171,A road sign near the crossing appears damaged and needs inspection.,other,28.492564,77.108778,medium,resolved,2026-10-12 10:29:00
+citizen_172,Rainwater accumulation near bus stop #172,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.418894,76.949924,medium,under_review,2026-08-20 10:55:00
+citizen_173,Waterlogging near street corner #173,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.51309,76.925647,medium,resolved,2026-07-28 10:18:00
+citizen_174,Potholes on residential road #174,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.415364,77.009368,medium,resolved,2026-10-08 10:56:00
+citizen_175,Waterlogging near street corner #175,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.469751,76.996542,medium,under_review,2026-09-03 10:14:00
+citizen_176,Damaged road surface near bus stop #176,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.535991,77.097845,high,resolved,2026-07-05 10:18:00
+citizen_177,Overflowing public dustbin #177,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.527684,77.126464,high,under_review,2026-09-01 10:13:00
+citizen_178,Road damage near apartment gate #178,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.452276,76.911937,low,submitted,2026-10-14 10:04:00
+citizen_179,Large pothole after rainfall #179,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.50369,76.960485,medium,submitted,2026-09-05 10:27:00
+citizen_180,Damaged road surface near bus stop #180,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.539449,76.921403,low,under_review,2026-07-12 10:33:00
+citizen_181,Broken public footpath #181,A section of the footpath is broken and difficult for pedestrians to use.,other,28.532561,77.14526,medium,under_review,2026-07-09 10:22:00
+citizen_182,Damaged road surface near bus stop #182,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.404879,77.045476,low,in_progress,2026-09-25 10:08:00
+citizen_183,Damaged road surface near bus stop #183,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.422021,77.094786,medium,resolved,2026-10-15 10:40:00
+citizen_184,Broken pavement on main road #184,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.489843,76.973361,low,in_progress,2026-08-02 10:56:00
+citizen_185,Damaged road surface near bus stop #185,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.617389,77.035758,high,under_review,2026-07-09 10:48:00
+citizen_186,Uneven road surface near crossing #186,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.587792,76.982981,medium,in_progress,2026-09-04 10:27:00
+citizen_187,Garbage scattered near bus stop #187,Litter and household waste are scattered around the bus stop.,garbage,28.613694,77.024051,high,under_review,2026-09-16 10:59:00
+citizen_188,Streetlight not working #188,A streetlight in the area is not working and the location needs inspection.,other,28.398942,77.050613,high,in_progress,2026-08-27 10:34:00
+citizen_189,Standing water outside residential block #189,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.450954,77.011479,low,under_review,2026-10-23 10:10:00
+citizen_190,Uncollected waste near market #190,Waste bags have remained near the market area and need timely collection.,garbage,28.598786,77.053713,medium,in_progress,2026-09-14 10:40:00
+citizen_191,Deep pothole near school entrance #191,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.503141,77.087474,medium,under_review,2026-07-06 10:09:00
+citizen_192,Open manhole cover concern #192,A manhole cover appears unsafe and should be inspected promptly.,other,28.566844,76.991582,low,submitted,2026-07-13 10:38:00
+citizen_193,Road damage near apartment gate #193,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.56314,77.04348,high,under_review,2026-09-17 10:25:00
+citizen_194,Standing water outside residential block #194,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.556562,77.024761,low,submitted,2026-07-13 10:16:00
+citizen_195,Rainwater accumulation near bus stop #195,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.546555,77.149657,low,in_progress,2026-07-07 10:08:00
+citizen_196,Large pothole after rainfall #196,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.619343,77.102628,low,in_progress,2026-09-28 10:42:00
+citizen_197,Waterlogging near street corner #197,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.45199,76.939376,medium,submitted,2026-08-23 10:50:00
+citizen_198,Blocked drain causing waterlogging #198,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.41333,77.097593,low,submitted,2026-09-01 10:35:00
+citizen_199,Streetlight not working #199,A streetlight in the area is not working and the location needs inspection.,other,28.411145,77.121062,medium,resolved,2026-09-03 10:25:00
+citizen_200,Garbage scattered near bus stop #200,Litter and household waste are scattered around the bus stop.,garbage,28.3977,77.143095,high,resolved,2026-07-21 10:28:00
+citizen_001,Uncollected waste near market #201,Waste bags have remained near the market area and need timely collection.,garbage,28.512313,77.046946,low,resolved,2026-08-25 10:27:00
+citizen_002,Broken public footpath #202,A section of the footpath is broken and difficult for pedestrians to use.,other,28.45299,76.940492,high,under_review,2026-08-23 10:22:00
+citizen_003,Streetlight not working #203,A streetlight in the area is not working and the location needs inspection.,other,28.532414,77.03771,high,submitted,2026-09-05 10:39:00
+citizen_004,Broken public footpath #204,A section of the footpath is broken and difficult for pedestrians to use.,other,28.605986,76.938549,medium,submitted,2026-09-22 10:53:00
+citizen_005,Broken public footpath #205,A section of the footpath is broken and difficult for pedestrians to use.,other,28.390911,77.060363,high,submitted,2026-09-19 10:41:00
+citizen_006,Road damage near apartment gate #206,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.593359,77.036394,medium,submitted,2026-09-21 10:30:00
+citizen_007,Road damage near apartment gate #207,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.394379,77.009901,medium,submitted,2026-10-16 10:13:00
+citizen_008,Blocked drain causing waterlogging #208,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.556208,77.115194,medium,in_progress,2026-08-13 10:48:00
+citizen_009,Waterlogging near street corner #209,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.444193,76.96198,medium,under_review,2026-07-04 10:18:00
+citizen_010,Garbage scattered near bus stop #210,Litter and household waste are scattered around the bus stop.,garbage,28.418328,76.981859,low,resolved,2026-09-19 10:12:00
+citizen_011,Road damage near apartment gate #211,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.590978,77.024343,high,under_review,2026-10-03 10:32:00
+citizen_012,Overflowing public dustbin #212,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.39213,77.023724,low,under_review,2026-10-27 10:18:00
+citizen_013,Broken public footpath #213,A section of the footpath is broken and difficult for pedestrians to use.,other,28.591789,77.081877,high,under_review,2026-10-25 10:23:00
+citizen_014,Large pothole after rainfall #214,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.467006,76.97215,low,in_progress,2026-10-13 10:48:00
+citizen_015,Streetlight not working #215,A streetlight in the area is not working and the location needs inspection.,other,28.52665,76.932166,high,in_progress,2026-10-04 10:23:00
+citizen_016,Standing water outside residential block #216,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.502189,77.025019,high,submitted,2026-07-02 10:08:00
+citizen_017,Rainwater accumulation near bus stop #217,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.594352,76.934945,medium,submitted,2026-09-20 10:10:00
+citizen_018,Uncollected waste near market #218,Waste bags have remained near the market area and need timely collection.,garbage,28.502331,77.022462,medium,under_review,2026-09-19 10:30:00
+citizen_019,Damaged road surface near bus stop #219,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.47997,76.976919,medium,submitted,2026-07-24 10:38:00
+citizen_020,Uncollected waste near market #220,Waste bags have remained near the market area and need timely collection.,garbage,28.566279,77.044409,high,in_progress,2026-07-24 10:37:00
+citizen_021,Overflowing public dustbin #221,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.565905,76.995048,medium,in_progress,2026-08-27 10:02:00
+citizen_022,Broken public footpath #222,A section of the footpath is broken and difficult for pedestrians to use.,other,28.480507,77.00324,low,under_review,2026-10-07 10:32:00
+citizen_023,Open manhole cover concern #223,A manhole cover appears unsafe and should be inspected promptly.,other,28.394948,76.934521,high,in_progress,2026-09-07 10:42:00
+citizen_024,Garbage scattered near bus stop #224,Litter and household waste are scattered around the bus stop.,garbage,28.59891,76.985582,medium,submitted,2026-09-12 10:39:00
+citizen_025,Overflowing public dustbin #225,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.45164,77.135371,high,submitted,2026-09-10 10:45:00
+citizen_026,Road damage near apartment gate #226,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.604088,77.098851,medium,under_review,2026-09-09 10:07:00
+citizen_027,Open manhole cover concern #227,A manhole cover appears unsafe and should be inspected promptly.,other,28.462832,77.093266,high,under_review,2026-09-05 10:02:00
+citizen_028,Waterlogging near street corner #228,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.441547,77.01977,medium,under_review,2026-09-07 10:59:00
+citizen_029,Streetlight not working #229,A streetlight in the area is not working and the location needs inspection.,other,28.520839,76.960615,low,in_progress,2026-08-22 10:40:00
+citizen_030,Cracked road near market #230,The road has visible cracks and broken edges near the market area.,damaged_road,28.493377,77.070298,low,under_review,2026-07-05 10:35:00
+citizen_031,Road damage near apartment gate #231,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.494168,77.062635,medium,resolved,2026-09-25 10:20:00
+citizen_032,Waterlogging near street corner #232,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.517792,77.033788,high,submitted,2026-07-24 10:58:00
+citizen_033,Road damage near apartment gate #233,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.600712,77.149293,high,submitted,2026-10-13 10:11:00
+citizen_034,Waterlogging near street corner #234,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.405752,77.145748,low,in_progress,2026-10-10 10:41:00
+citizen_035,Open manhole cover concern #235,A manhole cover appears unsafe and should be inspected promptly.,other,28.501011,76.968209,high,submitted,2026-07-26 10:21:00
+citizen_036,Road damage near apartment gate #236,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.38338,76.984278,medium,in_progress,2026-08-10 10:11:00
+citizen_037,Open manhole cover concern #237,A manhole cover appears unsafe and should be inspected promptly.,other,28.400817,77.067314,high,under_review,2026-08-06 10:30:00
+citizen_038,Blocked drain causing waterlogging #238,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.487217,76.966749,low,under_review,2026-09-11 10:37:00
+citizen_039,Broken public footpath #239,A section of the footpath is broken and difficult for pedestrians to use.,other,28.436713,77.066947,medium,under_review,2026-09-15 10:10:00
+citizen_040,Uncollected waste near market #240,Waste bags have remained near the market area and need timely collection.,garbage,28.605753,76.991886,medium,in_progress,2026-08-08 10:08:00
+citizen_041,Overflowing public dustbin #241,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.46967,77.075485,medium,resolved,2026-08-16 10:48:00
+citizen_042,Cracked road near market #242,The road has visible cracks and broken edges near the market area.,damaged_road,28.466828,77.129311,medium,under_review,2026-07-04 10:53:00
+citizen_043,Damaged road sign near crossing #243,A road sign near the crossing appears damaged and needs inspection.,other,28.458748,77.030085,medium,submitted,2026-08-04 10:45:00
+citizen_044,Open manhole cover concern #244,A manhole cover appears unsafe and should be inspected promptly.,other,28.574086,77.013358,low,under_review,2026-10-17 10:29:00
+citizen_045,Broken public footpath #245,A section of the footpath is broken and difficult for pedestrians to use.,other,28.453961,76.905443,medium,in_progress,2026-07-09 10:47:00
+citizen_046,Cracked road near market #246,The road has visible cracks and broken edges near the market area.,damaged_road,28.395302,77.148531,low,under_review,2026-10-03 10:02:00
+citizen_047,Rainwater accumulation near bus stop #247,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.533966,77.082322,low,submitted,2026-09-14 10:57:00
+citizen_048,Garbage scattered near bus stop #248,Litter and household waste are scattered around the bus stop.,garbage,28.470155,77.070683,high,resolved,2026-08-22 10:41:00
+citizen_049,Waterlogging near street corner #249,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.506922,77.081965,low,under_review,2026-07-08 10:48:00
+citizen_050,Damaged road surface near bus stop #250,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.481791,76.994819,medium,in_progress,2026-08-08 10:29:00
+citizen_051,Blocked drain causing waterlogging #251,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.554006,76.928211,medium,resolved,2026-10-26 10:39:00
+citizen_052,Potholes on residential road #252,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.388058,77.049446,low,submitted,2026-07-23 10:15:00
+citizen_053,Large pothole after rainfall #253,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.561053,77.094016,medium,under_review,2026-09-05 10:14:00
+citizen_054,Streetlight not working #254,A streetlight in the area is not working and the location needs inspection.,other,28.576412,76.959226,medium,in_progress,2026-08-05 10:26:00
+citizen_055,Standing water outside residential block #255,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.591131,77.127894,low,resolved,2026-10-21 10:35:00
+citizen_056,Garbage pile near community park #256,Waste has accumulated near the park entrance and needs collection.,garbage,28.541122,77.096451,high,resolved,2026-10-11 10:26:00
+citizen_057,Uneven road surface near crossing #257,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.493645,77.112335,medium,in_progress,2026-08-10 10:51:00
+citizen_058,Garbage pile near community park #258,Waste has accumulated near the park entrance and needs collection.,garbage,28.513749,76.933523,medium,resolved,2026-09-08 10:13:00
+citizen_059,Waterlogging near street corner #259,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.402191,77.081146,high,resolved,2026-07-07 10:17:00
+citizen_060,Garbage pile near community park #260,Waste has accumulated near the park entrance and needs collection.,garbage,28.562807,77.081076,high,submitted,2026-08-18 10:30:00
+citizen_061,Uneven road surface near crossing #261,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.430834,76.947506,medium,resolved,2026-07-24 10:47:00
+citizen_062,Overflowing public dustbin #262,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.475192,76.959833,medium,in_progress,2026-09-11 10:24:00
+citizen_063,Uncollected waste near market #263,Waste bags have remained near the market area and need timely collection.,garbage,28.591875,77.016501,medium,under_review,2026-10-26 10:48:00
+citizen_064,Blocked drain causing waterlogging #264,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.515006,76.955319,medium,under_review,2026-07-05 10:16:00
+citizen_065,Open manhole cover concern #265,A manhole cover appears unsafe and should be inspected promptly.,other,28.435204,77.042447,medium,submitted,2026-10-08 10:35:00
+citizen_066,Standing water outside residential block #266,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.553654,77.084899,high,under_review,2026-08-15 10:46:00
+citizen_067,Blocked drain causing waterlogging #267,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.424171,77.122341,low,under_review,2026-07-21 10:33:00
+citizen_068,Deep pothole near school entrance #268,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.563441,77.003098,high,in_progress,2026-08-27 10:04:00
+citizen_069,Cracked road near market #269,The road has visible cracks and broken edges near the market area.,damaged_road,28.394508,77.059432,low,under_review,2026-10-20 10:42:00
+citizen_070,Garbage pile near community park #270,Waste has accumulated near the park entrance and needs collection.,garbage,28.382844,77.032354,low,in_progress,2026-09-09 10:01:00
+citizen_071,Open manhole cover concern #271,A manhole cover appears unsafe and should be inspected promptly.,other,28.405684,76.924078,high,resolved,2026-08-05 10:12:00
+citizen_072,Streetlight not working #272,A streetlight in the area is not working and the location needs inspection.,other,28.475255,76.993263,high,submitted,2026-10-13 10:36:00
+citizen_073,Broken pavement on main road #273,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.399348,77.147919,medium,resolved,2026-07-21 10:05:00
+citizen_074,Garbage scattered near bus stop #274,Litter and household waste are scattered around the bus stop.,garbage,28.53282,77.075711,medium,under_review,2026-10-03 10:54:00
+citizen_075,Uncollected waste near market #275,Waste bags have remained near the market area and need timely collection.,garbage,28.402887,77.03204,medium,resolved,2026-08-02 10:13:00
+citizen_076,Open manhole cover concern #276,A manhole cover appears unsafe and should be inspected promptly.,other,28.544263,76.970093,medium,resolved,2026-07-18 10:11:00
+citizen_077,Waterlogging near street corner #277,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.560541,77.078178,high,in_progress,2026-07-13 10:19:00
+citizen_078,Broken pavement on main road #278,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.542488,77.035141,medium,resolved,2026-08-13 10:50:00
+citizen_079,Damaged road surface near bus stop #279,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.581282,76.985148,low,under_review,2026-10-25 10:49:00
+citizen_080,Waterlogging near street corner #280,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.488132,76.957035,medium,in_progress,2026-10-18 10:27:00
+citizen_081,Road damage near apartment gate #281,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.571533,77.078277,low,in_progress,2026-09-03 10:09:00
+citizen_082,Overflowing public dustbin #282,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.405572,76.901299,medium,under_review,2026-10-10 10:23:00
+citizen_083,Waterlogging near street corner #283,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.487722,77.038685,low,submitted,2026-07-14 10:01:00
+citizen_084,Damaged road surface near bus stop #284,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.568265,77.11593,medium,in_progress,2026-09-01 10:26:00
+citizen_085,Garbage pile near community park #285,Waste has accumulated near the park entrance and needs collection.,garbage,28.618255,76.960686,medium,in_progress,2026-08-17 10:43:00
+citizen_086,Overflowing public dustbin #286,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.49835,76.915817,low,under_review,2026-09-14 10:26:00
+citizen_087,Rainwater accumulation near bus stop #287,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.606613,77.080225,high,under_review,2026-08-16 10:29:00
+citizen_088,Potholes on residential road #288,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.459732,77.055048,medium,resolved,2026-09-26 10:28:00
+citizen_089,Rainwater accumulation near bus stop #289,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.613814,76.934031,high,resolved,2026-08-11 10:30:00
+citizen_090,Blocked drain causing waterlogging #290,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.449948,77.073739,high,resolved,2026-08-16 10:20:00
+citizen_091,Uncollected waste near market #291,Waste bags have remained near the market area and need timely collection.,garbage,28.407333,77.040963,high,under_review,2026-08-19 10:43:00
+citizen_092,Broken public footpath #292,A section of the footpath is broken and difficult for pedestrians to use.,other,28.550008,77.009614,high,under_review,2026-07-10 10:52:00
+citizen_093,Garbage scattered near bus stop #293,Litter and household waste are scattered around the bus stop.,garbage,28.440644,76.938536,low,under_review,2026-10-14 10:04:00
+citizen_094,Garbage scattered near bus stop #294,Litter and household waste are scattered around the bus stop.,garbage,28.601639,77.117408,medium,under_review,2026-07-14 10:50:00
+citizen_095,Waterlogging near street corner #295,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.539527,76.941585,low,submitted,2026-07-20 10:36:00
+citizen_096,Uncollected waste near market #296,Waste bags have remained near the market area and need timely collection.,garbage,28.382531,76.964685,high,under_review,2026-08-17 10:28:00
+citizen_097,Rainwater accumulation near bus stop #297,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.545705,76.937686,medium,in_progress,2026-10-01 10:06:00
+citizen_098,Rainwater accumulation near bus stop #298,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.579516,77.082538,high,submitted,2026-09-12 10:21:00
+citizen_099,Overflowing public dustbin #299,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.40343,77.080498,medium,under_review,2026-09-15 10:04:00
+citizen_100,Waterlogging near street corner #300,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.583803,77.061992,high,submitted,2026-08-22 10:59:00
+citizen_101,Broken pavement on main road #301,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.482329,77.015514,medium,under_review,2026-10-26 10:40:00
+citizen_102,Broken pavement on main road #302,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.387006,77.053527,medium,under_review,2026-10-07 10:37:00
+citizen_103,Garbage scattered near bus stop #303,Litter and household waste are scattered around the bus stop.,garbage,28.446803,77.07594,low,submitted,2026-07-26 10:36:00
+citizen_104,Potholes on residential road #304,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.407349,77.067675,medium,submitted,2026-09-16 10:38:00
+citizen_105,Garbage scattered near bus stop #305,Litter and household waste are scattered around the bus stop.,garbage,28.582924,77.054341,medium,under_review,2026-09-27 10:58:00
+citizen_106,Broken public footpath #306,A section of the footpath is broken and difficult for pedestrians to use.,other,28.437257,76.929237,medium,under_review,2026-08-12 10:32:00
+citizen_107,Garbage scattered near bus stop #307,Litter and household waste are scattered around the bus stop.,garbage,28.481529,77.021668,medium,in_progress,2026-08-18 10:35:00
+citizen_108,Road damage near apartment gate #308,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.582076,77.054852,medium,submitted,2026-09-28 10:00:00
+citizen_109,Overflowing public dustbin #309,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.51478,77.063267,low,under_review,2026-10-14 10:26:00
+citizen_110,Garbage scattered near bus stop #310,Litter and household waste are scattered around the bus stop.,garbage,28.571011,76.955132,low,in_progress,2026-09-02 10:14:00
+citizen_111,Streetlight not working #311,A streetlight in the area is not working and the location needs inspection.,other,28.558204,77.09148,low,under_review,2026-07-18 10:36:00
+citizen_112,Damaged road surface near bus stop #312,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.468047,77.105653,high,resolved,2026-10-02 10:34:00
+citizen_113,Road damage near apartment gate #313,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.560323,76.974427,low,resolved,2026-10-02 10:16:00
+citizen_114,Waterlogging near street corner #314,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.566152,76.959237,medium,resolved,2026-09-26 10:55:00
+citizen_115,Open manhole cover concern #315,A manhole cover appears unsafe and should be inspected promptly.,other,28.429589,76.951736,low,submitted,2026-09-02 10:34:00
+citizen_116,Blocked drain causing waterlogging #316,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.44944,76.966836,medium,in_progress,2026-07-28 10:08:00
+citizen_117,Garbage pile near community park #317,Waste has accumulated near the park entrance and needs collection.,garbage,28.410453,77.11652,high,resolved,2026-08-08 10:45:00
+citizen_118,Blocked drain causing waterlogging #318,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.49747,77.044356,high,in_progress,2026-10-09 10:24:00
+citizen_119,Garbage pile near community park #319,Waste has accumulated near the park entrance and needs collection.,garbage,28.402343,77.028903,medium,resolved,2026-09-09 10:29:00
+citizen_120,Uncollected waste near market #320,Waste bags have remained near the market area and need timely collection.,garbage,28.58332,76.923285,medium,resolved,2026-09-15 10:54:00
+citizen_121,Large pothole after rainfall #321,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.430844,76.967134,low,under_review,2026-09-27 10:21:00
+citizen_122,Damaged road sign near crossing #322,A road sign near the crossing appears damaged and needs inspection.,other,28.462498,77.070638,medium,under_review,2026-07-02 10:06:00
+citizen_123,Garbage pile near community park #323,Waste has accumulated near the park entrance and needs collection.,garbage,28.485909,76.900169,low,resolved,2026-08-14 10:44:00
+citizen_124,Uneven road surface near crossing #324,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.445765,77.063647,low,resolved,2026-07-09 10:23:00
+citizen_125,Cracked road near market #325,The road has visible cracks and broken edges near the market area.,damaged_road,28.547866,76.958536,medium,under_review,2026-07-21 10:45:00
+citizen_126,Deep pothole near school entrance #326,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.522483,77.029861,low,submitted,2026-07-15 10:00:00
+citizen_127,Waterlogging near street corner #327,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.411722,76.917707,high,under_review,2026-07-13 10:46:00
+citizen_128,Deep pothole near school entrance #328,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.412911,77.093365,medium,resolved,2026-08-25 10:41:00
+citizen_129,Cracked road near market #329,The road has visible cracks and broken edges near the market area.,damaged_road,28.536005,77.010025,medium,submitted,2026-08-24 10:40:00
+citizen_130,Road damage near apartment gate #330,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.432139,77.124148,medium,under_review,2026-07-05 10:37:00
+citizen_131,Uncollected waste near market #331,Waste bags have remained near the market area and need timely collection.,garbage,28.413559,76.969242,high,under_review,2026-08-03 10:35:00
+citizen_132,Streetlight not working #332,A streetlight in the area is not working and the location needs inspection.,other,28.583494,77.064601,high,in_progress,2026-08-10 10:33:00
+citizen_133,Damaged road sign near crossing #333,A road sign near the crossing appears damaged and needs inspection.,other,28.393097,77.124478,medium,submitted,2026-10-08 10:24:00
+citizen_134,Potholes on residential road #334,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.506789,77.144424,medium,in_progress,2026-09-12 10:08:00
+citizen_135,Garbage scattered near bus stop #335,Litter and household waste are scattered around the bus stop.,garbage,28.563054,77.138613,medium,in_progress,2026-07-25 10:01:00
+citizen_136,Broken public footpath #336,A section of the footpath is broken and difficult for pedestrians to use.,other,28.601419,77.13717,low,submitted,2026-09-13 10:40:00
+citizen_137,Open manhole cover concern #337,A manhole cover appears unsafe and should be inspected promptly.,other,28.533729,77.034414,medium,under_review,2026-09-05 10:05:00
+citizen_138,Waterlogging near street corner #338,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.573934,77.034098,medium,submitted,2026-07-13 10:19:00
+citizen_139,Overflowing public dustbin #339,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.484276,77.013343,low,submitted,2026-07-20 10:19:00
+citizen_140,Cracked road near market #340,The road has visible cracks and broken edges near the market area.,damaged_road,28.382724,77.024103,low,submitted,2026-09-12 10:10:00
+citizen_141,Blocked drain causing waterlogging #341,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.555905,76.929514,medium,resolved,2026-09-01 10:51:00
+citizen_142,Uncollected waste near market #342,Waste bags have remained near the market area and need timely collection.,garbage,28.614012,77.056883,medium,submitted,2026-10-16 10:32:00
+citizen_143,Waterlogging near street corner #343,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.468245,76.963779,medium,in_progress,2026-07-04 10:14:00
+citizen_144,Broken public footpath #344,A section of the footpath is broken and difficult for pedestrians to use.,other,28.438692,77.017941,low,resolved,2026-08-13 10:11:00
+citizen_145,Large pothole after rainfall #345,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.599805,76.979984,low,submitted,2026-07-27 10:36:00
+citizen_146,Waterlogging near street corner #346,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.423043,77.101085,medium,resolved,2026-10-02 10:04:00
+citizen_147,Uncollected waste near market #347,Waste bags have remained near the market area and need timely collection.,garbage,28.400733,77.014187,high,under_review,2026-08-12 10:18:00
+citizen_148,Streetlight not working #348,A streetlight in the area is not working and the location needs inspection.,other,28.468386,77.142964,medium,submitted,2026-08-25 10:46:00
+citizen_149,Damaged road sign near crossing #349,A road sign near the crossing appears damaged and needs inspection.,other,28.385738,77.035386,low,resolved,2026-07-21 10:21:00
+citizen_150,Large pothole after rainfall #350,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.404948,77.032454,high,in_progress,2026-10-08 10:31:00
+citizen_151,Potholes on residential road #351,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.601106,77.124322,medium,submitted,2026-10-17 10:44:00
+citizen_152,Rainwater accumulation near bus stop #352,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.402938,76.933378,high,submitted,2026-10-27 10:04:00
+citizen_153,Broken public footpath #353,A section of the footpath is broken and difficult for pedestrians to use.,other,28.436825,76.965248,medium,resolved,2026-10-11 10:44:00
+citizen_154,Standing water outside residential block #354,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.606453,76.934028,medium,submitted,2026-07-25 10:09:00
+citizen_155,Potholes on residential road #355,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.408977,76.989572,medium,under_review,2026-08-25 10:28:00
+citizen_156,Rainwater accumulation near bus stop #356,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.417828,77.071514,medium,submitted,2026-07-27 10:13:00
+citizen_157,Blocked drain causing waterlogging #357,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.465378,77.028365,low,submitted,2026-09-22 10:16:00
+citizen_158,Cracked road near market #358,The road has visible cracks and broken edges near the market area.,damaged_road,28.513429,77.03753,high,resolved,2026-10-04 10:06:00
+citizen_159,Cracked road near market #359,The road has visible cracks and broken edges near the market area.,damaged_road,28.615816,76.932679,low,resolved,2026-10-27 10:23:00
+citizen_160,Damaged road surface near bus stop #360,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.619319,76.949438,high,submitted,2026-10-21 10:51:00
+citizen_161,Cracked road near market #361,The road has visible cracks and broken edges near the market area.,damaged_road,28.459572,76.910674,high,resolved,2026-07-15 10:10:00
+citizen_162,Open manhole cover concern #362,A manhole cover appears unsafe and should be inspected promptly.,other,28.387076,77.070803,high,under_review,2026-09-06 10:13:00
+citizen_163,Uneven road surface near crossing #363,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.388316,77.054794,medium,resolved,2026-09-08 10:31:00
+citizen_164,Garbage scattered near bus stop #364,Litter and household waste are scattered around the bus stop.,garbage,28.412937,76.949864,low,submitted,2026-08-26 10:40:00
+citizen_165,Broken public footpath #365,A section of the footpath is broken and difficult for pedestrians to use.,other,28.466187,77.036129,high,in_progress,2026-09-16 10:58:00
+citizen_166,Streetlight not working #366,A streetlight in the area is not working and the location needs inspection.,other,28.456531,76.954755,medium,submitted,2026-09-26 10:03:00
+citizen_167,Uncollected waste near market #367,Waste bags have remained near the market area and need timely collection.,garbage,28.613755,76.925034,high,resolved,2026-08-22 10:17:00
+citizen_168,Broken public footpath #368,A section of the footpath is broken and difficult for pedestrians to use.,other,28.518166,77.145666,high,resolved,2026-09-13 10:59:00
+citizen_169,Broken pavement on main road #369,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.557145,76.989696,low,under_review,2026-07-19 10:45:00
+citizen_170,Blocked drain causing waterlogging #370,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.617121,77.120407,medium,submitted,2026-09-16 10:11:00
+citizen_171,Garbage pile near community park #371,Waste has accumulated near the park entrance and needs collection.,garbage,28.432514,77.031612,low,submitted,2026-09-01 10:58:00
+citizen_172,Damaged road sign near crossing #372,A road sign near the crossing appears damaged and needs inspection.,other,28.42259,77.100606,high,under_review,2026-09-28 10:03:00
+citizen_173,Potholes on residential road #373,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.565848,77.11162,medium,resolved,2026-09-28 10:04:00
+citizen_174,Rainwater accumulation near bus stop #374,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.457425,77.143965,medium,under_review,2026-10-24 10:50:00
+citizen_175,Uncollected waste near market #375,Waste bags have remained near the market area and need timely collection.,garbage,28.546454,77.132211,low,resolved,2026-09-26 10:14:00
+citizen_176,Damaged road sign near crossing #376,A road sign near the crossing appears damaged and needs inspection.,other,28.450684,76.944427,medium,in_progress,2026-10-01 10:54:00
+citizen_177,Broken public footpath #377,A section of the footpath is broken and difficult for pedestrians to use.,other,28.574114,77.052845,low,under_review,2026-07-21 10:59:00
+citizen_178,Overflowing public dustbin #378,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.463234,76.97988,medium,submitted,2026-07-21 10:52:00
+citizen_179,Rainwater accumulation near bus stop #379,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.546362,76.98762,low,submitted,2026-07-26 10:46:00
+citizen_180,Deep pothole near school entrance #380,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.612584,77.121138,medium,in_progress,2026-10-16 10:22:00
+citizen_181,Open manhole cover concern #381,A manhole cover appears unsafe and should be inspected promptly.,other,28.587372,77.062742,low,under_review,2026-08-22 10:10:00
+citizen_182,Garbage pile near community park #382,Waste has accumulated near the park entrance and needs collection.,garbage,28.384819,76.965282,high,submitted,2026-07-04 10:21:00
+citizen_183,Road damage near apartment gate #383,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.60604,77.14451,low,submitted,2026-10-11 10:45:00
+citizen_184,Large pothole after rainfall #384,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.593541,76.939276,high,submitted,2026-09-04 10:13:00
+citizen_185,Road damage near apartment gate #385,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.555194,76.966316,medium,in_progress,2026-09-10 10:15:00
+citizen_186,Deep pothole near school entrance #386,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.497828,76.913626,medium,under_review,2026-10-01 10:05:00
+citizen_187,Rainwater accumulation near bus stop #387,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.421,76.972953,low,submitted,2026-10-03 10:54:00
+citizen_188,Damaged road surface near bus stop #388,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.594771,76.966251,high,under_review,2026-10-21 10:11:00
+citizen_189,Rainwater accumulation near bus stop #389,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.443191,77.016264,medium,under_review,2026-09-08 10:36:00
+citizen_190,Potholes on residential road #390,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.40057,76.985948,high,in_progress,2026-10-18 10:48:00
+citizen_191,Damaged road sign near crossing #391,A road sign near the crossing appears damaged and needs inspection.,other,28.576417,77.004658,medium,resolved,2026-10-18 10:36:00
+citizen_192,Road damage near apartment gate #392,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.584946,76.908682,medium,under_review,2026-08-19 10:07:00
+citizen_193,Overflowing public dustbin #393,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.430854,76.948182,high,submitted,2026-10-02 10:05:00
+citizen_194,Overflowing public dustbin #394,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.580186,76.964472,high,in_progress,2026-07-24 10:05:00
+citizen_195,Garbage scattered near bus stop #395,Litter and household waste are scattered around the bus stop.,garbage,28.504725,77.12929,medium,resolved,2026-10-01 10:07:00
+citizen_196,Overflowing public dustbin #396,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.562011,77.134912,low,in_progress,2026-07-04 10:50:00
+citizen_197,Standing water outside residential block #397,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.537149,77.043006,high,submitted,2026-07-16 10:11:00
+citizen_198,Rainwater accumulation near bus stop #398,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.546479,76.909696,low,in_progress,2026-08-11 10:03:00
+citizen_199,Uncollected waste near market #399,Waste bags have remained near the market area and need timely collection.,garbage,28.576173,76.975764,high,submitted,2026-10-09 10:54:00
+citizen_200,Potholes on residential road #400,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.486347,77.106456,low,resolved,2026-10-09 10:38:00
+citizen_001,Potholes on residential road #401,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.477721,77.021115,medium,resolved,2026-09-17 10:52:00
+citizen_002,Potholes on residential road #402,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.476812,77.095129,low,in_progress,2026-07-17 10:11:00
+citizen_003,Broken pavement on main road #403,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.489548,77.129508,high,submitted,2026-08-23 10:17:00
+citizen_004,Rainwater accumulation near bus stop #404,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.409729,76.907641,medium,in_progress,2026-10-12 10:38:00
+citizen_005,Overflowing public dustbin #405,The public dustbin is overflowing and waste is spreading onto the footpath.,garbage,28.51232,76.986062,high,under_review,2026-09-27 10:47:00
+citizen_006,Damaged road surface near bus stop #406,The road surface near the bus stop is uneven and needs inspection and repair.,pothole,28.584917,77.094958,low,submitted,2026-08-07 10:41:00
+citizen_007,Broken pavement on main road #407,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.384813,77.095076,medium,under_review,2026-07-25 10:30:00
+citizen_008,Broken pavement on main road #408,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.440574,77.101271,medium,submitted,2026-09-10 10:27:00
+citizen_009,Uncollected waste near market #409,Waste bags have remained near the market area and need timely collection.,garbage,28.452515,77.030159,medium,submitted,2026-10-20 10:37:00
+citizen_010,Deep pothole near school entrance #410,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.582388,76.993557,medium,in_progress,2026-09-21 10:19:00
+citizen_011,Large pothole after rainfall #411,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.533743,77.115373,low,resolved,2026-09-09 10:12:00
+citizen_012,Broken pavement on main road #412,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.572567,77.050008,high,resolved,2026-09-22 10:43:00
+citizen_013,Cracked road near market #413,The road has visible cracks and broken edges near the market area.,damaged_road,28.442262,77.004641,medium,resolved,2026-07-13 10:37:00
+citizen_014,Damaged road sign near crossing #414,A road sign near the crossing appears damaged and needs inspection.,other,28.544716,77.059578,medium,in_progress,2026-09-16 10:32:00
+citizen_015,Blocked drain causing waterlogging #415,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.423473,76.924401,high,resolved,2026-09-05 10:46:00
+citizen_016,Damaged road sign near crossing #416,A road sign near the crossing appears damaged and needs inspection.,other,28.537064,76.955563,high,resolved,2026-09-08 10:26:00
+citizen_017,Standing water outside residential block #417,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.584291,77.017634,medium,submitted,2026-07-28 10:30:00
+citizen_018,Cracked road near market #418,The road has visible cracks and broken edges near the market area.,damaged_road,28.451605,76.913515,high,under_review,2026-08-28 10:08:00
+citizen_019,Uneven road surface near crossing #419,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.597589,77.014393,medium,in_progress,2026-08-11 10:49:00
+citizen_020,Large pothole after rainfall #420,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.455219,76.914503,medium,resolved,2026-09-15 10:13:00
+citizen_021,Broken pavement on main road #421,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.40113,77.05362,medium,in_progress,2026-10-21 10:25:00
+citizen_022,Garbage scattered near bus stop #422,Litter and household waste are scattered around the bus stop.,garbage,28.427859,76.993275,medium,submitted,2026-09-01 10:48:00
+citizen_023,Damaged road sign near crossing #423,A road sign near the crossing appears damaged and needs inspection.,other,28.556065,76.956566,low,submitted,2026-09-12 10:08:00
+citizen_024,Large pothole after rainfall #424,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.395669,76.91143,medium,under_review,2026-10-10 10:46:00
+citizen_025,Streetlight not working #425,A streetlight in the area is not working and the location needs inspection.,other,28.412109,77.149035,medium,in_progress,2026-09-16 10:48:00
+citizen_026,Broken pavement on main road #426,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.476814,76.957105,high,resolved,2026-08-24 10:13:00
+citizen_027,Potholes on residential road #427,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.570111,76.993798,low,in_progress,2026-09-21 10:49:00
+citizen_028,Broken public footpath #428,A section of the footpath is broken and difficult for pedestrians to use.,other,28.405947,77.10903,medium,submitted,2026-07-02 10:26:00
+citizen_029,Garbage scattered near bus stop #429,Litter and household waste are scattered around the bus stop.,garbage,28.548448,76.951374,low,submitted,2026-07-22 10:19:00
+citizen_030,Garbage pile near community park #430,Waste has accumulated near the park entrance and needs collection.,garbage,28.525352,76.934291,medium,submitted,2026-07-27 10:32:00
+citizen_031,Broken public footpath #431,A section of the footpath is broken and difficult for pedestrians to use.,other,28.499457,77.05225,medium,in_progress,2026-09-25 10:53:00
+citizen_032,Damaged road sign near crossing #432,A road sign near the crossing appears damaged and needs inspection.,other,28.41849,77.037035,medium,under_review,2026-10-07 10:21:00
+citizen_033,Cracked road near market #433,The road has visible cracks and broken edges near the market area.,damaged_road,28.406503,77.043538,low,submitted,2026-08-16 10:05:00
+citizen_034,Broken public footpath #434,A section of the footpath is broken and difficult for pedestrians to use.,other,28.441414,76.95779,medium,submitted,2026-09-10 10:29:00
+citizen_035,Deep pothole near school entrance #435,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.58454,76.990054,high,resolved,2026-09-22 10:27:00
+citizen_036,Deep pothole near school entrance #436,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.382321,76.934599,high,resolved,2026-08-21 10:21:00
+citizen_037,Rainwater accumulation near bus stop #437,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.555936,76.993156,high,submitted,2026-08-11 10:07:00
+citizen_038,Garbage scattered near bus stop #438,Litter and household waste are scattered around the bus stop.,garbage,28.472572,77.112668,high,submitted,2026-10-26 10:41:00
+citizen_039,Cracked road near market #439,The road has visible cracks and broken edges near the market area.,damaged_road,28.615577,77.111087,low,in_progress,2026-10-04 10:58:00
+citizen_040,Open manhole cover concern #440,A manhole cover appears unsafe and should be inspected promptly.,other,28.423503,76.994938,high,in_progress,2026-07-12 10:55:00
+citizen_041,Road damage near apartment gate #441,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.478708,76.911493,high,submitted,2026-09-09 10:00:00
+citizen_042,Damaged road sign near crossing #442,A road sign near the crossing appears damaged and needs inspection.,other,28.461192,77.030776,high,in_progress,2026-07-23 10:27:00
+citizen_043,Road damage near apartment gate #443,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.47237,77.109758,medium,in_progress,2026-07-18 10:00:00
+citizen_044,Road damage near apartment gate #444,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.397968,77.022912,high,resolved,2026-09-08 10:17:00
+citizen_045,Potholes on residential road #445,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.576105,76.919708,medium,under_review,2026-10-15 10:05:00
+citizen_046,Garbage scattered near bus stop #446,Litter and household waste are scattered around the bus stop.,garbage,28.558857,76.904442,medium,resolved,2026-10-13 10:02:00
+citizen_047,Broken public footpath #447,A section of the footpath is broken and difficult for pedestrians to use.,other,28.611161,77.059385,high,in_progress,2026-08-17 10:41:00
+citizen_048,Uncollected waste near market #448,Waste bags have remained near the market area and need timely collection.,garbage,28.4335,77.013615,medium,submitted,2026-10-18 10:45:00
+citizen_049,Rainwater accumulation near bus stop #449,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.433219,76.985339,low,in_progress,2026-09-27 10:35:00
+citizen_050,Streetlight not working #450,A streetlight in the area is not working and the location needs inspection.,other,28.419397,76.935112,medium,submitted,2026-10-23 10:06:00
+citizen_051,Blocked drain causing waterlogging #451,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.474295,77.014262,low,resolved,2026-08-26 10:45:00
+citizen_052,Waterlogging near street corner #452,Water remains on the street after rain and slows down pedestrians and traffic.,waterlogging,28.531978,77.068035,high,submitted,2026-10-04 10:29:00
+citizen_053,Damaged road sign near crossing #453,A road sign near the crossing appears damaged and needs inspection.,other,28.556691,77.038307,high,submitted,2026-10-14 10:59:00
+citizen_054,Damaged road sign near crossing #454,A road sign near the crossing appears damaged and needs inspection.,other,28.575659,76.925888,medium,submitted,2026-09-22 10:32:00
+citizen_055,Garbage scattered near bus stop #455,Litter and household waste are scattered around the bus stop.,garbage,28.56297,76.968399,high,resolved,2026-09-11 10:28:00
+citizen_056,Broken pavement on main road #456,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.559622,76.974728,medium,in_progress,2026-09-23 10:45:00
+citizen_057,Damaged road sign near crossing #457,A road sign near the crossing appears damaged and needs inspection.,other,28.449739,76.986323,low,in_progress,2026-08-22 10:45:00
+citizen_058,Uneven road surface near crossing #458,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.514947,77.045702,medium,in_progress,2026-10-22 10:43:00
+citizen_059,Streetlight not working #459,A streetlight in the area is not working and the location needs inspection.,other,28.383065,76.926618,high,under_review,2026-08-13 10:03:00
+citizen_060,Potholes on residential road #460,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.616048,77.070848,medium,in_progress,2026-07-05 10:44:00
+citizen_061,Blocked drain causing waterlogging #461,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.575366,76.92562,high,submitted,2026-08-28 10:47:00
+citizen_062,Open manhole cover concern #462,A manhole cover appears unsafe and should be inspected promptly.,other,28.571717,76.97191,low,in_progress,2026-07-22 10:59:00
+citizen_063,Garbage scattered near bus stop #463,Litter and household waste are scattered around the bus stop.,garbage,28.544436,77.141458,medium,in_progress,2026-07-02 10:47:00
+citizen_064,Blocked drain causing waterlogging #464,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.588828,77.107496,medium,in_progress,2026-09-21 10:48:00
+citizen_065,Damaged road sign near crossing #465,A road sign near the crossing appears damaged and needs inspection.,other,28.450603,76.944356,high,resolved,2026-07-22 10:11:00
+citizen_066,Cracked road near market #466,The road has visible cracks and broken edges near the market area.,damaged_road,28.513584,76.932517,medium,under_review,2026-09-19 10:00:00
+citizen_067,Rainwater accumulation near bus stop #467,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.416889,76.980658,medium,submitted,2026-09-02 10:31:00
+citizen_068,Streetlight not working #468,A streetlight in the area is not working and the location needs inspection.,other,28.506095,77.139247,low,in_progress,2026-07-17 10:50:00
+citizen_069,Damaged road sign near crossing #469,A road sign near the crossing appears damaged and needs inspection.,other,28.402067,76.9553,medium,under_review,2026-09-07 10:21:00
+citizen_070,Standing water outside residential block #470,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.50732,77.149158,low,in_progress,2026-07-27 10:07:00
+citizen_071,Rainwater accumulation near bus stop #471,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.600466,76.960957,low,in_progress,2026-09-02 10:24:00
+citizen_072,Large pothole after rainfall #472,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.385929,77.029217,medium,in_progress,2026-09-25 10:32:00
+citizen_073,Open manhole cover concern #473,A manhole cover appears unsafe and should be inspected promptly.,other,28.536367,76.980078,medium,submitted,2026-07-03 10:10:00
+citizen_074,Broken public footpath #474,A section of the footpath is broken and difficult for pedestrians to use.,other,28.531083,76.953294,medium,submitted,2026-10-22 10:53:00
+citizen_075,Potholes on residential road #475,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.614294,77.093802,medium,in_progress,2026-07-21 10:47:00
+citizen_076,Cracked road near market #476,The road has visible cracks and broken edges near the market area.,damaged_road,28.401005,76.913567,medium,under_review,2026-09-26 10:35:00
+citizen_077,Potholes on residential road #477,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.48827,77.001112,high,under_review,2026-07-11 10:24:00
+citizen_078,Deep pothole near school entrance #478,A deep pothole near the school entrance is creating a safety risk for students and commuters.,pothole,28.561431,77.046402,medium,in_progress,2026-07-23 10:22:00
+citizen_079,Broken public footpath #479,A section of the footpath is broken and difficult for pedestrians to use.,other,28.525576,76.970379,medium,in_progress,2026-10-15 10:25:00
+citizen_080,Large pothole after rainfall #480,"Rainwater has collected inside a large pothole, making its depth difficult to judge.",pothole,28.559221,77.099193,low,submitted,2026-09-28 10:40:00
+citizen_081,Uneven road surface near crossing #481,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.570804,77.082331,medium,resolved,2026-07-12 10:35:00
+citizen_082,Damaged road sign near crossing #482,A road sign near the crossing appears damaged and needs inspection.,other,28.523197,77.034288,low,submitted,2026-09-03 10:13:00
+citizen_083,Blocked drain causing waterlogging #483,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.503013,76.940239,medium,in_progress,2026-09-08 10:12:00
+citizen_084,Potholes on residential road #484,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.393053,77.08776,medium,in_progress,2026-10-18 10:41:00
+citizen_085,Broken public footpath #485,A section of the footpath is broken and difficult for pedestrians to use.,other,28.403569,77.081397,medium,submitted,2026-09-16 10:22:00
+citizen_086,Broken pavement on main road #486,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.596028,76.979446,low,in_progress,2026-09-15 10:39:00
+citizen_087,Blocked drain causing waterlogging #487,"Water is collecting near the drain, possibly because the drain is blocked.",waterlogging,28.45592,77.007077,medium,under_review,2026-09-01 10:15:00
+citizen_088,Road damage near apartment gate #488,The road outside the apartment gate has broken patches and loose material.,damaged_road,28.543099,76.982891,medium,under_review,2026-10-16 10:28:00
+citizen_089,Standing water outside residential block #489,Standing water outside the residential block needs inspection and drainage.,waterlogging,28.534932,76.920493,medium,submitted,2026-08-09 10:57:00
+citizen_090,Damaged road sign near crossing #490,A road sign near the crossing appears damaged and needs inspection.,other,28.398351,76.91885,medium,resolved,2026-07-01 10:52:00
+citizen_091,Open manhole cover concern #491,A manhole cover appears unsafe and should be inspected promptly.,other,28.388798,76.965154,high,submitted,2026-10-18 10:41:00
+citizen_092,Uneven road surface near crossing #492,The uneven surface near the crossing is causing difficulty for pedestrians and two-wheelers.,damaged_road,28.521504,77.114291,medium,resolved,2026-10-05 10:32:00
+citizen_093,Broken public footpath #493,A section of the footpath is broken and difficult for pedestrians to use.,other,28.539043,77.111995,medium,under_review,2026-08-26 10:48:00
+citizen_094,Damaged road sign near crossing #494,A road sign near the crossing appears damaged and needs inspection.,other,28.607691,77.064853,medium,submitted,2026-10-05 10:22:00
+citizen_095,Potholes on residential road #495,Several potholes have formed on the residential road and vehicles are swerving to avoid them.,pothole,28.443446,76.958505,high,submitted,2026-08-22 10:33:00
+citizen_096,Rainwater accumulation near bus stop #496,Rainwater is accumulating near the bus stop and making access difficult.,waterlogging,28.391145,77.145147,medium,under_review,2026-07-11 10:45:00
+citizen_097,Streetlight not working #497,A streetlight in the area is not working and the location needs inspection.,other,28.510644,76.943462,high,submitted,2026-10-21 10:23:00
+citizen_098,Broken public footpath #498,A section of the footpath is broken and difficult for pedestrians to use.,other,28.597738,77.029093,medium,under_review,2026-09-12 10:31:00
+citizen_099,Garbage pile near community park #499,Waste has accumulated near the park entrance and needs collection.,garbage,28.419745,76.919272,medium,submitted,2026-09-21 10:13:00
+citizen_100,Broken pavement on main road #500,A section of the road pavement is damaged and needs maintenance.,damaged_road,28.576069,77.065277,low,in_progress,2026-09-14 10:46:00

@@ -1,0 +1,791 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reports | Spot2Fix</title>
+
+    <style>
+        :root {
+            --teal: #2A9D8F;
+            --dark-teal: #207D73;
+            --light-teal: #D9F3EF;
+            --text: #16302D;
+            --muted: #71817E;
+            --border: #E1EAE8;
+            --background: #F5F9F8;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--background);
+            color: var(--text);
+        }
+
+        .page {
+            max-width: 1180px;
+            margin: auto;
+            padding: 100px 22px 45px;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 8px;
+            font-size: 30px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px 17px;
+            border-radius: 9px;
+            text-decoration: none;
+            border: 0;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .btn-primary {
+            background: var(--teal);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--dark-teal);
+        }
+
+        .btn-light {
+            background: var(--light-teal);
+            color: var(--dark-teal);
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-card {
+            background: var(--white);
+            padding: 21px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 29px;
+            font-weight: 700;
+        }
+
+        .stat-subtitle {
+            color: var(--muted);
+            font-size: 12px;
+            margin-top: 6px;
+        }
+
+        .reports-panel {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 24px;
+        }
+
+        .panel-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .panel-heading h2 {
+            margin: 0 0 6px;
+            font-size: 21px;
+        }
+
+        .panel-heading p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: minmax(200px, 1fr) 190px 190px;
+            gap: 12px;
+            margin-bottom: 23px;
+        }
+
+        .filters input,
+        .filters select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #D5E1DE;
+            border-radius: 9px;
+            background: white;
+            color: var(--text);
+            font: inherit;
+            outline: none;
+        }
+
+        .filters input:focus,
+        .filters select:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.1);
+        }
+
+        .report-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .report-card {
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .report-card:hover {
+            border-color: #A9D8D1;
+        }
+
+        .report-main {
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 18px;
+        }
+
+        .report-content {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .report-topline {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 10px;
+        }
+
+        .category {
+            display: inline-block;
+            background: var(--light-teal);
+            color: var(--dark-teal);
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .report-date {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .report-title {
+            margin: 0 0 9px;
+            font-size: 18px;
+            overflow-wrap: anywhere;
+        }
+
+        .report-description {
+            color: #61716E;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .report-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 15px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .report-meta strong {
+            color: var(--text);
+        }
+
+        .report-right {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 15px;
+            flex-shrink: 0;
+        }
+
+        .status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 7px 10px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .status-submitted {
+            background: #E8F1FF;
+            color: #285AA8;
+        }
+
+        .status-under-review {
+            background: #FFF2D8;
+            color: #93620A;
+        }
+
+        .status-in-progress {
+            background: #EDE5FF;
+            color: #6941A5;
+        }
+
+        .status-resolved {
+            background: #DDF5E5;
+            color: #237744;
+        }
+
+        .priority {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .priority-high {
+            color: #C0392B;
+        }
+
+        .priority-medium {
+            color: #B7791F;
+        }
+
+        .priority-low {
+            color: #31805D;
+        }
+
+        .details {
+            border-top: 1px solid var(--border);
+            background: #FBFDFC;
+        }
+
+        .details summary {
+            cursor: pointer;
+            list-style: none;
+            padding: 13px 20px;
+            color: var(--dark-teal);
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .details summary::after {
+            content: "+";
+            float: right;
+            font-size: 18px;
+        }
+
+        .details[open] summary::after {
+            content: "−";
+        }
+
+        .details-body {
+            padding: 0 20px 20px;
+            line-height: 1.7;
+            font-size: 13px;
+            color: #566764;
+            overflow-wrap: anywhere;
+        }
+
+        .details-body img {
+            display: block;
+            max-width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin-top: 12px;
+            border-radius: 9px;
+            border: 1px solid var(--border);
+        }
+
+        .location-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--dark-teal);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .location-link:hover {
+            text-decoration: underline;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 55px 20px;
+            border: 1px dashed #C8DAD6;
+            border-radius: 12px;
+        }
+
+        .empty-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .empty-state h3 {
+            margin: 0 0 9px;
+            font-size: 20px;
+        }
+
+        .empty-state p {
+            max-width: 420px;
+            margin: 0 auto 20px;
+            color: var(--muted);
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            color: var(--muted);
+            padding: 35px 15px;
+        }
+
+        .results-count {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 850px) {
+            .stats {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .filters {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .filters input {
+                grid-column: 1 / -1;
+            }
+        }
+
+        @media (max-width: 580px) {
+            .page {
+                padding: 90px 12px 30px;
+            }
+
+            .page-header h1 {
+                font-size: 25px;
+            }
+
+            .stats {
+                gap: 10px;
+            }
+
+            .stat-card {
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 25px;
+            }
+
+            .reports-panel {
+                padding: 14px;
+            }
+
+            .filters {
+                grid-template-columns: 1fr;
+            }
+
+            .filters input {
+                grid-column: auto;
+            }
+
+            .report-main {
+                flex-direction: column;
+                padding: 16px;
+            }
+
+            .report-right {
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .report-title {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    {% include 'project1/navbar.html' %}
+
+    <main class="page">
+
+        <header class="page-header">
+            <div>
+                <h1>My Reports</h1>
+                <p>Track the issues you have reported and follow their progress.</p>
+            </div>
+
+            <a href="{% url 'report_issue' %}" class="btn btn-primary">
+                + Report New Issue
+            </a>
+        </header>
+
+        <!-- Report statistics -->
+        <section class="stats" aria-label="Report statistics">
+
+            <div class="stat-card">
+                <div class="stat-label">Total Reports</div>
+                <div class="stat-number">{{ total_reports }}</div>
+                <div class="stat-subtitle">All your submissions</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Under Review</div>
+                <div class="stat-number">{{ under_review_count }}</div>
+                <div class="stat-subtitle">Being reviewed</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">In Progress</div>
+                <div class="stat-number">{{ in_progress_count }}</div>
+                <div class="stat-subtitle">Action is underway</div>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-label">Resolved</div>
+                <div class="stat-number">{{ resolved_count }}</div>
+                <div class="stat-subtitle">Issues marked resolved</div>
+            </div>
+
+        </section>
+
+        <!-- Dedicated reports section -->
+        <section class="reports-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h2>Your Submissions</h2>
+                    <p>Search and filter your submitted reports.</p>
+                </div>
+            </div>
+
+            {% if reports %}
+
+                <div class="filters">
+                    <input
+                        type="search"
+                        id="report-search"
+                        placeholder="Search report title or description..."
+                        aria-label="Search your reports">
+
+                    <select id="status-filter" aria-label="Filter by status">
+                        <option value="">All Statuses</option>
+                        <option value="submitted">Submitted</option>
+                        <option value="under_review">Under Review</option>
+                        <option value="in_progress">In Progress</option>
+                        <option value="resolved">Resolved</option>
+                    </select>
+
+                    <select id="category-filter" aria-label="Filter by category">
+                        <option value="">All Categories</option>
+                        <option value="pothole">Pothole</option>
+                        <option value="damaged_road">Damaged Road</option>
+                        <option value="waterlogging">Waterlogging</option>
+                        <option value="garbage">Garbage</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="results-count" id="results-count">
+                    Showing {{ total_reports }} report{{ total_reports|pluralize }}
+                </div>
+
+                <div class="report-list" id="report-list">
+
+                    {% for report in reports %}
+
+                        <article
+                            class="report-card"
+                            data-title="{{ report.title|lower }}"
+                            data-description="{{ report.description|lower }}"
+                            data-status="{{ report.status }}"
+                            data-category="{{ report.category }}">
+
+                            <div class="report-main">
+
+                                <div class="report-content">
+
+                                    <div class="report-topline">
+                                        <span class="category">
+                                            {{ report.get_category_display|default:report.category }}
+                                        </span>
+
+                                        <span class="report-date">
+                                            Reported {{ report.created_at|date:"d M Y" }}
+                                        </span>
+                                    </div>
+
+                                    <h3 class="report-title">
+                                        {{ report.title }}
+                                    </h3>
+
+                                    <p class="report-description">
+                                        {{ report.description|truncatechars:180 }}
+                                    </p>
+
+                                    <div class="report-meta">
+                                        <span>
+                                            Priority:
+                                            <strong class="priority priority-{{ report.priority }}">
+                                                {{ report.get_priority_display|default:report.priority|title }}
+                                            </strong>
+                                        </span>
+
+                                        <span>
+                                            Report #{{ report.pk }}
+                                        </span>
+                                    </div>
+
+                                </div>
+
+                                <div class="report-right">
+
+                                    <span class="status
+                                        {% if report.status == 'submitted' %}
+                                            status-submitted
+                                        {% elif report.status == 'under_review' %}
+                                            status-under-review
+                                        {% elif report.status == 'in_progress' %}
+                                            status-in-progress
+                                        {% elif report.status == 'resolved' %}
+                                            status-resolved
+                                        {% endif %}">
+
+                                        {% if report.status == 'submitted' %}
+                                            ● Submitted
+                                        {% elif report.status == 'under_review' %}
+                                            ● Under Review
+                                        {% elif report.status == 'in_progress' %}
+                                            ● In Progress
+                                        {% elif report.status == 'resolved' %}
+                                            ● Resolved
+                                        {% else %}
+                                            {{ report.get_status_display|default:report.status|title }}
+                                        {% endif %}
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <details class="details">
+                                <summary>View Report Details</summary>
+
+                                <div class="details-body">
+
+                                    <strong>Description</strong>
+                                    <p>{{ report.description|linebreaksbr }}</p>
+
+                                    <strong>Category:</strong>
+                                    {{ report.get_category_display|default:report.category }}
+                                    <br>
+
+                                    <strong>Priority:</strong>
+                                    {{ report.get_priority_display|default:report.priority|title }}
+                                    <br>
+
+                                    <strong>Status:</strong>
+                                    {{ report.get_status_display|default:report.status|title }}
+                                    <br>
+
+                                    <strong>Submitted on:</strong>
+                                    {{ report.created_at|date:"d M Y, h:i A" }}
+
+                                    {% if report.photo %}
+                                        <div>
+                                            <strong>Attached Photo</strong>
+                                            <a href="{{ report.photo.url }}" target="_blank" rel="noopener">
+                                                <img src="{{ report.photo.url }}"
+                                                     alt="Photo attached to report {{ report.pk }}"
+                                                     loading="lazy">
+                                            </a>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if report.latitude != None and report.longitude != None %}
+                                        <div>
+                                            <a
+                                                class="location-link"
+                                                href="https://www.openstreetmap.org/?mlat={{ report.latitude }}&mlon={{ report.longitude }}#map=17/{{ report.latitude }}/{{ report.longitude }}"
+                                                target="_blank"
+                                                rel="noopener">
+                                                View Report Location ↗
+                                            </a>
+                                        </div>
+                                    {% endif %}
+
+                                </div>
+                            </details>
+
+                        </article>
+
+                    {% endfor %}
+
+                </div>
+
+                <div class="no-results" id="no-results">
+                    <h3>No matching reports found</h3>
+                    <p>Try another search term or change your filters.</p>
+                    <button type="button" class="btn btn-light" id="reset-filters">
+                        Clear Filters
+                    </button>
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+                    <div class="empty-icon">📋</div>
+                    <h3>No reports yet</h3>
+                    <p>
+                        You haven't reported any issues yet. Submit your first
+                        report to help make your community safer and cleaner.
+                    </p>
+
+                    <a href="{% url 'report_issue' %}" class="btn btn-primary">
+                        Report Your First Issue
+                    </a>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const searchInput = document.getElementById("report-search");
+            const statusFilter = document.getElementById("status-filter");
+            const categoryFilter = document.getElementById("category-filter");
+            const reportCards = Array.from(
+                document.querySelectorAll(".report-card")
+            );
+            const resultsCount = document.getElementById("results-count");
+            const noResults = document.getElementById("no-results");
+            const reportList = document.getElementById("report-list");
+            const resetButton = document.getElementById("reset-filters");
+
+            function filterReports() {
+                const query = searchInput.value.trim().toLowerCase();
+                const selectedStatus = statusFilter.value;
+                const selectedCategory = categoryFilter.value;
+
+                let visibleCount = 0;
+
+                reportCards.forEach(function (card) {
+                    const title = card.dataset.title || "";
+                    const description = card.dataset.description || "";
+                    const status = card.dataset.status || "";
+                    const category = card.dataset.category || "";
+
+                    const matchesText =
+                        title.includes(query) ||
+                        description.includes(query);
+
+                    const matchesStatus =
+                        !selectedStatus || status === selectedStatus;
+
+                    const matchesCategory =
+                        !selectedCategory || category === selectedCategory;
+
+                    const visible =
+                        matchesText && matchesStatus && matchesCategory;
+
+                    card.style.display = visible ? "" : "none";
+
+                    if (visible) {
+                        visibleCount++;
+                    }
+                });
+
+                resultsCount.textContent =
+                    "Showing " + visibleCount +
+                    " of " + reportCards.length + " reports";
+
+                noResults.style.display =
+                    visibleCount === 0 ? "block" : "none";
+
+                reportList.style.display =
+                    visibleCount === 0 ? "none" : "grid";
+            }
+
+            if (searchInput) {
+                searchInput.addEventListener("input", filterReports);
+                statusFilter.addEventListener("change", filterReports);
+                categoryFilter.addEventListener("change", filterReports);
+            }
+
+            if (resetButton) {
+                resetButton.addEventListener("click", function () {
+                    searchInput.value = "";
+                    statusFilter.value = "";
+                    categoryFilter.value = "";
+                    filterReports();
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>

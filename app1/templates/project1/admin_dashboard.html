@@ -1,0 +1,748 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spot2Fix - Admin Dashboard</title>
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f9f8;
+            color: #263b39;
+            font-size: 15px;
+        }
+
+        .admin-page {
+            padding: 110px 25px 30px;
+            min-height: 100vh;
+        }
+
+        .admin-container {
+            max-width: 1450px;
+            margin: auto;
+        }
+
+        .page-heading, .panel-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .page-heading { margin-bottom: 22px; }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 600;
+            margin: 0 0 7px;
+        }
+
+        h2 {
+            font-size: 21px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .muted {
+            color: #687b78;
+            font-size: 14px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+            gap: 14px;
+            margin-bottom: 24px;
+        }
+
+        .stat-card {
+            background: white;
+            border: 1px solid #dce9e6;
+            border-radius: 8px;
+            padding: 17px;
+        }
+
+        .stat-card:first-child { border-top: 3px solid #2a9d8f; }
+
+        .stat-label {
+            color: #687b78;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .stat-number {
+            font-size: 29px;
+            font-weight: 600;
+        }
+
+        .panel {
+            background: white;
+            border: 1px solid #dce9e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 22px;
+        }
+
+        .panel-heading { margin-bottom: 18px; }
+
+        .filters {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            color: #263b39;
+            background: white;
+            border: 1px solid #ccdcd8;
+            border-radius: 5px;
+            padding: 10px;
+            min-height: 40px;
+        }
+
+        .filters input {
+            flex: 1 1 200px;
+            min-width: 160px;
+        }
+
+        .filters select {
+            flex: 1 1 140px;
+            min-width: 130px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 13px;
+            border: 1px solid transparent;
+            border-radius: 5px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .btn-primary {
+            background: #2a9d8f;
+            color: white;
+        }
+
+        .btn-primary:hover { background: #207d73; }
+
+        .btn-light {
+            background: #f1f7f5;
+            color: #263b39;
+            border-color: #dce9e6;
+        }
+
+        .btn-light:hover { background: #d9f3ef; }
+
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .issue-table {
+            width: 100%;
+            min-width: 1100px;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .issue-table th {
+            padding: 13px 12px;
+            background: #edf7f5;
+            color: #365c56;
+            text-align: left;
+            font-size: 13px;
+            font-weight: 600;
+            white-space: nowrap;
+            border-bottom: 1px solid #dce9e6;
+        }
+
+        .issue-table td {
+            padding: 14px 12px;
+            border-bottom: 1px solid #e8efed;
+            vertical-align: top;
+        }
+
+        .issue-table tbody tr:hover { background: #fbfdfc; }
+
+        .issue-title {
+            font-weight: 600;
+            margin-bottom: 6px;
+            overflow-wrap: anywhere;
+        }
+
+        .description {
+            max-width: 250px;
+            color: #687b78;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
+        }
+
+        .issue-photo {
+            width: 100px;
+            height: 75px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid #dce9e6;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .issue-photo:hover { transform: scale(1.05); }
+
+        .photo-link { display: inline-block; margin-bottom: 5px; }
+
+        .pill {
+            display: inline-block;
+            padding: 6px 9px;
+            border-radius: 4px;
+            font-size: 12px;
+            white-space: nowrap;
+        }
+
+        .priority-high { background: #fde7e5; color: #a42e2a; }
+        .priority-medium { background: #fff2cc; color: #805d00; }
+        .priority-low { background: #e1f5e8; color: #287347; }
+
+        .status-submitted { background: #eaf0f0; color: #4d6462; }
+        .status-under_review { background: #fff2cc; color: #805d00; }
+        .status-in_progress { background: #dfebff; color: #245a9b; }
+        .status-resolved { background: #e1f5e8; color: #287347; }
+
+        .action-buttons, .details-links {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 7px;
+        }
+
+        .action-buttons .btn { width: 85px; }
+
+        .details-links a {
+            color: #207d73;
+            text-decoration: none;
+        }
+
+        .details-links a:hover { text-decoration: underline; }
+
+        .empty-state {
+            padding: 35px 10px;
+            text-align: center;
+            color: #687b78;
+        }
+
+        .pagination-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .pagination-links {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pagination-links .current {
+            background: #2a9d8f;
+            color: white;
+            border-color: #2a9d8f;
+        }
+
+        .messages { margin-bottom: 18px; }
+
+        .message {
+            background: #d9f3ef;
+            color: #205f57;
+            padding: 12px 14px;
+            border-radius: 5px;
+            margin-bottom: 8px;
+        }
+
+        .message.error { background: #fde7e5; color: #a42e2a; }
+        .message.warning { background: #fff2cc; color: #805d00; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.45);
+            padding: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.open { display: flex; }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 420px;
+            padding: 22px;
+            border-radius: 8px;
+        }
+
+        .modal-content h3 {
+            margin: 0 0 10px;
+            font-size: 21px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin: 15px 0 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .modal-content input, .modal-content select { width: 100%; }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 1150px) {
+            .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        @media (max-width: 650px) {
+            .admin-page { padding: 100px 12px 25px; }
+            .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+            .stat-card { padding: 13px; }
+            .stat-number { font-size: 24px; }
+            .panel { padding: 13px; }
+            h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+
+<body>
+
+{% include "project1/navbar.html" %}
+
+<main class="admin-page">
+<div class="admin-container">
+
+    <div class="page-heading">
+        <div>
+            <h1>Admin Dashboard</h1>
+            <div class="muted">
+                Manage citizen reports, priorities, statuses and assignments.
+            </div>
+        </div>
+        <div class="muted">
+            Signed in as <strong>{{ request.user.username }}</strong>
+        </div>
+    </div>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+        <div class="message {% if 'error' in message.tags %}error{% elif 'warning' in message.tags %}warning{% endif %}">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <!-- Dashboard statistics -->
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">Total Issues</div>
+            <div class="stat-number">{{ total_issues }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Pending Reports</div>
+            <div class="stat-number">{{ pending_issues }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Under Review</div>
+            <div class="stat-number">{{ under_review_issues }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">In Progress</div>
+            <div class="stat-number">{{ in_progress_issues }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Resolved</div>
+            <div class="stat-number">{{ resolved_issues }}</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">High Priority</div>
+            <div class="stat-number">{{ high_priority_issues }}</div>
+        </div>
+    </div>
+
+    <section class="panel">
+        <div class="panel-heading">
+            <h2>Citizen Reports</h2>
+            <span class="muted">Search, filter and manage issues</span>
+        </div>
+
+        <!-- Search and filters -->
+        <form method="get" action="{% url 'admin_dashboard' %}" class="filters">
+
+            <input type="search"
+                   name="q"
+                   value="{{ query }}"
+                   placeholder="Search reports..."
+                   aria-label="Search reports">
+
+            <select name="status" aria-label="Filter by status">
+                <option value="">All Statuses</option>
+                {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if selected_status == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <select name="priority" aria-label="Filter by priority">
+                <option value="">All Priorities</option>
+                {% for value, label in priority_choices %}
+                <option value="{{ value }}" {% if selected_priority == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <select name="category" aria-label="Filter by category">
+                <option value="">All Categories</option>
+                {% for value, label in category_choices %}
+                <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <!-- Separate priority sorting -->
+            <select name="priority_sort" aria-label="Sort by priority">
+                <option value="high_first" {% if selected_priority_sort == "high_first" %}selected{% endif %}>
+                    High Priority First
+                </option>
+                <option value="low_first" {% if selected_priority_sort == "low_first" %}selected{% endif %}>
+                    Low Priority First
+                </option>
+            </select>
+
+            <!-- Separate time sorting -->
+            <select name="time_sort" aria-label="Sort by time">
+                <option value="newest" {% if selected_time_sort == "newest" %}selected{% endif %}>
+                    Newest First
+                </option>
+                <option value="oldest" {% if selected_time_sort == "oldest" %}selected{% endif %}>
+                    Oldest First
+                </option>
+            </select>
+
+            <button class="btn btn-primary" type="submit">Apply Filters</button>
+
+            {% if query or selected_status or selected_priority or selected_category or selected_priority_sort != "high_first" or selected_time_sort != "newest" %}
+            <a href="{% url 'admin_dashboard' %}" class="btn btn-light">Clear</a>
+            {% endif %}
+        </form>
+
+        <!-- Reports table -->
+        <div class="table-wrapper">
+            <table class="issue-table">
+                <thead>
+                    <tr>
+                        <th>Issue</th>
+                        <th>Reported By</th>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                        <th>Details / Photo</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for issue in recent_issues %}
+                    <tr>
+                        <td>
+                            <div class="issue-title">{{ issue.title }}</div>
+                            <div class="description">
+                                {{ issue.description|truncatechars:120 }}
+                            </div>
+                            {% if issue.latitude != None and issue.longitude != None %}
+                            <div class="muted" style="margin-top: 6px;">
+                                {{ issue.latitude }}, {{ issue.longitude }}
+                            </div>
+                            {% endif %}
+                        </td>
+
+                        <td>{{ issue.user.username }}</td>
+                        <td>{{ issue.get_category_display }}</td>
+
+                        <td>
+                            <span class="pill priority-{{ issue.priority }}">
+                                {{ issue.get_priority_display }}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="pill status-{{ issue.status }}">
+                                {{ issue.get_status_display }}
+                            </span>
+                        </td>
+
+                        <td>{{ issue.created_at|date:"d M Y, h:i A" }}</td>
+
+                        <!-- Display uploaded image when available -->
+                        <td>
+                            <div class="details-links">
+                                {% if issue.photo %}
+                                <a class="photo-link"
+                                   href="{{ issue.photo.url }}"
+                                   target="_blank"
+                                   rel="noopener">
+                                    <img src="{{ issue.photo.url }}"
+                                         alt="Photo of {{ issue.title }}"
+                                         class="issue-photo"
+                                         loading="lazy">
+                                </a>
+                                <a href="{{ issue.photo.url }}"
+                                   target="_blank"
+                                   rel="noopener">View Full Image</a>
+                                {% endif %}
+
+                                {% if issue.latitude != None and issue.longitude != None %}
+                                <a href="https://www.google.com/maps?q={{ issue.latitude }},{{ issue.longitude }}"
+                                   target="_blank"
+                                   rel="noopener">Open Map</a>
+                                {% endif %}
+
+                                {% if not issue.photo and issue.latitude == None and issue.longitude == None %}
+                                <span class="muted">No attachments</span>
+                                {% elif not issue.photo %}
+                                <span class="muted">No photo uploaded</span>
+                                {% endif %}
+                            </div>
+                        </td>
+
+                        <td>
+                            <div class="action-buttons">
+                                <button type="button" class="btn btn-light"
+                                        onclick="openModal('priority-{{ issue.id }}')">
+                                    Priority
+                                </button>
+                                <button type="button" class="btn btn-light"
+                                        onclick="openModal('status-{{ issue.id }}')">
+                                    Status
+                                </button>
+                                <button type="button" class="btn btn-primary"
+                                        onclick="openModal('assign-{{ issue.id }}')">
+                                    Assign
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="8">
+                            <div class="empty-state">
+                                <strong>No reports found.</strong>
+                                <p>Try changing your search or filters.</p>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination; preserves all filters and sorting choices -->
+        <div class="pagination-row">
+            <div class="muted">
+                {% if page_obj.paginator.count %}
+                    Showing {{ page_obj.start_index }}–{{ page_obj.end_index }}
+                    of {{ page_obj.paginator.count }} reports
+                {% else %}
+                    No matching reports
+                {% endif %}
+            </div>
+
+            {% if page_obj.paginator.num_pages > 1 %}
+            <nav class="pagination-links" aria-label="Issue pagination">
+
+                {% if page_obj.has_previous %}
+                <a class="btn btn-light"
+                   href="?q={{ query|urlencode }}&amp;status={{ selected_status|urlencode }}&amp;priority={{ selected_priority|urlencode }}&amp;category={{ selected_category|urlencode }}&amp;priority_sort={{ selected_priority_sort|urlencode }}&amp;time_sort={{ selected_time_sort|urlencode }}&amp;page={{ page_obj.previous_page_number }}">
+                    Previous
+                </a>
+                {% endif %}
+
+                {% for number in page_obj.paginator.page_range %}
+                    {% if number == page_obj.number %}
+                    <span class="btn current" aria-current="page">{{ number }}</span>
+                    {% elif number >= page_obj.number|add:"-2" and number <= page_obj.number|add:"2" %}
+                    <a class="btn btn-light"
+                       href="?q={{ query|urlencode }}&amp;status={{ selected_status|urlencode }}&amp;priority={{ selected_priority|urlencode }}&amp;category={{ selected_category|urlencode }}&amp;priority_sort={{ selected_priority_sort|urlencode }}&amp;time_sort={{ selected_time_sort|urlencode }}&amp;page={{ number }}">
+                        {{ number }}
+                    </a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                <a class="btn btn-light"
+                   href="?q={{ query|urlencode }}&amp;status={{ selected_status|urlencode }}&amp;priority={{ selected_priority|urlencode }}&amp;category={{ selected_category|urlencode }}&amp;priority_sort={{ selected_priority_sort|urlencode }}&amp;time_sort={{ selected_time_sort|urlencode }}&amp;page={{ page_obj.next_page_number }}">
+                    Next
+                </a>
+                {% endif %}
+
+            </nav>
+            {% endif %}
+        </div>
+    </section>
+</div>
+</main>
+
+<!-- Modals for each issue on the current page -->
+{% for issue in recent_issues %}
+
+<div class="modal" id="priority-{{ issue.id }}">
+    <div class="modal-content">
+        <h3>Update Priority</h3>
+        <p class="muted">{{ issue.title }}</p>
+
+        <form method="post" action="{% url 'admin_issue_action' issue.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="priority">
+
+            <label for="priority-choice-{{ issue.id }}">Priority</label>
+            <select id="priority-choice-{{ issue.id }}" name="priority" required>
+                {% for value, label in priority_choices %}
+                <option value="{{ value }}" {% if issue.priority == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <div class="modal-actions">
+                <button type="button" class="btn btn-light"
+                        onclick="closeModal('priority-{{ issue.id }}')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="status-{{ issue.id }}">
+    <div class="modal-content">
+        <h3>Update Status</h3>
+        <p class="muted">{{ issue.title }}</p>
+
+        <form method="post" action="{% url 'admin_issue_action' issue.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="status">
+
+            <label for="status-choice-{{ issue.id }}">Status</label>
+            <select id="status-choice-{{ issue.id }}" name="status" required>
+                {% for value, label in status_choices %}
+                <option value="{{ value }}" {% if issue.status == value %}selected{% endif %}>
+                    {{ label }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <div class="modal-actions">
+                <button type="button" class="btn btn-light"
+                        onclick="closeModal('status-{{ issue.id }}')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="modal" id="assign-{{ issue.id }}">
+    <div class="modal-content">
+        <h3>Assign Issue</h3>
+        <p class="muted">{{ issue.title }}</p>
+
+        <form method="post" action="{% url 'admin_issue_action' issue.id %}">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="assign">
+
+            <label for="maintenance-user-{{ issue.id }}">Maintenance User</label>
+            <select id="maintenance-user-{{ issue.id }}" name="assigned_to" required>
+                <option value="">Select maintenance user</option>
+                {% for maintenance_user in maintenance_users %}
+                <option value="{{ maintenance_user.username }}">
+                    {{ maintenance_user.username }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <label for="department-{{ issue.id }}">Department</label>
+            <input id="department-{{ issue.id }}"
+                   type="text"
+                   name="department"
+                   maxlength="150"
+                   placeholder="e.g. Road Maintenance">
+
+            <div class="modal-actions">
+                <button type="button" class="btn btn-light"
+                        onclick="closeModal('assign-{{ issue.id }}')">Cancel</button>
+                <button type="submit" class="btn btn-primary">Assign</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endfor %}
+
+<script>
+    function openModal(id) {
+        const modal = document.getElementById(id);
+        if (modal) modal.classList.add("open");
+    }
+
+    function closeModal(id) {
+        const modal = document.getElementById(id);
+        if (modal) modal.classList.remove("open");
+    }
+
+    document.querySelectorAll(".modal").forEach(function(modal) {
+        modal.addEventListener("click", function(event) {
+            if (event.target === modal) {
+                modal.classList.remove("open");
+            }
+        });
+    });
+
+    document.addEventListener("keydown", function(event) {
+        if (event.key === "Escape") {
+            document.querySelectorAll(".modal.open").forEach(function(modal) {
+                modal.classList.remove("open");
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,491 @@
+{% load static %}
+
+<style>
+    :root {
+        --sf-teal: #2A9D8F;
+        --sf-dark: #207D73;
+        --sf-light: #D9F3EF;
+        --sf-hover: rgba(255, 255, 255, 0.15);
+        --sf-white: #FFFFFF;
+        --sf-text: #16302D;
+    }
+
+    .sf-navbar {
+        width: 100%;
+        min-height: 68px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1045;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 10px 24px;
+        box-sizing: border-box;
+        background: var(--sf-dark);
+        color: var(--sf-white);
+        box-shadow: 0 4px 20px rgba(20, 90, 80, 0.2);
+    }
+
+    .sf-left, .sf-right {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .sf-brand {
+        color: var(--sf-white);
+        text-decoration: none;
+        font-size: 23px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        white-space: nowrap;
+    }
+
+    .sf-brand span {
+        color: #B8F0E7;
+    }
+
+    .sf-icon-btn {
+        border: none;
+        background: transparent;
+        color: var(--sf-white);
+        font-size: 23px;
+        padding: 6px 10px;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .sf-icon-btn:hover {
+        background: var(--sf-hover);
+    }
+
+    .sf-search {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: 100%;
+        max-width: 390px;
+        margin: 0 auto;
+    }
+
+    .sf-search input {
+        width: 100%;
+        min-width: 0;
+        padding: 9px 13px;
+        border: 1px solid rgba(255,255,255,.3);
+        border-radius: 8px;
+        outline: none;
+        background: rgba(255,255,255,.13);
+        color: white;
+    }
+
+    .sf-search input::placeholder {
+        color: rgba(255,255,255,.8);
+    }
+
+    .sf-search input:focus {
+        border-color: #B8F0E7;
+        background: rgba(255,255,255,.2);
+    }
+
+    .sf-search button {
+        border: 1px solid rgba(255,255,255,.5);
+        border-radius: 8px;
+        padding: 8px 12px;
+        color: white;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .sf-search button:hover {
+        background: var(--sf-hover);
+    }
+
+    .sf-sidebar, .sf-profilebar {
+        position: fixed;
+        top: 68px;
+        bottom: 0;
+        width: 265px;
+        padding: 18px 14px;
+        box-sizing: border-box;
+        z-index: 1030;
+        background: rgba(32, 125, 115, .96);
+        color: white;
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+        transition: transform .3s ease;
+        overflow-y: auto;
+    }
+
+    .sf-sidebar {
+        left: 0;
+        transform: translateX(-105%);
+        border-right: 1px solid rgba(255,255,255,.2);
+    }
+
+    .sf-sidebar.show {
+        transform: translateX(0);
+    }
+
+    .sf-profilebar {
+        right: 0;
+        transform: translateX(105%);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border-left: 1px solid rgba(255,255,255,.2);
+    }
+
+    .sf-profilebar.show {
+        transform: translateX(0);
+    }
+
+    .sf-section-title {
+        margin: 16px 10px 8px;
+        color: #C9F0E9;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+    }
+
+    .sf-sidebar a, .sf-profilebar a, .sf-logout {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        margin-bottom: 5px;
+        padding: 11px 12px;
+        border: 0;
+        border-left: 3px solid transparent;
+        border-radius: 8px;
+        background: transparent;
+        color: white;
+        text-align: left;
+        text-decoration: none;
+        font: inherit;
+        cursor: pointer;
+        transition: .2s ease;
+    }
+
+    .sf-sidebar a:hover,
+    .sf-profilebar a:hover,
+    .sf-logout:hover {
+        background: var(--sf-hover);
+        transform: translateX(3px);
+    }
+
+    .sf-sidebar a.active,
+    .sf-profilebar a.active {
+        background: rgba(255,255,255,.2);
+        border-left-color: #B8F0E7;
+        font-weight: 700;
+    }
+
+    .sf-sidebar a i, .sf-profilebar a i, .sf-logout i {
+        width: 25px;
+        margin-right: 5px;
+    }
+
+    .sf-role-label {
+        margin: 0 8px 16px;
+        padding: 5px 10px;
+        display: inline-block;
+        border-radius: 20px;
+        background: rgba(255,255,255,.16);
+        color: #E5FFFA;
+        font-size: 12px;
+    }
+
+    .sf-welcome {
+        padding: 12px 8px 18px;
+        margin-bottom: 12px;
+        border-bottom: 1px solid rgba(255,255,255,.2);
+        font-weight: 600;
+        overflow-wrap: anywhere;
+    }
+
+    .sf-welcome i {
+        color: #B8F0E7;
+        margin-right: 7px;
+    }
+
+    .sf-logout {
+        border-top: 1px solid rgba(255,255,255,.2);
+        border-radius: 0;
+        padding-top: 16px;
+    }
+
+    .sf-logout i {
+        color: #FFD0D0;
+    }
+
+    @media (max-width: 650px) {
+        .sf-navbar {
+            padding: 10px 12px;
+            gap: 6px;
+        }
+
+        .sf-brand {
+            font-size: 19px;
+        }
+
+        .sf-search {
+            max-width: 180px;
+        }
+
+        .sf-search input {
+            padding: 8px;
+        }
+
+        .sf-sidebar, .sf-profilebar {
+            width: min(280px, 85vw);
+        }
+    }
+</style>
+
+<nav class="sf-navbar">
+    <!-- Brand and sidebar toggle -->
+    <div class="sf-left">
+        <button type="button" class="sf-icon-btn"
+                id="sfToggleBtn" aria-label="Open navigation"
+                aria-controls="sfSidebar" aria-expanded="false">
+            <i class="bi bi-list"></i>
+        </button>
+
+        <a href="{% url 'home' %}" class="sf-brand">
+            Spot<span>2</span>Fix
+        </a>
+    </div>
+
+    <!-- Search issues -->
+    <form class="sf-search" method="get" action="{% url 'search_issues' %}">
+        <input type="search" name="q"
+               placeholder="Search civic issues..."
+               value="{{ request.GET.q|default:'' }}"
+               aria-label="Search civic issues">
+        <button type="submit" aria-label="Search">
+            <i class="bi bi-search"></i>
+        </button>
+    </form>
+
+    <!-- Profile toggle -->
+    <div class="sf-right">
+        <button type="button" class="sf-icon-btn"
+                id="sfProfileBtn" aria-label="Open profile"
+                aria-controls="sfProfilebar" aria-expanded="false">
+            <i class="bi bi-person-circle"></i>
+        </button>
+    </div>
+
+    <!-- LEFT SIDEBAR: GENERAL + ROLE-SPECIFIC LINKS -->
+    <aside class="sf-sidebar" id="sfSidebar">
+
+        <div class="sf-section-title">General</div>
+
+        <a href="{% url 'home' %}">
+            <i class="bi bi-house"></i> Home
+        </a>
+
+        <a href="{% url 'issue_list' %}">
+            <i class="bi bi-geo-alt"></i> View Issues
+        </a>
+
+        {% if user.is_authenticated %}
+
+            {% if user.is_superuser %}
+                <div class="sf-section-title">Admin</div>
+
+                <a href="{% url 'admin_dashboard' %}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+
+                <a href="{% url 'issue_list' %}">
+                    <i class="bi bi-card-list"></i> All Issues
+                </a>
+
+
+            {% elif user.profile.role == 'admin' %}
+                <div class="sf-section-title">Admin</div>
+
+                <a href="{% url 'admin_dashboard' %}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+
+                <a href="{% url 'issue_list' %}">
+                    <i class="bi bi-card-list"></i> All Issues
+                </a>
+
+            {% elif user.profile.role == 'maintenance' %}
+                <div class="sf-section-title">Maintenance</div>
+
+                <a href="{% url 'maintenance_dashboard' %}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="{% url 'maintenance_recommendations' %}">
+                    <i class="bi bi-lightbulb"></i> Recommendations
+                </a>
+
+            {% else %}
+                <div class="sf-section-title">Citizen</div>
+
+                <a href="{% url 'citizen_dashboard' %}">
+                    <i class="bi bi-speedometer2"></i> Dashboard
+                </a>
+                <a href="{% url 'report_issue' %}">
+                    <i class="bi bi-plus-circle"></i> Report Issue
+                </a>
+                <a href="{% url 'my_issues' %}">
+                    <i class="bi bi-file-earmark-text"></i> My Reports
+                </a>
+            {% endif %}
+
+        {% else %}
+            <div class="sf-section-title">Get Started</div>
+
+            <a href="{% url 'loginuser' %}">
+                <i class="bi bi-box-arrow-in-right"></i> Login
+            </a>
+            <a href="{% url 'signupuser' %}">
+                <i class="bi bi-person-plus"></i> Sign Up
+            </a>
+        {% endif %}
+    </aside>
+
+    <!-- RIGHT PROFILE PANEL -->
+    <aside class="sf-profilebar" id="sfProfilebar">
+        <div>
+            {% if user.is_authenticated %}
+                <div class="sf-welcome">
+                    <i class="bi bi-person-circle"></i>
+                    Welcome, {{ user.username }}
+                </div>
+
+                {% if user.is_superuser %}
+                    <span class="sf-role-label">Administrator</span>
+                {% elif user.profile.role == 'admin' %}
+                    <span class="sf-role-label">Administrator</span>
+                {% elif user.profile.role == 'maintenance' %}
+                    <span class="sf-role-label">Maintenance Team</span>
+                {% else %}
+                    <span class="sf-role-label">Citizen</span>
+                {% endif %}
+
+                <a href="{% url 'home' %}">
+                    <i class="bi bi-house"></i> Home
+                </a>
+            {% else %}
+                <div class="sf-welcome">
+                    Welcome to Spot2Fix!
+                </div>
+
+                <a href="{% url 'loginuser' %}">
+                    <i class="bi bi-box-arrow-in-right"></i> Login
+                </a>
+                <a href="{% url 'signupuser' %}">
+                    <i class="bi bi-person-plus"></i> Sign Up
+                </a>
+            {% endif %}
+        </div>
+
+        {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logoutuser' %}">
+                {% csrf_token %}
+                <button type="submit" class="sf-logout">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+            </form>
+        {% endif %}
+    </aside>
+</nav>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+<script>
+(function () {
+    const sidebar = document.getElementById('sfSidebar');
+    const profilebar = document.getElementById('sfProfilebar');
+    const toggleBtn = document.getElementById('sfToggleBtn');
+    const profileBtn = document.getElementById('sfProfileBtn');
+
+    function closePanels() {
+        sidebar.classList.remove('show');
+        profilebar.classList.remove('show');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+        profileBtn.setAttribute('aria-expanded', 'false');
+    }
+
+    toggleBtn.addEventListener('click', function () {
+        const opening = !sidebar.classList.contains('show');
+        closePanels();
+
+        if (opening) {
+            sidebar.classList.add('show');
+            toggleBtn.setAttribute('aria-expanded', 'true');
+        }
+    });
+
+    profileBtn.addEventListener('click', function () {
+        const opening = !profilebar.classList.contains('show');
+        closePanels();
+
+        if (opening) {
+            profilebar.classList.add('show');
+            profileBtn.setAttribute('aria-expanded', 'true');
+        }
+    });
+
+    document.addEventListener('click', function (event) {
+        if (
+            !sidebar.contains(event.target) &&
+            !profilebar.contains(event.target) &&
+            !toggleBtn.contains(event.target) &&
+            !profileBtn.contains(event.target)
+        ) {
+            closePanels();
+        }
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closePanels();
+    });
+
+    window.addEventListener('scroll', closePanels);
+
+    const currentPath =
+    window.location.pathname.replace(/\/$/, '') || '/';
+
+    const currentQuery = new URLSearchParams(window.location.search);
+
+    document.querySelectorAll('#sfSidebar a[href]').forEach(function (link) {
+        const url = new URL(link.href, window.location.origin);
+        const linkPath = url.pathname.replace(/\/$/, '') || '/';
+        const linkQuery = new URLSearchParams(url.search);
+
+        let isActive = linkPath === currentPath;
+
+        // Dashboard, Pending Reports and Manage Issues share a URL.
+        if (linkPath === '/admin/dashboard/') {
+            isActive =
+                linkPath === currentPath &&
+                (
+                    linkQuery.get('status') || ''
+                ) === (
+                    currentQuery.get('status') || ''
+                );
+
+            // Manage Issues is not a separate page yet.
+            if (link.textContent.trim().includes('Manage Issues')) {
+                isActive = false;
+            }
+        }
+
+        if (isActive) {
+            link.classList.add('active');
+        }
+    });
+})();
+</script>
