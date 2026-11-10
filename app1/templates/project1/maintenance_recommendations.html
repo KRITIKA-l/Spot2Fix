@@ -554,15 +554,63 @@
         </div>
     </section>
 
+    <section class="panel">
+        <div class="panel-heading">
+            <div>
+                <h2>Suggested Route (Nearest Neighbor)</h2>
+                <p class="muted">Greedy route from the highest-priority assigned issue.</p>
+            </div>
+            <strong>{{ route_distance }} km</strong>
+        </div>
+        {% if route_details %}
+            <div class="traversal-list">
+                {% for item in route_details %}
+                    <article class="issue-item">
+                        <div class="bfs-number">{{ item.position }}</div>
+                        <div class="issue-content">
+                            <div class="issue-title">{{ item.assignment.issue.title }}</div>
+                            <div class="issue-meta">
+                                <span class="priority-badge priority-{{ item.assignment.issue.priority }}">
+                                    {{ item.assignment.issue.get_priority_display }}
+                                </span>
+                                {% if item.distance_from_start != None %}
+                                    <span class="status-badge">
+                                        {{ item.distance_from_start }} km from start
+                                    </span>
+                                {% endif %}
+                                <span class="status-badge">
+                                    Crew/time slot {{ item.crew_slot }}
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="muted">Add GPS coordinates to create a route.</p>
+        {% endif %}
+        <p class="footer-note">
+            Dijkstra distance from the first stop: {{ route_distance }} km.
+            Prim MST connection distance: {{ mst_distance }} km
+            across {{ mst_edge_count }} connection(s).
+            Greedy graph coloring needs {{ crew_slot_count }} crew/time slot(s).
+        </p>
+    </section>
+
     <section class="chart-panel" id="recommendationChart">
 
         <div class="chart-header">
             <div>
                 <h2>Nearby Issue Network</h2>
                 <p class="muted">
-                    Follow the snake-shaped route to visit each issue in order. 
+                    {{ traversal_name }} traversal groups nearby issues.
                     Circle numbers show the visit order, and border colors show priority.
                 </p>
+            </div>
+
+            <div>
+                <a class="btn" href="?traversal=bfs">BFS</a>
+                <a class="btn" href="?traversal=dfs">DFS</a>
             </div>
 
             <button type="button"
@@ -708,7 +756,8 @@
 
         <p class="footer-note">
             <strong>How it works:</strong>
-            Issues within 2 km are connected in a graph. Breadth-First Search
+            Issues within 2 km are connected in a graph. {{ traversal_name }}
+            traversal
             explores connected issues, preferring high-priority issues when
             selecting a starting node. This is not an optimized driving route.
         </p>

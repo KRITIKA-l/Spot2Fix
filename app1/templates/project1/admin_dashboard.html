@@ -465,6 +465,35 @@
             {% endif %}
         </form>
 
+        <div class="panel" style="margin-top:20px;background:#f8fcfb;">
+            <div class="panel-heading">
+                <div>
+                    <h2>Fix Today</h2>
+                    <span class="muted">0/1 knapsack selects the highest-priority work within the available hours.</span>
+                </div>
+                <form method="get" action="{% url 'admin_dashboard' %}" class="filters" style="margin:0;">
+                    <input type="number" name="fix_hours" min="0" max="24"
+                           value="{{ fix_hours }}" aria-label="Available hours">
+                    <button class="btn btn-primary" type="submit">Build Plan</button>
+                </form>
+            </div>
+            {% if fix_hours %}
+                <p class="muted">
+                    Planned {{ fix_today_hours }} of {{ fix_hours }} hour(s);
+                    priority value {{ fix_today_value }}.
+                </p>
+                {% if fix_today_issues %}
+                    <ul>
+                        {% for issue in fix_today_issues %}
+                            <li>#{{ issue.id }} — {{ issue.title }} ({{ issue.get_category_display }})</li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p class="muted">No unresolved issues fit this time limit.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+
         <!-- Reports table -->
         <div class="table-wrapper">
             <table class="issue-table">

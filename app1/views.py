@@ -1,4 +1,5 @@
 import hashlib
+import heapq
 import logging
 import math
 import secrets
@@ -18,7 +19,7 @@ from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.core.paginator import Paginator
 from django.db import IntegrityError, transaction
-from django.db.models import Case, Count, IntegerField, Q, When
+from django.db.models import Count, Q
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views.decorators.http import require_http_methods, require_POST
@@ -32,6 +33,16 @@ OTP_EXPIRY = timedelta(minutes=10)
 OTP_RESEND_COOLDOWN = timedelta(seconds=60)
 OTP_RATE_WINDOW = 60 * 60
 OTP_MAX_ATTEMPTS = 5
+
+ESTIMATED_HOURS_BY_CATEGORY = {
+    "pothole": 3,
+    "damaged_road": 6,
+    "waterlogging": 4,
+    "garbage": 2,
+    "other": 4,
+}
+
+PRIORITY_VALUE = {"high": 3, "medium": 2, "low": 1}
 
 
 def generate_email_otp():
@@ -427,6 +438,52 @@ def citizen_dashboard(request):
     )
 
 
+def kmp_contains(text, pattern):
+    """Return whether pattern occurs in text using Knuth-Morris-Pratt."""
+
+    text = (text or "").casefold()
+    pattern = (pattern or "").casefold()
+    if not pattern:
+        return True
+
+    prefix = [0] * len(pattern)
+    matched = 0
+    for index in range(1, len(pattern)):
+        while matched and pattern[index] != pattern[matched]:
+            matched = prefix[matched - 1]
+        if pattern[index] == pattern[matched]:
+            matched += 1
+        prefix[index] = matched
+
+    matched = 0
+    for character in text:
+        while matched and character != pattern[matched]:
+            matched = prefix[matched - 1]
+        if character == pattern[matched]:
+            matched += 1
+        if matched == len(pattern):
+            return True
+    return False
+
+
+def lcs_similarity(first, second):
+    """Return normalized LCS similarity for two report titles."""
+
+    first = (first or "").casefold()
+    second = (second or "").casefold()
+    if not first or not second:
+        return 0
+
+    previous = [0] * (len(second) + 1)
+    for first_character in first:
+        current = [0]
+        for index, second_character in enumerate(second, start=1):
+            if first_character == second_character:
+                current.append(previous[index - 1] + 1)
+            else:
+                current.append(max(previous[index], current[-1]))
+        previous = current
+    return previous[-1] / max(len(first), len(second))
 
 
 @login_required
@@ -522,6 +579,14 @@ def report_issue(request):
                 },
             )
 
+        duplicate_reports = []
+        for existing_issue in Issue.objects.only("title").exclude(
+            status="resolved"
+        ):
+            similarity = lcs_similarity(title, existing_issue.title)
+            if similarity >= 0.65:
+                duplicate_reports.append(existing_issue.title)
+
         with transaction.atomic():
             issue = Issue.objects.create(
                 user=request.user,
@@ -545,6 +610,12 @@ def report_issue(request):
             request,
             "Your issue has been reported successfully!"
         )
+        if duplicate_reports:
+            messages.warning(
+                request,
+                "Possible duplicate report: "
+                + ", ".join(duplicate_reports[:3]),
+            )
 
         return redirect("citizen_dashboard")
 
@@ -560,19 +631,25 @@ def report_issue(request):
 
 
 
-def merge_sort_issues(issues):
-    """Merge Sort: high priority first, then older reports first."""
+def merge_sort_issues(
+    issues,
+    priority_sort="high_first",
+    time_sort="newest",
+):
+    """Sort issues with merge sort while preserving the dashboard controls."""
 
-    priority_order = {
-        "high": 0,
-        "medium": 1,
-        "low": 2,
-    }
+    priority_order = {"high": 0, "medium": 1, "low": 2}
+    if priority_sort == "low_first":
+        priority_order = {"low": 0, "medium": 1, "high": 2}
 
     def sort_key(issue):
+        created_at = issue.created_at
+        created_at = created_at.timestamp() if created_at is not None else 0
+        if time_sort != "oldest":
+            created_at = -created_at
         return (
             priority_order.get(issue.priority, 3),
-            issue.created_at,
+            created_at,
             issue.id,
         )
 
@@ -671,35 +748,25 @@ def admin_dashboard(request):
             | Q(user__username__icontains=query)
         )
 
-    # Priority and time sorting remain separate controls.
-    if selected_priority_sort == "low_first":
-        priority_order = Case(
-            When(priority="low", then=0),
-            When(priority="medium", then=1),
-            When(priority="high", then=2),
-            default=3,
-            output_field=IntegerField(),
-        )
-    else:
-        priority_order = Case(
-            When(priority="high", then=0),
-            When(priority="medium", then=1),
-            When(priority="low", then=2),
-            default=3,
-            output_field=IntegerField(),
-        )
+    # Merge sort keeps priority and time sorting in application code.
+    issues = merge_sort_issues(
+        list(issues),
+        priority_sort=selected_priority_sort,
+        time_sort=selected_time_sort,
+    )
 
-    if selected_time_sort == "oldest":
-        time_order = "created_at"
-    else:
-        time_order = "-created_at"
-
-    issues = issues.annotate(
-        priority_order=priority_order
-    ).order_by(
-        "priority_order",
-        time_order,
-        "id",
+    fix_hours_input = request.GET.get("fix_hours", "").strip()
+    try:
+        fix_hours = min(24, max(0, int(fix_hours_input or 0)))
+    except ValueError:
+        fix_hours = 0
+        fix_hours_input = ""
+    fix_today_issues, fix_today_hours, fix_today_value = knapsack_issues(
+        [
+            issue for issue in Issue.objects.all()
+            if issue.status != "resolved"
+        ],
+        fix_hours,
     )
 
     # Pagination
@@ -734,6 +801,10 @@ def admin_dashboard(request):
         "category_choices": Issue.CATEGORY_CHOICES,
 
         "maintenance_users": maintenance_users,
+        "fix_hours": fix_hours_input or fix_hours,
+        "fix_today_issues": fix_today_issues,
+        "fix_today_hours": fix_today_hours,
+        "fix_today_value": fix_today_value,
     }
 
     return render(
@@ -754,15 +825,34 @@ def issue_list(request):
     issues = Issue.objects.all()
 
     if query:
-        issues = issues.filter(
-            Q(title__icontains=query)
-            | Q(description__icontains=query)
-            | Q(category__icontains=query)
-            | Q(status__icontains=query)
-        )
+        all_issues = list(Issue.objects.all())
+        issues = [
+            issue for issue in all_issues
+            if any(
+                kmp_contains(value, query)
+                for value in (
+                    issue.title,
+                    issue.description,
+                    issue.category,
+                    issue.status,
+                )
+            )
+        ]
+        if not issues:
+            # Keep the database search as a compatibility fallback.
+            issues = Issue.objects.filter(
+                Q(title__icontains=query)
+                | Q(description__icontains=query)
+                | Q(category__icontains=query)
+                | Q(status__icontains=query)
+            )
 
     context = {
-        "issues": issues.order_by("-created_at"),
+        "issues": sorted(
+            list(issues),
+            key=lambda issue: issue.created_at,
+            reverse=True,
+        ),
         "query": query,
     }
 
@@ -891,16 +981,8 @@ def calculate_distance(lat1, lon1, lat2, lon2):
     return 6371 * 2 * asin(sqrt(a))
 
 
-def bfs_nearby_assignments(assignments, radius_km=2):
-    """
-    Arrange assignments using BFS.
-
-    Two issues are connected when their straight-line GPS
-    distance is at most radius_km.
-    """
-
-    assignments = list(assignments)
-
+def build_assignment_graph(assignments, radius_km=2):
+    """Build a weighted proximity graph and separate unlocated assignments."""
     located = []
     unlocated = []
 
@@ -914,13 +996,8 @@ def bfs_nearby_assignments(assignments, radius_km=2):
 
     count = len(located)
 
-    if count == 0:
-        return assignments
-
-    # Each issue is a graph node.
     graph = {i: [] for i in range(count)}
-
-    # Create edges between issues within the distance threshold.
+    edges = []
     for i in range(count):
         issue_a = located[i].issue
 
@@ -935,58 +1012,194 @@ def bfs_nearby_assignments(assignments, radius_km=2):
             )
 
             if distance <= radius_km:
-                graph[i].append(j)
-                graph[j].append(i)
+                graph[i].append((j, distance))
+                graph[j].append((i, distance))
+                edges.append((i, j, distance))
+    return located, unlocated, graph, edges
 
-    # Prefer high-priority issues as traversal starting points.
-    priority_order = {
-        "high": 0,
-        "medium": 1,
-        "low": 2,
-    }
+
+def traverse_assignment_graph(located, graph, method="bfs"):
+    """Traverse each proximity component with BFS or DFS."""
+    priority_order = {"high": 0, "medium": 1, "low": 2}
 
     def start_key(index):
         assignment = located[index]
-
         return (
-            priority_order.get(
-                assignment.issue.priority, 3
-            ),
+            priority_order.get(assignment.issue.priority, 3),
             assignment.assigned_at,
             assignment.pk,
         )
 
-    start_order = sorted(range(count), key=start_key)
-
+    start_order = sorted(range(len(located)), key=start_key)
     visited = set()
     ordered = []
+    components = []
 
-    # Traverse every connected component.
     for start in start_order:
         if start in visited:
             continue
-
-        queue = deque([start])
+        frontier = deque([start])
         visited.add(start)
+        component = []
 
-        while queue:
-            current = queue.popleft()
-            ordered.append(located[current])
-
+        while frontier:
+            current = (
+                frontier.popleft()
+                if method == "bfs"
+                else frontier.pop()
+            )
+            ordered.append(current)
+            component.append(current)
             neighbours = sorted(
                 graph[current],
-                key=start_key,
+                key=lambda edge: start_key(edge[0]),
+                reverse=method == "dfs",
             )
-
-            for neighbour in neighbours:
+            for neighbour, _distance in neighbours:
                 if neighbour not in visited:
                     visited.add(neighbour)
-                    queue.append(neighbour)
+                    frontier.append(neighbour)
+        components.append(component)
+    return ordered, components
 
-    # Issues without coordinates cannot participate in the graph.
-    unlocated.sort(key=lambda a: (a.assigned_at, a.pk))
 
-    return ordered + unlocated
+def bfs_nearby_assignments(assignments, radius_km=2):
+    """Arrange assignments with the shared breadth-first graph traversal."""
+    assignments = list(assignments)
+    located, unlocated, graph, _edges = build_assignment_graph(
+        assignments,
+        radius_km=radius_km,
+    )
+    if not located:
+        return assignments
+    ordered, _components = traverse_assignment_graph(located, graph, "bfs")
+    unlocated.sort(key=lambda assignment: (assignment.assigned_at, assignment.pk))
+    return [located[index] for index in ordered] + unlocated
+
+
+def nearest_neighbor_route(located, graph, start_index=0):
+    """Build a greedy nearest-neighbor route from the worker's first issue."""
+    if not located:
+        return [], 0
+    remaining = set(range(len(located)))
+    route = [start_index]
+    remaining.remove(start_index)
+    total_distance = 0
+
+    while remaining:
+        current = route[-1]
+        distances = {
+            neighbour: distance
+            for neighbour, distance in graph[current]
+            if neighbour in remaining
+        }
+        if not distances:
+            next_index = min(remaining)
+            distance = calculate_distance(
+                located[current].issue.latitude,
+                located[current].issue.longitude,
+                located[next_index].issue.latitude,
+                located[next_index].issue.longitude,
+            )
+        else:
+            next_index, distance = min(
+                distances.items(),
+                key=lambda item: (item[1], item[0]),
+            )
+        route.append(next_index)
+        remaining.remove(next_index)
+        total_distance += distance
+    return route, round(total_distance, 2)
+
+
+def dijkstra_distances(graph, start):
+    """Find shortest weighted paths from start across the proximity graph."""
+    distances = {index: math.inf for index in graph}
+    distances[start] = 0
+    queue = [(0, start)]
+    while queue:
+        distance, current = heapq.heappop(queue)
+        if distance != distances[current]:
+            continue
+        for neighbour, weight in graph[current]:
+            candidate = distance + weight
+            if candidate < distances[neighbour]:
+                distances[neighbour] = candidate
+                heapq.heappush(queue, (candidate, neighbour))
+    return distances
+
+
+def prim_minimum_spanning_tree(component, graph):
+    """Return the minimum connection edges and distance for one component."""
+    if not component:
+        return [], 0
+    visited = {component[0]}
+    frontier = [
+        (distance, component[0], neighbour)
+        for neighbour, distance in graph[component[0]]
+    ]
+    heapq.heapify(frontier)
+    tree = []
+    total = 0
+    while frontier and len(visited) < len(component):
+        distance, source, target = heapq.heappop(frontier)
+        if target in visited:
+            continue
+        visited.add(target)
+        tree.append((source, target, distance))
+        total += distance
+        for neighbour, weight in graph[target]:
+            if neighbour not in visited:
+                heapq.heappush(frontier, (weight, target, neighbour))
+    return tree, round(total, 2)
+
+
+def color_assignment_graph(graph, order):
+    """Greedily assign non-conflicting crew/time slots to nearby issues."""
+    colors = {}
+    for index in order:
+        blocked = {
+            colors[neighbour]
+            for neighbour, _distance in graph[index]
+            if neighbour in colors
+        }
+        color = 0
+        while color in blocked:
+            color += 1
+        colors[index] = color
+    return colors
+
+
+def knapsack_issues(issues, max_hours):
+    """Select the highest-priority issue value within an hours limit."""
+    max_hours = max(0, int(max_hours))
+    items = [
+        (
+            issue,
+            ESTIMATED_HOURS_BY_CATEGORY.get(issue.category, 4),
+            PRIORITY_VALUE.get(issue.priority, 1),
+        )
+        for issue in issues
+    ]
+    best = [(0, []) for _ in range(max_hours + 1)]
+    for issue, hours, value in items:
+        for capacity in range(max_hours, hours - 1, -1):
+            previous_value, previous_items = best[capacity - hours]
+            candidate = (previous_value + value, previous_items + [issue])
+            if candidate[0] > best[capacity][0]:
+                best[capacity] = candidate
+    selected_value, selected = max(
+        best,
+        key=lambda result: (result[0], -sum(
+            ESTIMATED_HOURS_BY_CATEGORY.get(issue.category, 4)
+            for issue in result[1]
+        )),
+    )
+    selected_hours = sum(
+        ESTIMATED_HOURS_BY_CATEGORY.get(issue.category, 4)
+        for issue in selected
+    )
+    return selected, selected_hours, selected_value
 
 @login_required
 def maintenance_dashboard(request):
@@ -1195,102 +1408,56 @@ def maintenance_recommendations(request):
         ).order_by("-assigned_at", "-pk")
     )
 
-    # Separate issues that have GPS coordinates from those that do not.
-    located = []
-    unlocated = []
-
-    for assignment in assignments:
-        issue = assignment.issue
-
-        if issue.latitude is not None and issue.longitude is not None:
-            located.append(assignment)
-        else:
-            unlocated.append(assignment)
-
+    located, unlocated, graph, weighted_edges = build_assignment_graph(
+        assignments
+    )
     count = len(located)
-
-    # Build the graph using a 2 km distance threshold.
-    graph = {i: [] for i in range(count)}
-    edges = []
-
-    for i in range(count):
-        for j in range(i + 1, count):
-            issue_a = located[i].issue
-            issue_b = located[j].issue
-
-            distance = calculate_distance(
-                issue_a.latitude,
-                issue_a.longitude,
-                issue_b.latitude,
-                issue_b.longitude,
-            )
-
-            if distance <= 2:
-                graph[i].append(j)
-                graph[j].append(i)
-
-                edges.append({
-                    "source": i,
-                    "target": j,
-                    "distance": round(distance, 2),
-                })
-
-    # Define priority ordering for BFS starting nodes and neighbours.
-    priority_order = {
-        "high": 0,
-        "medium": 1,
-        "low": 2,
+    traversal = request.GET.get("traversal", "bfs").lower()
+    if traversal not in {"bfs", "dfs"}:
+        traversal = "bfs"
+    traversal_order, components = traverse_assignment_graph(
+        located,
+        graph,
+        traversal,
+    )
+    component_number = {
+        index: component_number
+        for component_number, component in enumerate(components, start=1)
+        for index in component
     }
 
-    def start_key(index):
-        assignment = located[index]
-
-        return (
-            priority_order.get(
-                assignment.issue.priority, 3
+    route_order, route_distance = nearest_neighbor_route(
+        located,
+        graph,
+        traversal_order[0] if traversal_order else 0,
+    )
+    route_assignments = [located[index] for index in route_order]
+    distance_map = (
+        dijkstra_distances(graph, route_order[0])
+        if route_order
+        else {}
+    )
+    crew_slots = color_assignment_graph(graph, traversal_order)
+    route_details = [
+        {
+            "assignment": located[index],
+            "position": position + 1,
+            "distance_from_start": (
+                round(distance_map[index], 2)
+                if distance_map.get(index, math.inf) != math.inf
+                else None
             ),
-            assignment.assigned_at,
-            assignment.pk,
-        )
+            "crew_slot": crew_slots.get(index, 0) + 1,
+        }
+        for position, index in enumerate(route_order)
+    ]
 
-    start_order = sorted(range(count), key=start_key)
-
-    visited = set()
-    bfs_order = []
-    components = []
-    component_number = {}
-
-    # BFS traversal across every connected component.
-    for start in start_order:
-        if start in visited:
-            continue
-
-        queue = deque([start])
-        visited.add(start)
-        component = []
-
-        while queue:
-            current = queue.popleft()
-
-            bfs_order.append(current)
-            component.append(current)
-
-            neighbours = sorted(
-                graph[current],
-                key=start_key,
-            )
-
-            for neighbour in neighbours:
-                if neighbour not in visited:
-                    visited.add(neighbour)
-                    queue.append(neighbour)
-
-        group_number = len(components) + 1
-
-        for index in component:
-            component_number[index] = group_number
-
-        components.append(component)
+    mst_edges = []
+    mst_distance = 0
+    for component in components:
+        tree, distance = prim_minimum_spanning_tree(component, graph)
+        mst_distance += distance
+        mst_edges.extend(tree)
 
     # Arrange graph nodes in a snake layout: four issues per row.
     nodes = []
@@ -1301,7 +1468,7 @@ def maintenance_recommendations(request):
     gap_x = 190
     gap_y = 145
 
-    for position, index in enumerate(bfs_order):
+    for position, index in enumerate(traversal_order):
         row = position // columns
         col = position % columns
 
@@ -1326,7 +1493,14 @@ def maintenance_recommendations(request):
             "status": issue.get_status_display(),
             "category": issue.get_category_display(),
             "component": component_number[index],
+            "traversal_position": position + 1,
             "bfs_position": position + 1,
+            "crew_slot": crew_slots.get(index, 0) + 1,
+            "distance_from_start": (
+                round(distance_map[index], 2)
+                if distance_map.get(index, math.inf) != math.inf
+                else None
+            ),
             "latitude": issue.latitude,
             "longitude": issue.longitude,
         })
@@ -1338,7 +1512,13 @@ def maintenance_recommendations(request):
     }
 
     # Add SVG coordinates to the existing GPS graph edges.
-    for edge in edges:
+    edges = []
+    for source, target, distance in weighted_edges:
+        edge = {
+            "source": source,
+            "target": target,
+            "distance": round(distance, 2),
+        }
         source_node = node_positions[edge["source"]]
         target_node = node_positions[edge["target"]]
 
@@ -1349,12 +1529,9 @@ def maintenance_recommendations(request):
 
         edge["source_id"] = source_node["id"]
         edge["target_id"] = target_node["id"]
+        edges.append(edge)
 
-    # Arrange assignments in BFS order.
-    ordered_assignments = [
-        located[index]
-        for index in bfs_order
-    ]
+    ordered_assignments = [located[index] for index in traversal_order]
 
     # Calculate chart dimensions based on the number of nodes.
     total_rows = (len(nodes) + columns - 1) // columns
@@ -1378,6 +1555,13 @@ def maintenance_recommendations(request):
         "located_count": count,
         "unlocated_assignments": unlocated,
         "bfs_assignments": ordered_assignments,
+        "traversal_name": traversal.upper(),
+        "route_assignments": route_assignments,
+        "route_details": route_details,
+        "route_distance": route_distance,
+        "mst_distance": round(mst_distance, 2),
+        "mst_edge_count": len(mst_edges),
+        "crew_slot_count": max(crew_slots.values(), default=-1) + 1,
         "total_assignments": len(assignments),
         "chart_width": chart_width,
         "chart_height": chart_height,
