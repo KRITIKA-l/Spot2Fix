@@ -53,6 +53,10 @@ urlpatterns = [
     # Maintenance features
     path('maintenance/dashboard/', views.maintenance_dashboard, name='maintenance_dashboard'),
     path('maintenance/recommendations/', views.maintenance_recommendations, name='maintenance_recommendations'),
+    path('maintenance/nearby-groups/', views.maintenance_analysis, {"section": "groups"}, name='maintenance_groups'),
+    path('maintenance/visit-plan/', views.maintenance_analysis, {"section": "route"}, name='maintenance_route'),
+    path('maintenance/connections/', views.maintenance_analysis, {"section": "connections"}, name='maintenance_connections'),
+    path('maintenance/work-slots/', views.maintenance_analysis, {"section": "slots"}, name='maintenance_slots'),
     path('maintenance/issue/<int:issue_id>/action/', views.maintenance_issue_action, name='maintenance_issue_action'),
     path('maintenance/assigned-issues/', coming_soon, name='assigned_issues'),
 

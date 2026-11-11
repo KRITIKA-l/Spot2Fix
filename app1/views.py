@@ -1437,15 +1437,27 @@ def maintenance_recommendations(request):
         if route_order
         else {}
     )
+    route_start = located[route_order[0]] if route_order else None
     crew_slots = color_assignment_graph(graph, traversal_order)
     route_details = [
         {
             "assignment": located[index],
             "position": position + 1,
-            "distance_from_start": (
-                round(distance_map[index], 2)
+            "distance_from_start": round(
+                distance_map[index]
                 if distance_map.get(index, math.inf) != math.inf
-                else None
+                else calculate_distance(
+                    route_start.issue.latitude,
+                    route_start.issue.longitude,
+                    located[index].issue.latitude,
+                    located[index].issue.longitude,
+                ),
+                2,
+            ),
+            "distance_type": (
+                "network"
+                if distance_map.get(index, math.inf) != math.inf
+                else "direct"
             ),
             "crew_slot": crew_slots.get(index, 0) + 1,
         }
@@ -1494,7 +1506,6 @@ def maintenance_recommendations(request):
             "category": issue.get_category_display(),
             "component": component_number[index],
             "traversal_position": position + 1,
-            "bfs_position": position + 1,
             "crew_slot": crew_slots.get(index, 0) + 1,
             "distance_from_start": (
                 round(distance_map[index], 2)
@@ -1532,6 +1543,22 @@ def maintenance_recommendations(request):
         edges.append(edge)
 
     ordered_assignments = [located[index] for index in traversal_order]
+    ordered_assignment_rows = [
+        {
+            "assignment": assignment,
+            "position": position + 1,
+        }
+        for position, assignment in enumerate(ordered_assignments)
+    ]
+    route_page_obj = Paginator(route_details, 8).get_page(
+        request.GET.get("route_page")
+    )
+    order_page_obj = Paginator(ordered_assignment_rows, 8).get_page(
+        request.GET.get("order_page")
+    )
+    unlocated_page_obj = Paginator(unlocated, 8).get_page(
+        request.GET.get("unlocated_page")
+    )
 
     # Calculate chart dimensions based on the number of nodes.
     total_rows = (len(nodes) + columns - 1) // columns
@@ -1555,8 +1582,15 @@ def maintenance_recommendations(request):
         "located_count": count,
         "unlocated_assignments": unlocated,
         "bfs_assignments": ordered_assignments,
-        "traversal_name": traversal.upper(),
+        "route_page_obj": route_page_obj,
+        "order_page_obj": order_page_obj,
+        "unlocated_page_obj": unlocated_page_obj,
+        "traversal_name": (
+            "Level order" if traversal == "bfs" else "Depth order"
+        ),
+        "traversal_mode": traversal,
         "route_assignments": route_assignments,
+        "route_start_assignment": route_start,
         "route_details": route_details,
         "route_distance": route_distance,
         "mst_distance": round(mst_distance, 2),
@@ -1570,5 +1604,118 @@ def maintenance_recommendations(request):
     return render(
         request,
         "project1/maintenance_recommendations.html",
+        context,
+    )
+
+
+@login_required
+def maintenance_analysis(request, section):
+    """Render one paginated maintenance analysis view."""
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        messages.error(request, "User profile not found.")
+        return redirect("home")
+
+    if profile.role != "maintenance":
+        messages.error(request, "Access denied.")
+        return redirect("home")
+
+    assignments = list(
+        Assignment.objects.filter(
+            assigned_to=request.user.username
+        ).select_related("issue", "issue__user").order_by(
+            "-assigned_at", "-pk"
+        )
+    )
+    located, unlocated, graph, weighted_edges = build_assignment_graph(
+        assignments
+    )
+    traversal_order, components = traverse_assignment_graph(
+        located,
+        graph,
+        "bfs",
+    )
+    route_order, route_distance = nearest_neighbor_route(
+        located,
+        graph,
+        traversal_order[0] if traversal_order else 0,
+    )
+    distance_map = (
+        dijkstra_distances(graph, route_order[0])
+        if route_order
+        else {}
+    )
+    crew_slots = color_assignment_graph(graph, traversal_order)
+
+    titles = {
+        "groups": ("Nearby Groups", "Assignments grouped by nearby location."),
+        "route": ("Visit Plan", "Suggested order for visiting assigned issues."),
+        "connections": ("Connections", "Minimum connection links within each group."),
+        "slots": ("Work Slots", "Suggested crew or time-slot allocation."),
+    }
+    if section not in titles:
+        return redirect("maintenance_dashboard")
+    page_title, page_description = titles[section]
+
+    if section == "groups":
+        rows = [
+            {
+                "number": number,
+                "assignments": [located[index] for index in component],
+                "count": len(component),
+            }
+            for number, component in enumerate(components, start=1)
+        ]
+    elif section == "route":
+        rows = [
+            {
+                "position": position + 1,
+                "assignment": located[index],
+                "distance": (
+                    round(distance_map[index], 2)
+                    if distance_map.get(index, math.inf) != math.inf
+                    else None
+                ),
+            }
+            for position, index in enumerate(route_order)
+        ]
+    elif section == "connections":
+        rows = []
+        for component in components:
+            tree, _distance = prim_minimum_spanning_tree(component, graph)
+            for source, target, distance in tree:
+                rows.append({
+                    "source": located[source],
+                    "target": located[target],
+                    "distance": round(distance, 2),
+                })
+    else:
+        rows = [
+            {
+                "assignment": located[index],
+                "slot": crew_slots.get(index, 0) + 1,
+            }
+            for index in traversal_order
+        ]
+
+    paginator = Paginator(rows, 8)
+    page_obj = paginator.get_page(request.GET.get("page"))
+    context = {
+        "page_title": page_title,
+        "page_description": page_description,
+        "section": section,
+        "page_obj": page_obj,
+        "rows": page_obj.object_list,
+        "located_count": len(located),
+        "unlocated_count": len(unlocated),
+        "group_count": len(components),
+        "route_distance": route_distance,
+        "slot_count": max(crew_slots.values(), default=-1) + 1,
+        "edge_count": len(weighted_edges),
+    }
+    return render(
+        request,
+        "project1/maintenance_analysis.html",
         context,
     )

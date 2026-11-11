@@ -13,7 +13,7 @@
             --text: #172b4d;
             --muted: #64748b;
             --border: #e2e8f0;
-            --background: #f5f7fb;
+            --background: #fbfcfe;
             --white: #ffffff;
             --high: #dc2626;
             --medium: #d97706;
@@ -227,7 +227,7 @@
             overflow-y: visible;
             border: 1px solid var(--border);
             border-radius: 12px;
-            background: #f8fafc;
+            background: #fbfdff;
         }
 
         .chart-scroll svg {
@@ -383,6 +383,27 @@
             transform: translateY(-1px);
         }
 
+        .recommendation-pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .recommendation-pagination .current {
+            background: var(--primary-light);
+            border-color: #99f6e4;
+            color: var(--primary);
+        }
+
+        .traversal-controls .active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
         .bfs-number {
             display: flex;
             align-items: center;
@@ -446,10 +467,81 @@
         }
 
         .footer-note {
-            margin: 17px 0 0;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
+            margin: 20px 0 0;
+        }
+
+        .metric-card {
+            padding: 14px 15px;
+            border: 1px solid #dbeafe;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f8fafc, #f0fdfa);
+        }
+
+        .metric-label {
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 800;
+            letter-spacing: .45px;
+            text-transform: uppercase;
+        }
+
+        .metric-value {
+            margin-top: 6px;
+            color: var(--text);
+            font-size: 21px;
+            font-weight: 800;
+        }
+
+        .metric-description {
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.4;
+        }
+
+        .traversal-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 0 18px;
+            padding: 14px 16px;
+            border: 1px solid #bae6fd;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #f0f9ff, #f0fdfa);
+        }
+
+        .traversal-info-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: #0f766e;
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        .traversal-info strong {
+            color: var(--text);
+        }
+
+        .traversal-info p {
+            margin: 3px 0 0;
             color: var(--muted);
             font-size: 12px;
-            line-height: 1.8;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 720px) {
+            .footer-note {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 850px) {
@@ -557,14 +649,19 @@
     <section class="panel">
         <div class="panel-heading">
             <div>
-                <h2>Suggested Route (Nearest Neighbor)</h2>
-                <p class="muted">Greedy route from the highest-priority assigned issue.</p>
+                <h2>Suggested Visit Route</h2>
+                <p class="muted">Starts with the highest-priority issue, then chooses the closest remaining stop.</p>
             </div>
             <strong>{{ route_distance }} km</strong>
         </div>
         {% if route_details %}
+            <p class="muted">
+                <strong>Start point:</strong>
+                {{ route_start_assignment.issue.title }}
+                (the first high-priority issue in the suggested order)
+            </p>
             <div class="traversal-list">
-                {% for item in route_details %}
+                {% for item in route_page_obj %}
                     <article class="issue-item">
                         <div class="bfs-number">{{ item.position }}</div>
                         <div class="issue-content">
@@ -573,11 +670,14 @@
                                 <span class="priority-badge priority-{{ item.assignment.issue.priority }}">
                                     {{ item.assignment.issue.get_priority_display }}
                                 </span>
-                                {% if item.distance_from_start != None %}
-                                    <span class="status-badge">
-                                        {{ item.distance_from_start }} km from start
-                                    </span>
-                                {% endif %}
+                                <span class="status-badge">
+                                    {{ item.distance_from_start }} km
+                                    {% if item.distance_type == "network" %}
+                                        Dijkstra distance from start
+                                    {% else %}
+                                        direct from start
+                                    {% endif %}
+                                </span>
                                 <span class="status-badge">
                                     Crew/time slot {{ item.crew_slot }}
                                 </span>
@@ -586,15 +686,39 @@
                     </article>
                 {% endfor %}
             </div>
+            {% if route_page_obj.paginator.num_pages > 1 %}
+                <nav class="recommendation-pagination" aria-label="Suggested route pagination">
+                    {% if route_page_obj.has_previous %}
+                        <a class="btn" href="?traversal={{ request.GET.traversal|default:'bfs' }}&amp;route_page={{ route_page_obj.previous_page_number }}&amp;order_page={{ order_page_obj.number }}">Previous route page</a>
+                    {% endif %}
+                    <span class="btn current">
+                        Route page {{ route_page_obj.number }} of {{ route_page_obj.paginator.num_pages }}
+                    </span>
+                    {% if route_page_obj.has_next %}
+                        <a class="btn" href="?traversal={{ request.GET.traversal|default:'bfs' }}&amp;route_page={{ route_page_obj.next_page_number }}&amp;order_page={{ order_page_obj.number }}">Next route page</a>
+                    {% endif %}
+                </nav>
+            {% endif %}
         {% else %}
             <p class="muted">Add GPS coordinates to create a route.</p>
         {% endif %}
-        <p class="footer-note">
-            Dijkstra distance from the first stop: {{ route_distance }} km.
-            Prim MST connection distance: {{ mst_distance }} km
-            across {{ mst_edge_count }} connection(s).
-            Greedy graph coloring needs {{ crew_slot_count }} crew/time slot(s).
-        </p>
+        <div class="footer-note" aria-label="Route planning summary">
+            <div class="metric-card">
+                <div class="metric-label">Suggested route</div>
+                <div class="metric-value">{{ route_distance }} km</div>
+                <div class="metric-description">Total estimated distance for the visit order</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Minimum connections</div>
+                <div class="metric-value">{{ mst_distance }} km</div>
+                <div class="metric-description">Prim connection distance across {{ mst_edge_count }} link(s)</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">Crew planning</div>
+                <div class="metric-value">{{ crew_slot_count }} slot(s)</div>
+                <div class="metric-description">Suggested non-conflicting crew/time allocation</div>
+            </div>
+        </div>
     </section>
 
     <section class="chart-panel" id="recommendationChart">
@@ -608,9 +732,15 @@
                 </p>
             </div>
 
-            <div>
-                <a class="btn" href="?traversal=bfs">BFS</a>
-                <a class="btn" href="?traversal=dfs">DFS</a>
+            <div class="traversal-controls">
+                <a class="btn{% if traversal_mode == 'bfs' %} active{% endif %}"
+                   href="?traversal=bfs&amp;route_page={{ route_page_obj.number }}&amp;order_page={{ order_page_obj.number }}&amp;unlocated_page={{ unlocated_page_obj.number }}">
+                    Level Order
+                </a>
+                <a class="btn{% if traversal_mode == 'dfs' %} active{% endif %}"
+                   href="?traversal=dfs&amp;route_page={{ route_page_obj.number }}&amp;order_page={{ order_page_obj.number }}&amp;unlocated_page={{ unlocated_page_obj.number }}">
+                    Depth Order
+                </a>
             </div>
 
             <button type="button"
@@ -676,7 +806,7 @@
                 <!-- Draw issue nodes. -->
                 {% for node in nodes %}
                 <g>
-                    <title>{{ node.bfs_position }}. {{ node.title }} — Priority: {{ node.priority }} — Status: {{ node.status }}</title>
+                    <title>{{ node.traversal_position }}. {{ node.title }} — Priority: {{ node.priority }} — Status: {{ node.status }}</title>
 
                     <circle
                         cx="{{ node.x }}"
@@ -701,7 +831,7 @@
                         font-size="17"
                         font-weight="800"
                         fill="{% if node.priority_key == 'high' %}#b91c1c{% elif node.priority_key == 'medium' %}#92400e{% else %}#166534{% endif %}">
-                        {{ node.bfs_position }}
+                        {{ node.traversal_position }}
                     </text>
 
                     <text
@@ -756,10 +886,10 @@
 
         <p class="footer-note">
             <strong>How it works:</strong>
-            Issues within 2 km are connected in a graph. {{ traversal_name }}
-            traversal
-            explores connected issues, preferring high-priority issues when
-            selecting a starting node. This is not an optimized driving route.
+            Issues within 2 km are connected in a network. The selected
+            traversal explores connected issues, preferring high-priority
+            issues when selecting a starting node. This is not an optimized
+            driving route.
         </p>
     </section>
 
@@ -767,55 +897,67 @@
         <div class="panel-heading">
             <div>
                 <h2>Recommended Issue Visit Order</h2>
-                <p class="muted">
-                    Use the numbered sequence to review assigned issues.
+            </div>
+            <span class="status-badge">
+                {{ traversal_name }} selected
+            </span>
+        </div>
+
+        <div class="traversal-info">
+            <div class="traversal-info-icon" aria-hidden="true">→</div>
+            <div>
+                <strong>{{ traversal_name }} exploration sequence</strong>
+                <p>
+                    The numbers show the order in which the nearby issue
+                    network is explored. This is an analysis order, not a
+                    driving route.
                 </p>
             </div>
         </div>
 
-        {% if bfs_assignments %}
+        {% if order_page_obj %}
         <div class="traversal-list">
-            {% for assignment in bfs_assignments %}
+            {% for row in order_page_obj %}
             <article class="issue-item">
-                <div class="bfs-number">{{ forloop.counter }}</div>
+                <div class="bfs-number">{{ row.position }}</div>
 
                 <div class="issue-content">
                     <div class="issue-title">
-                        {{ assignment.issue.title }}
+                        {{ row.assignment.issue.title }}
                     </div>
 
                     <div class="issue-meta">
-                        <span class="priority-badge {% if assignment.issue.priority == 'high' %}priority-high{% elif assignment.issue.priority == 'medium' %}priority-medium{% else %}priority-low{% endif %}">
-                            {{ assignment.issue.get_priority_display }}
+                        <span class="priority-badge {% if row.assignment.issue.priority == 'high' %}priority-high{% elif row.assignment.issue.priority == 'medium' %}priority-medium{% else %}priority-low{% endif %}">
+                            {{ row.assignment.issue.get_priority_display }}
                         </span>
 
-                        <span class="status-badge {% if assignment.issue.status == 'submitted' %}status-submitted{% elif assignment.issue.status == 'under_review' %}status-under_review{% elif assignment.issue.status == 'in_progress' %}status-in_progress{% elif assignment.issue.status == 'resolved' %}status-resolved{% endif %}">
-                            {{ assignment.issue.get_status_display }}
+                        <span class="status-badge {% if row.assignment.issue.status == 'submitted' %}status-submitted{% elif row.assignment.issue.status == 'under_review' %}status-under_review{% elif row.assignment.issue.status == 'in_progress' %}status-in_progress{% elif row.assignment.issue.status == 'resolved' %}status-resolved{% endif %}">
+                            {{ row.assignment.issue.get_status_display }}
                         </span>
                     </div>
 
                     <div class="issue-details">
                         <div>
                             Category:
-                            {{ assignment.issue.get_category_display }}
+                            {{ row.assignment.issue.get_category_display }}
                         </div>
 
                         <div>
                             Assigned:
-                            {{ assignment.assigned_at|date:"d M Y, h:i A" }}
+                            {{ row.assignment.assigned_at|date:"d M Y, h:i A" }}
                         </div>
 
-                        {% if assignment.issue.latitude != None and assignment.issue.longitude != None %}
+                        {% if row.assignment.issue.latitude != None and row.assignment.issue.longitude != None %}
                         <div>
-                            GPS: {{ assignment.issue.latitude }},
-                            {{ assignment.issue.longitude }}
+                            GPS: {{ row.assignment.issue.latitude }},
+                            {{ row.assignment.issue.longitude }}
                         </div>
 
                         <div>
                             <a class="map-link"
                                target="_blank"
                                rel="noopener noreferrer"
-                               href="https://www.google.com/maps?q={{ assignment.issue.latitude }},{{ assignment.issue.longitude }}">
+                               href="https://www.google.com/maps?q={{ row.assignment.issue.latitude }},{{ row.assignment.issue.longitude }}">
                                 View on Map ↗
                             </a>
                         </div>
@@ -825,6 +967,19 @@
             </article>
             {% endfor %}
         </div>
+        {% if order_page_obj.paginator.num_pages > 1 %}
+            <nav class="recommendation-pagination" aria-label="Visit order pagination">
+                {% if order_page_obj.has_previous %}
+                    <a class="btn" href="?traversal={{ request.GET.traversal|default:'bfs' }}&amp;route_page={{ route_page_obj.number }}&amp;order_page={{ order_page_obj.previous_page_number }}">Previous order page</a>
+                {% endif %}
+                <span class="btn current">
+                    Order page {{ order_page_obj.number }} of {{ order_page_obj.paginator.num_pages }}
+                </span>
+                {% if order_page_obj.has_next %}
+                    <a class="btn" href="?traversal={{ request.GET.traversal|default:'bfs' }}&amp;route_page={{ route_page_obj.number }}&amp;order_page={{ order_page_obj.next_page_number }}">Next order page</a>
+                {% endif %}
+            </nav>
+        {% endif %}
         {% else %}
         <div class="empty-state">
             <strong>No located issues to display</strong>
@@ -845,7 +1000,7 @@
         </div>
 
         <div class="traversal-list">
-            {% for assignment in unlocated_assignments %}
+            {% for assignment in unlocated_page_obj %}
             <article class="issue-item">
                 <div class="bfs-number"
                      style="background:#f1f5f9;border-color:#cbd5e1;color:#475569;">
@@ -875,6 +1030,19 @@
             </article>
             {% endfor %}
         </div>
+        {% if unlocated_page_obj.paginator.num_pages > 1 %}
+            <nav class="recommendation-pagination" aria-label="Issues without GPS pagination">
+                {% if unlocated_page_obj.has_previous %}
+                    <a class="btn" href="?traversal={{ request.GET.traversal|default:'bfs' }}&amp;route_page={{ route_page_obj.number }}&amp;order_page={{ order_page_obj.number }}&amp;unlocated_page={{ unlocated_page_obj.previous_page_number }}">Previous page</a>
+                {% endif %}
+                <span class="btn current">
+                    Page {{ unlocated_page_obj.number }} of {{ unlocated_page_obj.paginator.num_pages }}
+                </span>
+                {% if unlocated_page_obj.has_next %}
+                    <a class="btn" href="?traversal={{ request.GET.traversal|default:'bfs' }}&amp;route_page={{ route_page_obj.number }}&amp;order_page={{ order_page_obj.number }}&amp;unlocated_page={{ unlocated_page_obj.next_page_number }}">Next page</a>
+                {% endif %}
+            </nav>
+        {% endif %}
     </section>
     {% endif %}
 
